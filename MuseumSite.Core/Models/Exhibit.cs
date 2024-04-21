@@ -6,7 +6,7 @@
         public const int MAX_DESCRIPTION_LENGHT = 500;
 
 
-        public Guid id { get; }
+        public Guid Id { get; }
 
         public string Title { get; } = string.Empty;
 
@@ -17,7 +17,7 @@
 
         private Exhibit(Guid id, string title, string desc, byte[] image)
         {
-            this.id = id;
+            Id = id;
             Title = title;
             Description = desc;
             Image = image;
