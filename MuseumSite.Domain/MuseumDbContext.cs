@@ -19,6 +19,12 @@ namespace MuseumSite.Domain
             builder.ApplyConfiguration(new ExhibitionConfiguration());
             builder.ApplyConfiguration(new MuseumNewsConfigration());
             builder.ApplyConfiguration(new UserConfiguration());
+
+            builder.Entity<ExhibitionEntity>()
+                .HasMany(e => e.ExhitbitsEntities)
+                .WithOne(e => e.ExhibitionEntity)
+                .HasForeignKey(e => e.ExhibitionEntityId)
+                .IsRequired(false);
         }
 
         public DbSet<ExhibitionEntity> ExhibitionEntity { get; set; }

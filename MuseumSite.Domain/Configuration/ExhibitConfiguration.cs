@@ -22,9 +22,6 @@ namespace MuseumSite.Domain.Configuration
             builder.Property(e => e.Image)
                 .IsRequired();
 
-            builder.HasOne<ExhibitionEntity>()
-                .WithMany(e => e.ExhitbitsEntities)
-                .HasForeignKey(e => e.ExhibitionEntityId);
         }
     }
 }

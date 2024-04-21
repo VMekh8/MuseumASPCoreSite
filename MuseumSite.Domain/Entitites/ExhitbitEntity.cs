@@ -10,8 +10,8 @@
 
         public byte[] Image { get; set; }
 
-        public Guid ExhibitionEntityId { get; set; }
+        public Guid? ExhibitionEntityId { get; set; }
 
-        public ExhibitionEntity ExhibitionEntity { get; set; }
+        public ExhibitionEntity? ExhibitionEntity { get; set; }
     }
 }

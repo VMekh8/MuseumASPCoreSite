@@ -14,9 +14,9 @@
 
         public byte[] Image { get; }
 
-        public Guid ExhibitionId { get; }
+        public Guid? ExhibitionId { get; }
 
-        public Exhibition Exhibition { get; }
+        public Exhibition? Exhibition { get; }
 
 
         private Exhibit(Guid id, string title, string desc, byte[] image)
