@@ -5,7 +5,9 @@ VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MuseumASPCoreSite", "MuseumASPCoreSite\MuseumASPCoreSite.csproj", "{3ACDBAD0-CDD3-403F-A04F-439CDE1CE387}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MuseumSite.Core", "MuseumSite.Core\MuseumSite.Core.csproj", "{93C21C4A-C19E-46FA-88D8-FBC819ED84E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MuseumSite.Core", "MuseumSite.Core\MuseumSite.Core.csproj", "{93C21C4A-C19E-46FA-88D8-FBC819ED84E0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MuseumSite.Domain", "MuseumSite.Domain\MuseumSite.Domain.csproj", "{3558179B-06A8-4C17-92C9-E9ECAE4B0D2E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{93C21C4A-C19E-46FA-88D8-FBC819ED84E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93C21C4A-C19E-46FA-88D8-FBC819ED84E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{93C21C4A-C19E-46FA-88D8-FBC819ED84E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3558179B-06A8-4C17-92C9-E9ECAE4B0D2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3558179B-06A8-4C17-92C9-E9ECAE4B0D2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3558179B-06A8-4C17-92C9-E9ECAE4B0D2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3558179B-06A8-4C17-92C9-E9ECAE4B0D2E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
