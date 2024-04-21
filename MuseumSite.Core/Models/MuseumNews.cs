@@ -2,6 +2,8 @@
 {
     public class MuseumNews
     {
+        public const int MAX_NEWS_TITLE_LENGHT = 100, MAX_NEWS_DESCRIPTION_LENGHT = 500;
+
         public Guid Id { get;}
         public string Title { get; } = string.Empty;
         public string Description { get; } = string.Empty;
@@ -19,11 +21,11 @@
         {
             string Error = string.Empty;
 
-            if (string.IsNullOrEmpty(title) || title.Length > Exhibit.MAX_TITLE_LENGHT)
+            if (string.IsNullOrEmpty(title) || title.Length > MAX_NEWS_TITLE_LENGHT)
             {
                 Error = "Title format error";
             }
-            else if (string.IsNullOrEmpty(desc) || desc.Length > Exhibit.MAX_DESCRIPTION_LENGHT)
+            else if (string.IsNullOrEmpty(desc) || desc.Length > MAX_NEWS_DESCRIPTION_LENGHT)
             {
                 Error = "Description format error";
             }

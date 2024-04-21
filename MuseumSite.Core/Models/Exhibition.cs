@@ -7,6 +7,7 @@
         public string Description { get;} = string.Empty;
         public DateTime EventDate { get;}
         public byte[] Image { get;}
+        public ICollection<Exhibit> Exhibits { get; set; }
 
         private Exhibition(Guid id, string name, string desc, DateTime date, byte[] image)
         {

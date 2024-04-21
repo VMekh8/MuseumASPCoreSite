@@ -7,6 +7,7 @@
         public string Description { get; set; }
         public DateTime EventDate { get; set; }
         public byte[] Image { get; set; }
+        public ICollection<ExhitbitEntity> ExhitbitsEntities { get; set; }
 
     }
 }

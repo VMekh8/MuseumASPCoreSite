@@ -17,4 +17,12 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Repository\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MuseumSite.Core\MuseumSite.Core.csproj" />
+  </ItemGroup>
+
 </Project>
