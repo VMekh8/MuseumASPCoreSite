@@ -23,12 +23,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\MuseumSite.Core\MuseumSite.Core.csproj" />
+    <ProjectReference Include="..\MuseumSite.Domain\MuseumSite.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MuseumSite.Core\MuseumSite.Core.csproj" />
-    <ProjectReference Include="..\MuseumSite.Domain\MuseumSite.Domain.csproj" />
+    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>
