@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using MuseumSite.Domain;
 using MuseumSite.Domain.Entitites;
 
@@ -12,9 +13,10 @@ builder.Services.AddSwaggerGen();
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<MuseumDbContext>(opt => opt.UseSqlServer(connectionString));
 
-builder.Services.AddIdentityCore<UserEntity>()
+builder.Services.AddIdentity<UserEntity, IdentityRole>()
     .AddEntityFrameworkStores<MuseumDbContext>()
-    .AddApiEndpoints();
+    .AddDefaultTokenProviders();
+
 
 builder.Services.AddAuthentication().AddBearerToken(IdentityConstants.BearerScheme);
 builder.Services.AddAuthorizationBuilder();
@@ -28,8 +30,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-app.MapIdentityApi<UserEntity>();
 
 app.UseAuthorization();
 

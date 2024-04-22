@@ -23,10 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\MuseumSite.Core\MuseumSite.Core.csproj" />
     <ProjectReference Include="..\MuseumSite.Domain\MuseumSite.Domain.csproj" />
   </ItemGroup>
