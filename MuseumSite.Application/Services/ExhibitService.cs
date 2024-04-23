@@ -18,22 +18,22 @@ namespace MuseumSite.Application.Services
             return await _exhibitRepository.GetAllItems();
         }
 
-        public async Task<Guid> CreateExhibit(Exhibit exhibit)
+        public async Task<Guid> CreateExhibitAsync(Exhibit exhibit)
         {
             return await _exhibitRepository.Create(exhibit);
         }
 
-        public async Task<Guid> DeleteExhibit(Guid id)
+        public async Task<Guid> DeleteExhibitAsync(Guid id)
         {
             return await _exhibitRepository.Delete(id);
         }
 
-        public async Task<Exhibit> GetExhibitById(Guid id)
+        public async Task<Exhibit> GetExhibitByIdAsync(Guid id)
         {
             return await _exhibitRepository.GetItemById(id);
         }
 
-        public async Task<Guid> UpdateExhibit(Exhibit exhibit)
+        public async Task<Guid> UpdateExhibitAsync(Exhibit exhibit)
         {
             return await _exhibitRepository.Update(exhibit);
         }
