@@ -6,7 +6,6 @@ using MuseumSite.Core.Models;
 using MuseumSite.Domain;
 using MuseumSite.Domain.Entitites;
 using MuseumSite.Domain.Repository;
-using MuseumSite.Application.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
