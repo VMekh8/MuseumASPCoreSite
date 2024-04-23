@@ -5,7 +5,7 @@ using MuseumSite.Domain.Entitites;
 
 namespace MuseumSite.Domain.Repository
 {
-    public class ExhibitionRepository : IRepository<Exhibition>
+    public class ExhibitionRepository : IExhibitionInterface
     {
         private readonly MuseumDbContext _context;
 
