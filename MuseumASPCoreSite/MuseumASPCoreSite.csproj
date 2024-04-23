@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MuseumSite.Application\MuseumSite.Application.csproj" />
     <ProjectReference Include="..\MuseumSite.Core\MuseumSite.Core.csproj" />
     <ProjectReference Include="..\MuseumSite.Domain\MuseumSite.Domain.csproj" />
   </ItemGroup>

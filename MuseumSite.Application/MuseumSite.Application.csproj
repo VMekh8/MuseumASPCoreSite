@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MuseumASPCoreSite\MuseumASPCoreSite.csproj" />
     <ProjectReference Include="..\MuseumSite.Core\MuseumSite.Core.csproj" />
     <ProjectReference Include="..\MuseumSite.Domain\MuseumSite.Domain.csproj" />
   </ItemGroup>

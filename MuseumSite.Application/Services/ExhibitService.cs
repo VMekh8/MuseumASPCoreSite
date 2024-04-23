@@ -1,5 +1,4 @@
-﻿using MuseumSite.Core.Abstract;
-using MuseumSite.Core.Models;
+﻿using MuseumSite.Core.Models;
 using MuseumSite.Domain.Repository;
 
 namespace MuseumSite.Application.Services
