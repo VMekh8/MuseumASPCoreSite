@@ -3,7 +3,7 @@ using MuseumSite.Domain.Repository;
 
 namespace MuseumSite.Application.Services
 {
-    public class ExhibitionService
+    public class ExhibitionService : IExhibitionService
     {
         private readonly ExhibitionRepository _exhibitionRepository;
 

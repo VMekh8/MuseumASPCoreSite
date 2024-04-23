@@ -4,7 +4,7 @@ using MuseumSite.Domain.Repository;
 
 namespace MuseumSite.Application.Services
 {
-    public class ExhibitService
+    public class ExhibitService : IExhibitService
     {
         private readonly ExhibitRepository _exhibitRepository;
 
@@ -13,7 +13,7 @@ namespace MuseumSite.Application.Services
             _exhibitRepository = exhibitService;
         }
 
-        public async Task<List<Exhibit>> GetExhibitsAsync() 
+        public async Task<List<Exhibit>> GetExhibitsAsync()
         {
             return await _exhibitRepository.GetAllItems();
         }
