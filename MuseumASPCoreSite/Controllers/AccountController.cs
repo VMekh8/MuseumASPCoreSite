@@ -20,7 +20,7 @@ namespace MuseumASPCoreSite.Controllers
             _userService = userService;
         }
 
-        [HttpGet("GetUser")]
+        [HttpGet("GetUsers")]
         public async Task<ActionResult<List<UserResponce>>> GetAllUser()
         {
             var user = await _userService.GetUsersAsync();
@@ -30,7 +30,7 @@ namespace MuseumASPCoreSite.Controllers
                 return BadRequest("Error geting User");
             }
 
-            var responce = user.Select(opt => new UserResponce(opt.Email, opt.PasswordHash, opt.PhoneNumber, opt.FirstName, opt.LastName));
+            var responce = user.Select(opt => new UserResponce(opt.Id, opt.Email, opt.PasswordHash, opt.PhoneNumber, opt.FirstName, opt.LastName));
             if (responce != null)
             {
                 return Ok(responce);

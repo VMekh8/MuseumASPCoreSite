@@ -7,7 +7,7 @@ namespace MuseumSite.Application.Services
         Task<Guid> CreateNewsAsync(MuseumNews museumNews);
         Task<Guid> DeleteNewsAsync(Guid id);
         Task<List<MuseumNews>> GetAllNewsAsync();
-        Task<MuseumNews> GetNewsByIdAsync(Guid id);
+        Task<MuseumNews> GetNewsByNameAsync(string name);
         Task<Guid> UpdateNewsAsync(MuseumNews news);
     }
 }

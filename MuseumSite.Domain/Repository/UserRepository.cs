@@ -46,9 +46,9 @@ public class UserRepository : IRepository<UserEntity>
         return _userManager.Users.ToList();
     }
 
-    public async Task<UserEntity> GetItemById(Guid id)
+    public async Task<UserEntity> GetItemByName(string lastname)
     {
-        return await _userManager.FindByIdAsync(id.ToString());
+        return await _userManager.FindByNameAsync(lastname);
     }
 
     public async Task<Guid> Update(UserEntity entity)

@@ -6,7 +6,7 @@ namespace MuseumSite.Application.Services
     {
         Task<Guid> CreateUserAsync(UserEntity user);
         Task<Guid> DeleteUserAsync(Guid id);
-        Task<UserEntity> GetUserByIdAsync(Guid id);
+        Task<UserEntity> GetUserByNameAsync(string name);
         Task<List<UserEntity>> GetUsersAsync();
         Task<Guid> UpdateUserAsync(UserEntity user);
     }

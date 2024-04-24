@@ -28,9 +28,9 @@ namespace MuseumSite.Application.Services
             return await _exhibitRepository.Delete(id);
         }
 
-        public async Task<Exhibit> GetExhibitByIdAsync(Guid id)
+        public async Task<Exhibit> GetExhibitByNameAsync(string name)
         {
-            return await _exhibitRepository.GetItemById(id);
+            return await _exhibitRepository.GetItemByName(name);
         }
 
         public async Task<Guid> UpdateExhibitAsync(Exhibit exhibit)

@@ -27,9 +27,9 @@ namespace MuseumSite.Application.Services
             return await _userRepository.GetAllItems();
         }
 
-        public async Task<UserEntity> GetUserByIdAsync(Guid id)
+        public async Task<UserEntity> GetUserByNameAsync(string name)
         {
-            return await _userRepository.GetItemById(id);
+            return await _userRepository.GetItemByName(name);
         }
 
         public async Task<Guid> UpdateUserAsync(UserEntity user)
