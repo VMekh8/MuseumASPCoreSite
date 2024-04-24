@@ -10,15 +10,11 @@ namespace MuseumASPCoreSite.Controllers
     [Route("[controller]")]
     public class AccountController : ControllerBase
     {
+        private readonly IUserService _userService;
 
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
-        private readonly UserService _userService;
-
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, UserService userService)
+        public AccountController(IUserService userService)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
+
             _userService = userService;
         }
 
@@ -35,7 +31,6 @@ namespace MuseumASPCoreSite.Controllers
                 }
 
                 var result = await _userService.CreateUserAsync(userModel);
-
                 if (result != Guid.Empty)
                 {
                     return Ok(result);

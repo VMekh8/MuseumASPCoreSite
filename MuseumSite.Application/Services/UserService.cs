@@ -1,13 +1,13 @@
-﻿
+﻿using MuseumSite.Core.Abstract;
 using MuseumSite.Core.Models;
 
 namespace MuseumSite.Application.Services
 {
     public class UserService : IUserService
     {
-        private readonly UserRepository _userRepository;
+        private readonly IRepository<User> _userRepository;
 
-        public UserService(UserRepository userRepository)
+        public UserService(IRepository<User> userRepository)
         {
             _userRepository = userRepository;
         }

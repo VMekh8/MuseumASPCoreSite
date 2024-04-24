@@ -16,17 +16,17 @@ builder.Services.AddSwaggerGen();
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<MuseumDbContext>(opt => opt.UseSqlServer(connectionString));
 
-builder.Services.AddScoped<IRepository<Exhibit>, ExhibitRepository>();
-builder.Services.AddScoped<IExhibitionInterface, ExhibitionRepository>();
-builder.Services.AddScoped<IRepository<MuseumNews>, MuseumNewsRepository>();
-builder.Services.AddScoped<IRepository<User>, UserRepository>();
-
 builder.Services.AddScoped<IExhibitService, ExhibitService>();
 builder.Services.AddScoped<IExhibitionService, ExhibitionService>();
 builder.Services.AddScoped<IMuseumNewsService, MuseumNewsService>();
 builder.Services.AddScoped<IUserService, UserService>();
 
-builder.Services.AddIdentity<UserEntity, IdentityRole>()
+builder.Services.AddScoped<IRepository<Exhibit>, ExhibitRepository>();
+builder.Services.AddScoped<IExhibitionInterface, ExhibitionRepository>();
+builder.Services.AddScoped<IRepository<MuseumNews>, MuseumNewsRepository>();
+builder.Services.AddScoped<IRepository<User>, UserRepository>();
+
+builder.Services.AddIdentity<User, IdentityRole>()
     .AddEntityFrameworkStores<MuseumDbContext>()
     .AddDefaultTokenProviders();
 

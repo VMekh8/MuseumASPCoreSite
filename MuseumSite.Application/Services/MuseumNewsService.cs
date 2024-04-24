@@ -1,13 +1,14 @@
-﻿using MuseumSite.Core.Models;
+﻿using MuseumSite.Core.Abstract;
+using MuseumSite.Core.Models;
 using MuseumSite.Domain.Repository;
 
 namespace MuseumSite.Application.Services
 {
     public class MuseumNewsService : IMuseumNewsService
     {
-        private readonly MuseumNewsRepository _newsRepository;
+        private readonly IRepository<MuseumNews> _newsRepository;
 
-        public MuseumNewsService(MuseumNewsRepository newsRepository)
+        public MuseumNewsService(IRepository<MuseumNews> newsRepository)
         {
             _newsRepository = newsRepository;
         }

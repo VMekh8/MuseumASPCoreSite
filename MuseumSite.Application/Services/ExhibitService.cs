@@ -1,13 +1,14 @@
-﻿using MuseumSite.Core.Models;
+﻿using MuseumSite.Core.Abstract;
+using MuseumSite.Core.Models;
 using MuseumSite.Domain.Repository;
 
 namespace MuseumSite.Application.Services
 {
     public class ExhibitService : IExhibitService
     {
-        private readonly ExhibitRepository _exhibitRepository;
+        private readonly IRepository<Exhibit> _exhibitRepository;
 
-        public ExhibitService(ExhibitRepository exhibitService)
+        public ExhibitService(IRepository<Exhibit> exhibitService)
         {
             _exhibitRepository = exhibitService;
         }
