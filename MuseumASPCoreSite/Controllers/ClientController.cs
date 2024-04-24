@@ -92,7 +92,37 @@ namespace MuseumASPCoreSite.Controllers
             }
 
 
-            return BadRequest("Exhibits get error");
+            return BadRequest("Exhibitions get error");
+        }
+
+        [HttpGet("GetAllNews")]
+        public async Task<ActionResult<List<MuseumNewsResponce>>> GetAllNews()
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var newsModel = await _museumNewsService.GetAllNewsAsync();
+
+            if (newsModel.Count <= 0)
+            {
+                return Ok("Museum News collection is empty");
+            }
+
+            if (newsModel.Count > 0)
+            {
+                var newsToSend = newsModel.Select(e => new MuseumNewsResponce(
+                    e.Id,
+                    e.Title,
+                    e.Description,
+                    Convert.ToBase64String(e.Image)
+                    ));
+
+                return Ok(newsToSend);
+            }
+
+            return BadRequest("Museum News get error");
         }
     }
 }
