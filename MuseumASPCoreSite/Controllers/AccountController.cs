@@ -21,14 +21,21 @@ namespace MuseumASPCoreSite.Controllers
         }
 
         [HttpGet("GetUser")]
-        public async Task<ActionResult<List<User>>> GetAllUser()
+        public async Task<ActionResult<List<UserResponce>>> GetAllUser()
         {
             var user = await _userService.GetUsersAsync();
 
-            if (user is not null)
+            if (user == null)
             {
-                return Ok(user);
+                return BadRequest("Error geting User");
             }
+
+            var responce = user.Select(opt => new UserResponce(opt.Email, opt.PasswordHash, opt.PhoneNumber, opt.FirstName, opt.LastName));
+            if (responce != null)
+            {
+                return Ok(responce);
+            }
+
             return BadRequest("error");
         }
 
