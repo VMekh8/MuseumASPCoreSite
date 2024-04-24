@@ -18,7 +18,7 @@ public class UserRepository : IRepository<User>
         if (result.Succeeded)
         {
             return Guid.Parse(entity.Id);
-        }
+        }   
 
         throw new Exception("User creation failed");
     }
