@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MuseumASPCoreSite.Contracts;
 using MuseumSite.Application.Services;
 using MuseumSite.Core.Models;
+using MuseumSite.Domain.Entitites;
 
 namespace MuseumASPCoreSite.Controllers
 {
@@ -10,13 +11,27 @@ namespace MuseumASPCoreSite.Controllers
     [Route("[controller]")]
     public class AccountController : ControllerBase
     {
+        private readonly UserManager<UserEntity> userManager;
         private readonly IUserService _userService;
 
-        public AccountController(IUserService userService)
+        public AccountController(UserManager<UserEntity> userManager,IUserService userService)
         {
-
+            this.userManager = userManager;
             _userService = userService;
         }
+
+        [HttpGet("GetUser")]
+        public async Task<ActionResult<List<User>>> GetAllUser()
+        {
+            var user = await _userService.GetUsersAsync();
+
+            if (user is not null)
+            {
+                return Ok(user);
+            }
+            return BadRequest("error");
+        }
+
 
         [HttpPost("Register")]
         public async Task<IActionResult> Register(UserResponce user)
@@ -30,13 +45,24 @@ namespace MuseumASPCoreSite.Controllers
                     return BadRequest(error);
                 }
 
-                var result = await _userService.CreateUserAsync(userModel);
-                if (result != Guid.Empty)
+                var userEntity = new UserEntity()
+                {
+                    Email = userModel.Email,
+                    PasswordHash = userModel.PasswordHash,
+                    PhoneNumber = userModel.PhoneNumber,
+                    FirstName = userModel.FirstName,
+                    LastName = userModel.LastName,
+
+                    UserName = userModel.Email
+                };
+
+               var result = await userManager.CreateAsync(userEntity);
+                if (result.Succeeded)
                 {
                     return Ok(result);
                 }
 
-                return BadRequest("User creation Error");
+                return BadRequest(result);
             }
             else
             {

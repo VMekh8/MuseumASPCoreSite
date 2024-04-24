@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using MuseumSite.Application.Services;
 using MuseumSite.Core.Abstract;
 using MuseumSite.Core.Models;
@@ -24,9 +25,14 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IRepository<Exhibit>, ExhibitRepository>();
 builder.Services.AddScoped<IExhibitionInterface, ExhibitionRepository>();
 builder.Services.AddScoped<IRepository<MuseumNews>, MuseumNewsRepository>();
-builder.Services.AddScoped<IRepository<User>, UserRepository>();
+builder.Services.AddScoped<IRepository<UserEntity>, UserRepository>();
 
-builder.Services.AddIdentity<User, IdentityRole>()
+builder.Services.AddIdentity<UserEntity, IdentityRole>(opt =>
+    {
+        opt.User.RequireUniqueEmail = true;
+        opt.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+123457890";
+    }
+)
     .AddEntityFrameworkStores<MuseumDbContext>()
     .AddDefaultTokenProviders();
 

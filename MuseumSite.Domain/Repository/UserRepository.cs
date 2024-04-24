@@ -1,17 +1,18 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using MuseumSite.Core.Abstract;
 using MuseumSite.Core.Models;
+using MuseumSite.Domain.Entitites;
 
-public class UserRepository : IRepository<User>
+public class UserRepository : IRepository<UserEntity>
 {
-    private readonly UserManager<User> _userManager;
+    private readonly UserManager<UserEntity> _userManager;
 
-    public UserRepository(UserManager<User> userManager)
+    public UserRepository(UserManager<UserEntity> userManager)
     {
         _userManager = userManager;
     }
 
-    public async Task<Guid> Create(User entity)
+    public async Task<Guid> Create(UserEntity entity)
     {
         var result = await _userManager.CreateAsync(entity, entity.PasswordHash);
 
@@ -40,17 +41,17 @@ public class UserRepository : IRepository<User>
         throw new Exception("User deletion failed");
     }
 
-    public async Task<List<User>> GetAllItems()
+    public async Task<List<UserEntity>> GetAllItems()
     {
         return _userManager.Users.ToList();
     }
 
-    public async Task<User> GetItemById(Guid id)
+    public async Task<UserEntity> GetItemById(Guid id)
     {
         return await _userManager.FindByIdAsync(id.ToString());
     }
 
-    public async Task<Guid> Update(User entity)
+    public async Task<Guid> Update(UserEntity entity)
     {
         var result = await _userManager.UpdateAsync(entity);
 
