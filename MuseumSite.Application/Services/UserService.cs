@@ -1,18 +1,18 @@
-﻿
-using MuseumSite.Core.Models;
+﻿using MuseumSite.Core.Abstract;
+using MuseumSite.Domain.Entitites;
 
 namespace MuseumSite.Application.Services
 {
     public class UserService : IUserService
     {
-        private readonly UserRepository _userRepository;
+        private readonly IRepository<UserEntity> _userRepository;
 
-        public UserService(UserRepository userRepository)
+        public UserService(IRepository<UserEntity> userRepository)
         {
             _userRepository = userRepository;
         }
 
-        public async Task<Guid> CreateUserAsync(User user)
+        public async Task<Guid> CreateUserAsync(UserEntity user)
         {
             return await _userRepository.Create(user);
         }
@@ -22,17 +22,17 @@ namespace MuseumSite.Application.Services
             return await _userRepository.Delete(id);
         }
 
-        public async Task<List<User>> GetUsersAsync()
+        public async Task<List<UserEntity>> GetUsersAsync()
         {
             return await _userRepository.GetAllItems();
         }
 
-        public async Task<User> GetUserByIdAsync(Guid id)
+        public async Task<UserEntity> GetUserByNameAsync(string name)
         {
-            return await _userRepository.GetItemById(id);
+            return await _userRepository.GetItemByName(name);
         }
 
-        public async Task<Guid> UpdateUserAsync(User user)
+        public async Task<Guid> UpdateUserAsync(UserEntity user)
         {
             return await _userRepository.Update(user);
         }

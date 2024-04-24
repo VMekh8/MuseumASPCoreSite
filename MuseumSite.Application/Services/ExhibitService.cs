@@ -1,13 +1,14 @@
-﻿using MuseumSite.Core.Models;
+﻿using MuseumSite.Core.Abstract;
+using MuseumSite.Core.Models;
 using MuseumSite.Domain.Repository;
 
 namespace MuseumSite.Application.Services
 {
     public class ExhibitService : IExhibitService
     {
-        private readonly ExhibitRepository _exhibitRepository;
+        private readonly IRepository<Exhibit> _exhibitRepository;
 
-        public ExhibitService(ExhibitRepository exhibitService)
+        public ExhibitService(IRepository<Exhibit> exhibitService)
         {
             _exhibitRepository = exhibitService;
         }
@@ -27,9 +28,9 @@ namespace MuseumSite.Application.Services
             return await _exhibitRepository.Delete(id);
         }
 
-        public async Task<Exhibit> GetExhibitByIdAsync(Guid id)
+        public async Task<Exhibit> GetExhibitByNameAsync(string name)
         {
-            return await _exhibitRepository.GetItemById(id);
+            return await _exhibitRepository.GetItemByName(name);
         }
 
         public async Task<Guid> UpdateExhibitAsync(Exhibit exhibit)

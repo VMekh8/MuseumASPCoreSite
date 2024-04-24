@@ -1,13 +1,14 @@
-﻿using MuseumSite.Core.Models;
+﻿using MuseumSite.Core.Abstract;
+using MuseumSite.Core.Models;
 using MuseumSite.Domain.Repository;
 
 namespace MuseumSite.Application.Services
 {
     public class ExhibitionService : IExhibitionService
     {
-        private readonly ExhibitionRepository _exhibitionRepository;
+        private readonly IExhibitionInterface _exhibitionRepository;
 
-        public ExhibitionService(ExhibitionRepository exhibitionRepository)
+        public ExhibitionService(IExhibitionInterface exhibitionRepository)
         {
             _exhibitionRepository = exhibitionRepository;
         }
@@ -32,14 +33,14 @@ namespace MuseumSite.Application.Services
             return await _exhibitionRepository.GetAllItems();
         }
 
-        public async Task<Exhibition> GetExhibitionByIdAsync(Guid id)
+        public async Task<Exhibition> GetExhibitionByNameAsync(string name)
         {
-            return await _exhibitionRepository.GetItemById(id);
+            return await _exhibitionRepository.GetItemByName(name);
         }
 
-        public async Task<List<Exhibit>> GetExhibitsOnExhibitionAsync(Guid exhibitionId)
+        public async Task<List<Exhibit>> GetExhibitsOnExhibitionAsync(string name)
         {
-            return await _exhibitionRepository.GetExhibitOnExhibitionById(exhibitionId);
+            return await _exhibitionRepository.GetExhibitOnExhibitionByName(name);
         }
 
         public async Task<Guid> AddExhibitToExhibition(Guid exhibitionId, Guid exhibitId)

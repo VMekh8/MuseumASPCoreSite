@@ -8,9 +8,9 @@ namespace MuseumSite.Application.Services
         Task<Guid> CreateExhibitionAsync(Exhibition exhibition);
         Task<Guid> DeleteExhibitFromExhibition(Guid exhibitionId, Guid exhibitId);
         Task<Guid> DeleteExhibitionAsync(Guid id);
-        Task<Exhibition> GetExhibitionByIdAsync(Guid id);
+        Task<Exhibition> GetExhibitionByNameAsync(string name);
         Task<List<Exhibition>> GetExhibitionsAsync();
-        Task<List<Exhibit>> GetExhibitsOnExhibitionAsync(Guid exhibitionId);
+        Task<List<Exhibit>> GetExhibitsOnExhibitionAsync(string name);
         Task<Guid> UpdateExhibitionAsync(Exhibition exhibition);
     }
 }

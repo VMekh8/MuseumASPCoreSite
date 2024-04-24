@@ -1,13 +1,14 @@
-﻿using MuseumSite.Core.Models;
+﻿using MuseumSite.Core.Abstract;
+using MuseumSite.Core.Models;
 using MuseumSite.Domain.Repository;
 
 namespace MuseumSite.Application.Services
 {
     public class MuseumNewsService : IMuseumNewsService
     {
-        private readonly MuseumNewsRepository _newsRepository;
+        private readonly IRepository<MuseumNews> _newsRepository;
 
-        public MuseumNewsService(MuseumNewsRepository newsRepository)
+        public MuseumNewsService(IRepository<MuseumNews> newsRepository)
         {
             _newsRepository = newsRepository;
         }
@@ -27,9 +28,9 @@ namespace MuseumSite.Application.Services
             return await _newsRepository.GetAllItems();
         }
 
-        public async Task<MuseumNews> GetNewsByIdAsync(Guid id)
+        public async Task<MuseumNews> GetNewsByNameAsync(string name)
         {
-            return await _newsRepository.GetItemById(id);
+            return await _newsRepository.GetItemByName(name);
         }
 
         public async Task<Guid> UpdateNewsAsync(MuseumNews news)

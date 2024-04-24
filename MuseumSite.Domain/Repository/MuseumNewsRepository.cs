@@ -50,9 +50,9 @@ namespace MuseumSite.Domain.Repository
             return MuseumNewsItems;
         }
 
-        public async Task<MuseumNews> GetItemById(Guid id)
+        public async Task<MuseumNews> GetItemByName(string name)
         {
-            var found = await _context.MuseumNewsEntity.FirstOrDefaultAsync(opt => opt.Id == id);
+            var found = await _context.MuseumNewsEntity.FirstOrDefaultAsync(opt => opt.Title == name);
 
             var News = MuseumNews.CreateNews(
                 found.Id,

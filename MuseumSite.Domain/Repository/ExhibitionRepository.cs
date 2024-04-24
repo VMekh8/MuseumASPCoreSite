@@ -50,9 +50,9 @@ namespace MuseumSite.Domain.Repository
             return exhibitionItems;
         }
 
-        public async Task<Exhibition> GetItemById(Guid id)
+        public async Task<Exhibition> GetItemByName(string name)
         {
-            var item = await _context.ExhibitionEntity.FirstOrDefaultAsync(e => e.Id == id);
+            var item = await _context.ExhibitionEntity.FirstOrDefaultAsync(e => e.Name == name);
 
             Exhibition exhibition = Exhibition.CreateExhibition(
                 item.Id,
@@ -79,11 +79,11 @@ namespace MuseumSite.Domain.Repository
             return entity.Id;
         }
 
-        public async Task<List<Exhibit>> GetExhibitOnExhibitionById(Guid exhibitionId)
+        public async Task<List<Exhibit>> GetExhibitOnExhibitionByName(string name)
         {
             var exhibition = await _context.ExhibitionEntity
                    .Include(e => e.ExhitbitsEntities)
-                   .FirstOrDefaultAsync(e => e.Id == exhibitionId);
+                   .FirstOrDefaultAsync(e => e.Name == name);
 
             var exhibits = exhibition?.ExhitbitsEntities
                 .Select(e => Exhibit.CreateExhibit

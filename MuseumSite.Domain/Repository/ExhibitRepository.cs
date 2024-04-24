@@ -49,9 +49,9 @@ namespace MuseumSite.Domain.Repository
             return ExhibitItems;
         }
 
-        public async Task<Exhibit> GetItemById(Guid id)
+        public async Task<Exhibit> GetItemByName(string name)
         {
-            var item = await _context.ExhitbitEntity.FirstOrDefaultAsync(e => e.Id == id);
+            var item = await _context.ExhitbitEntity.FirstOrDefaultAsync(e => e.Title == name);
 
             Exhibit exhibit = Exhibit.CreateExhibit(
                 item.Id,
