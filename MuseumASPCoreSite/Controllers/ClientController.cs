@@ -51,5 +51,48 @@ namespace MuseumASPCoreSite.Controllers
 
             return BadRequest("Exhibits get error");
         }
+
+        [HttpGet("GetAllExhibitions")]
+        public async Task<ActionResult<List<ExhibitionResponce>>> GetAllExhibitions()
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var exhibitionsModel = await _exhibitionService.GetExhibitionsAsync();
+
+            if (exhibitionsModel.Count <= 0)
+            {
+                return Ok("Exhibitions collection is empty");
+            }
+
+            if (exhibitionsModel.Count > 0)
+            {
+                var exhibitionsToSend = exhibitionsModel.Select(e =>
+                {
+                    var exhibitResponses = e.Exhibits.Select(exhibit => new ExhibitResponce(
+                        exhibit.Id,
+                        exhibit.Title,
+                        exhibit.Description,
+                        Convert.ToBase64String(exhibit.Image),
+                        exhibit.ExhibitionId
+                    )).ToList();
+
+                    return new ExhibitionResponce(
+                        e.Id,
+                        e.Name,
+                        e.Description,
+                        Convert.ToBase64String(e.Image),
+                        exhibitResponses
+                    );
+                });
+
+                return Ok(exhibitionsToSend);
+            }
+
+
+            return BadRequest("Exhibits get error");
+        }
     }
 }
