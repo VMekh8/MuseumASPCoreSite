@@ -11,14 +11,17 @@ namespace MuseumASPCoreSite.Controllers
     [Route("[controller]")]
     public class AccountController : ControllerBase
     {
-        private readonly UserManager<UserEntity> userManager;
+        private readonly UserManager<UserEntity> _userManager;
         private readonly IUserService _userService;
+        private readonly SignInManager<UserEntity> _signInManager;
 
-        public AccountController(UserManager<UserEntity> userManager,IUserService userService)
+        public AccountController(UserManager<UserEntity> userManager,IUserService userService, SignInManager<UserEntity> signInManager)
         {
-            this.userManager = userManager;
+            _userManager = userManager;
             _userService = userService;
+            _signInManager = signInManager;
         }
+
 
         [HttpGet("GetUsers")]
         public async Task<ActionResult<List<UserResponce>>> GetAllUser()
@@ -41,7 +44,7 @@ namespace MuseumASPCoreSite.Controllers
 
 
         [HttpPost("Register")]
-        public async Task<IActionResult> Register(UserResponce user)
+        public async Task<IActionResult> Register([FromBody]UserResponce user)
         {
             if (ModelState.IsValid)
             {
@@ -63,7 +66,7 @@ namespace MuseumASPCoreSite.Controllers
                     UserName = userModel.Email
                 };
 
-               var result = await userManager.CreateAsync(userEntity);
+               var result = await _userManager.CreateAsync(userEntity);
                 if (result.Succeeded)
                 {
                     return Ok(result);

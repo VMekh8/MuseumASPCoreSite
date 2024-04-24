@@ -5,6 +5,6 @@
         string Name, 
         string Description,
         string Image,
-        ICollection<ExhibitResponce> Exhibits
+        List<ExhibitResponce> Exhibits
         );
 }
