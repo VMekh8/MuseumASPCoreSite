@@ -12,8 +12,8 @@ using MuseumSite.Domain;
 namespace MuseumSite.Domain.Migrations
 {
     [DbContext(typeof(MuseumDbContext))]
-    [Migration("20240421142936_Initial")]
-    partial class Initial
+    [Migration("20240425140701_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -162,7 +162,9 @@ namespace MuseumSite.Domain.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -190,7 +192,9 @@ namespace MuseumSite.Domain.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -198,7 +202,7 @@ namespace MuseumSite.Domain.Migrations
                         .HasColumnType("nvarchar(500)");
 
                     b.Property<int?>("ExhibitionEntityId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
 
                     b.Property<byte[]>("Image")
                         .IsRequired()
@@ -220,7 +224,9 @@ namespace MuseumSite.Domain.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
                         .IsRequired()
