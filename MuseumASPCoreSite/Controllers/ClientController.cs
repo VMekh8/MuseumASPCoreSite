@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MuseumASPCoreSite.Contracts;
+using MuseumASPCoreSite.Contracts.Requests;
 using MuseumSite.Application.Services;
 
 namespace MuseumASPCoreSite.Controllers
@@ -109,6 +110,8 @@ namespace MuseumASPCoreSite.Controllers
             {
                 return Ok("Museum News collection is empty");
             }
+
+            
 
             if (newsModel.Count > 0)
             {

@@ -1,6 +1,6 @@
 ﻿namespace MuseumASPCoreSite.Contracts.Requests
 {
-    public record ExhibitionResponce(
+    public record ExhibitionRequest(
         string Name,
         string Description,
         string Image,
