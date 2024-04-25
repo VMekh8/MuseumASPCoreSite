@@ -2,14 +2,14 @@
 {
     public class Exhibition
     {
-        public Guid Id { get; }
+        public int Id { get; }
         public string Name { get; } = string.Empty;
         public string Description { get;} = string.Empty;
         public DateTime EventDate { get;}
         public byte[] Image { get;}
         public List<Exhibit> Exhibits { get; } = new List<Exhibit>();
 
-        private Exhibition(Guid id, string name, string desc, DateTime date, byte[] image)
+        private Exhibition(int id, string name, string desc, DateTime date, byte[] image)
         {
             Id = id;
             Name = name;
@@ -18,7 +18,7 @@
             Image = image;
         }
 
-        public static (Exhibition Exhibition, string Error) CreateExhibition(Guid id, string name, string desc, DateTime date, byte[] image)
+        public static (Exhibition Exhibition, string Error) CreateExhibition(int id, string name, string desc, DateTime date, byte[] image)
         {
             var Error = string.Empty;
 

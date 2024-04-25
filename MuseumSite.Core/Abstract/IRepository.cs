@@ -4,9 +4,9 @@
     {
         Task<List<T>> GetAllItems();
         Task<T> GetItemByName(string name);
-        Task<Guid> Create(T entity);
-        Task<Guid> Update(T entity);
-        Task<Guid> Delete(Guid id);
+        Task<int> Create(T entity);
+        Task<int> Update(T entity);
+        Task<int> Delete(int id);
 
     }
 }

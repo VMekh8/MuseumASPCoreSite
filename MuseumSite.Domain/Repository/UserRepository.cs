@@ -12,19 +12,19 @@ public class UserRepository : IRepository<UserEntity>
         _userManager = userManager;
     }
 
-    public async Task<Guid> Create(UserEntity entity)
+    public async Task<int> Create(UserEntity entity)
     {
         var result = await _userManager.CreateAsync(entity, entity.PasswordHash);
 
         if (result.Succeeded)
         {
-            return Guid.Parse(entity.Id);
+            return int.Parse(entity.Id);
         }   
 
         throw new Exception("User creation failed");
     }
 
-    public async Task<Guid> Delete(Guid id)
+    public async Task<int> Delete(int id)
     {
         var user = await _userManager.FindByIdAsync(id.ToString());
 
@@ -51,13 +51,13 @@ public class UserRepository : IRepository<UserEntity>
         return await _userManager.FindByNameAsync(lastname);
     }
 
-    public async Task<Guid> Update(UserEntity entity)
+    public async Task<int> Update(UserEntity entity)
     {
         var result = await _userManager.UpdateAsync(entity);
 
         if (result.Succeeded)
         {
-            return Guid.Parse(entity.Id);
+            return int.Parse(entity.Id);
         }
 
         throw new Exception("User update failed");

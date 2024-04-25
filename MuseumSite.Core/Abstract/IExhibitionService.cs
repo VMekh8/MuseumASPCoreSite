@@ -4,13 +4,13 @@ namespace MuseumSite.Application.Services
 {
     public interface IExhibitionService
     {
-        Task<Guid> AddExhibitToExhibition(Guid exhibitionId, Guid exhibitId);
-        Task<Guid> CreateExhibitionAsync(Exhibition exhibition);
-        Task<Guid> DeleteExhibitFromExhibition(Guid exhibitionId, Guid exhibitId);
-        Task<Guid> DeleteExhibitionAsync(Guid id);
+        Task<int> AddExhibitToExhibition(int exhibitionId, int exhibitId);
+        Task<int> CreateExhibitionAsync(Exhibition exhibition);
+        Task<int> DeleteExhibitFromExhibition(int exhibitionId, int exhibitId);
+        Task<int> DeleteExhibitionAsync(int id);
         Task<Exhibition> GetExhibitionByNameAsync(string name);
         Task<List<Exhibition>> GetExhibitionsAsync();
         Task<List<Exhibit>> GetExhibitsOnExhibitionAsync(string name);
-        Task<Guid> UpdateExhibitionAsync(Exhibition exhibition);
+        Task<int> UpdateExhibitionAsync(Exhibition exhibition);
     }
 }

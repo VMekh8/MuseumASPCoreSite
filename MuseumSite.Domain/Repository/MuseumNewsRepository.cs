@@ -14,7 +14,7 @@ namespace MuseumSite.Domain.Repository
             _context = context;
         }
 
-        public async Task<Guid> Create(MuseumNews entity)
+        public async Task<int> Create(MuseumNews entity)
         {
             var MuseumNewsEntity = new MuseumNewsEntity()
             {
@@ -30,7 +30,7 @@ namespace MuseumSite.Domain.Repository
             return MuseumNewsEntity.Id;
         }
 
-        public async Task<Guid> Delete(Guid id)
+        public async Task<int> Delete(int id)
         {
             await _context.MuseumNewsEntity
                 .Where(opt => opt.Id == id)
@@ -64,7 +64,7 @@ namespace MuseumSite.Domain.Repository
             return News;
         }
 
-        public async Task<Guid> Update(MuseumNews entity)
+        public async Task<int> Update(MuseumNews entity)
         {
             await _context.MuseumNewsEntity
                 .Where(opt => opt.Id == entity.Id)

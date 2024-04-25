@@ -13,7 +13,7 @@ namespace MuseumSite.Domain.Repository
         {
             _context = context;
         }
-        public async Task<Guid> Create(Exhibition entity)
+        public async Task<int> Create(Exhibition entity)
         {
             var exhibitionEntity = new ExhibitionEntity
             {
@@ -30,7 +30,7 @@ namespace MuseumSite.Domain.Repository
             return exhibitionEntity.Id;
         }
 
-        public async Task<Guid> Delete(Guid id)
+        public async Task<int> Delete(int id)
         {
             await _context.ExhibitionEntity
                 .Where(e => e.Id == id)
@@ -65,7 +65,7 @@ namespace MuseumSite.Domain.Repository
             return exhibition;
         }
 
-        public async Task<Guid> Update(Exhibition entity)
+        public async Task<int> Update(Exhibition entity)
         {
             await _context.ExhibitionEntity
                 .Where(e => e.Id == entity.Id)
@@ -98,7 +98,7 @@ namespace MuseumSite.Domain.Repository
         }
 
 
-        public async Task<Guid> AddExhibitToExhibition(Guid exhibitionId, Guid exhibitId)
+        public async Task<int> AddExhibitToExhibition(int exhibitionId, int exhibitId)
         {
             var exhibition = await _context.ExhibitionEntity
                    .Include(e => e.ExhitbitsEntities)
@@ -117,7 +117,7 @@ namespace MuseumSite.Domain.Repository
         }
 
 
-        public async Task<Guid> DeleteExhibitFromExhibition(Guid exhibitionId, Guid exhibitId)
+        public async Task<int> DeleteExhibitFromExhibition(int exhibitionId, int exhibitId)
         {
             var exhibition = await _context.ExhibitionEntity
                    .Include(e => e.ExhitbitsEntities)

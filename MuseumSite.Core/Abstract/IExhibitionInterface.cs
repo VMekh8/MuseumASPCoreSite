@@ -5,7 +5,7 @@ namespace MuseumSite.Core.Abstract
     public interface IExhibitionInterface : IRepository<Exhibition>
     {
         Task<List<Exhibit>> GetExhibitOnExhibitionByName(string name);
-        Task<Guid> AddExhibitToExhibition(Guid exhibitionId, Guid exhibitId);
-        Task<Guid> DeleteExhibitFromExhibition(Guid exhibitionId, Guid exhibitId);
+        Task<int> AddExhibitToExhibition(int exhibitionId, int exhibitId);
+        Task<int> DeleteExhibitFromExhibition(int exhibitionId, int exhibitId);
     }
 }

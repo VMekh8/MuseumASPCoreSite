@@ -13,12 +13,12 @@ namespace MuseumSite.Application.Services
             _newsRepository = newsRepository;
         }
 
-        public async Task<Guid> CreateNewsAsync(MuseumNews museumNews)
+        public async Task<int> CreateNewsAsync(MuseumNews museumNews)
         {
             return await _newsRepository.Create(museumNews);
         }
 
-        public async Task<Guid> DeleteNewsAsync(Guid id)
+        public async Task<int> DeleteNewsAsync(int id)
         {
             return await _newsRepository.Delete(id);
         }
@@ -33,7 +33,7 @@ namespace MuseumSite.Application.Services
             return await _newsRepository.GetItemByName(name);
         }
 
-        public async Task<Guid> UpdateNewsAsync(MuseumNews news)
+        public async Task<int> UpdateNewsAsync(MuseumNews news)
         {
             return await _newsRepository.Update(news);
         }

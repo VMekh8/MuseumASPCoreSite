@@ -6,7 +6,7 @@
         public const int MAX_DESCRIPTION_LENGHT = 500;
 
 
-        public Guid Id { get; }
+        public int Id { get; }
 
         public string Title { get; } = string.Empty;
 
@@ -14,12 +14,12 @@
 
         public byte[] Image { get; }
 
-        public Guid? ExhibitionId { get; }
+        public int? ExhibitionId { get; }
 
         public Exhibition? Exhibition { get; }
 
 
-        private Exhibit(Guid id, string title, string desc, byte[] image)
+        private Exhibit(int id, string title, string desc, byte[] image)
         {
             Id = id;
             Title = title;
@@ -27,7 +27,7 @@
             Image = image;
         }
 
-        public static (Exhibit Exhibit, string Error) CreateExhibit(Guid id, string title, string desc, byte[] image)
+        public static (Exhibit Exhibit, string Error) CreateExhibit(int id, string title, string desc, byte[] image)
         {
             var Error = string.Empty;
 

@@ -4,12 +4,12 @@
     {
         public const int MAX_NEWS_TITLE_LENGHT = 100, MAX_NEWS_DESCRIPTION_LENGHT = 500;
 
-        public Guid Id { get;}
+        public int Id { get;}
         public string Title { get; } = string.Empty;
         public string Description { get; } = string.Empty;
         public byte[] Image { get;}
 
-        private MuseumNews(Guid id, string title, string desc, byte[] img)
+        private MuseumNews(int id, string title, string desc, byte[] img)
         {
             Id = id;
             Title = title;
@@ -17,7 +17,7 @@
             Image = img;
         }
 
-        public static (MuseumNews News, string Error) CreateNews(Guid id, string title, string desc, byte[] img)
+        public static (MuseumNews News, string Error) CreateNews(int id, string title, string desc, byte[] img)
         {
             string Error = string.Empty;
 

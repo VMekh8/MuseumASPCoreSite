@@ -12,12 +12,12 @@ namespace MuseumSite.Application.Services
             _userRepository = userRepository;
         }
 
-        public async Task<Guid> CreateUserAsync(UserEntity user)
+        public async Task<int> CreateUserAsync(UserEntity user)
         {
             return await _userRepository.Create(user);
         }
 
-        public async Task<Guid> DeleteUserAsync(Guid id)
+        public async Task<int> DeleteUserAsync(int id)
         {
             return await _userRepository.Delete(id);
         }
@@ -32,7 +32,7 @@ namespace MuseumSite.Application.Services
             return await _userRepository.GetItemByName(name);
         }
 
-        public async Task<Guid> UpdateUserAsync(UserEntity user)
+        public async Task<int> UpdateUserAsync(UserEntity user)
         {
             return await _userRepository.Update(user);
         }

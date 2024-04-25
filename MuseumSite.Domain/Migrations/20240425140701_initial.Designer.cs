@@ -12,8 +12,8 @@ using MuseumSite.Domain;
 namespace MuseumSite.Domain.Migrations
 {
     [DbContext(typeof(MuseumDbContext))]
-    [Migration("20240421142936_Initial")]
-    partial class Initial
+    [Migration("20240425140701_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -160,9 +160,11 @@ namespace MuseumSite.Domain.Migrations
 
             modelBuilder.Entity("MuseumSite.Domain.Entitites.ExhibitionEntity", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -188,17 +190,19 @@ namespace MuseumSite.Domain.Migrations
 
             modelBuilder.Entity("MuseumSite.Domain.Entitites.ExhitbitEntity", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<Guid?>("ExhibitionEntityId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int?>("ExhibitionEntityId")
+                        .HasColumnType("int");
 
                     b.Property<byte[]>("Image")
                         .IsRequired()
@@ -218,9 +222,11 @@ namespace MuseumSite.Domain.Migrations
 
             modelBuilder.Entity("MuseumSite.Domain.Entitites.MuseumNewsEntity", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
                         .IsRequired()

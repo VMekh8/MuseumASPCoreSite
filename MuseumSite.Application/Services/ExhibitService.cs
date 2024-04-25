@@ -18,12 +18,12 @@ namespace MuseumSite.Application.Services
             return await _exhibitRepository.GetAllItems();
         }
 
-        public async Task<Guid> CreateExhibitAsync(Exhibit exhibit)
+        public async Task<int> CreateExhibitAsync(Exhibit exhibit)
         {
             return await _exhibitRepository.Create(exhibit);
         }
 
-        public async Task<Guid> DeleteExhibitAsync(Guid id)
+        public async Task<int> DeleteExhibitAsync(int id)
         {
             return await _exhibitRepository.Delete(id);
         }
@@ -33,7 +33,7 @@ namespace MuseumSite.Application.Services
             return await _exhibitRepository.GetItemByName(name);
         }
 
-        public async Task<Guid> UpdateExhibitAsync(Exhibit exhibit)
+        public async Task<int> UpdateExhibitAsync(Exhibit exhibit)
         {
             return await _exhibitRepository.Update(exhibit);
         }

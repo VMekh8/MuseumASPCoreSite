@@ -24,6 +24,6 @@ namespace MuseumASPCoreSite.Controllers
         
 
         //[HttpPost]
-        //public async Task<ActionResult<Guid>> CreateExhibit([FromBody])
+        //public async Task<ActionResult<int>> CreateExhibit([FromBody])
     }
 }

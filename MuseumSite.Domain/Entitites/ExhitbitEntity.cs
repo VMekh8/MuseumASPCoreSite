@@ -2,7 +2,7 @@
 {
     public class ExhitbitEntity
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         public string Title { get; set; }
 
@@ -10,7 +10,7 @@
 
         public byte[] Image { get; set; }
 
-        public Guid? ExhibitionEntityId { get; set; }
+        public int? ExhibitionEntityId { get; set; }
 
         public ExhibitionEntity? ExhibitionEntity { get; set; }
     }
