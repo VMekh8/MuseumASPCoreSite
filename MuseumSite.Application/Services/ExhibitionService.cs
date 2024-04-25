@@ -13,17 +13,17 @@ namespace MuseumSite.Application.Services
             _exhibitionRepository = exhibitionRepository;
         }
 
-        public async Task<Guid> CreateExhibitionAsync(Exhibition exhibition)
+        public async Task<int> CreateExhibitionAsync(Exhibition exhibition)
         {
             return await _exhibitionRepository.Create(exhibition);
         }
 
-        public async Task<Guid> DeleteExhibitionAsync(Guid id)
+        public async Task<int> DeleteExhibitionAsync(int id)
         {
             return await _exhibitionRepository.Delete(id);
         }
 
-        public async Task<Guid> UpdateExhibitionAsync(Exhibition exhibition)
+        public async Task<int> UpdateExhibitionAsync(Exhibition exhibition)
         {
             return await _exhibitionRepository.Update(exhibition);
         }
@@ -43,12 +43,12 @@ namespace MuseumSite.Application.Services
             return await _exhibitionRepository.GetExhibitOnExhibitionByName(name);
         }
 
-        public async Task<Guid> AddExhibitToExhibition(Guid exhibitionId, Guid exhibitId)
+        public async Task<int> AddExhibitToExhibition(int exhibitionId, int exhibitId)
         {
             return await _exhibitionRepository.AddExhibitToExhibition(exhibitionId, exhibitId);
         }
 
-        public async Task<Guid> DeleteExhibitFromExhibition(Guid exhibitionId, Guid exhibitId)
+        public async Task<int> DeleteExhibitFromExhibition(int exhibitionId, int exhibitId)
         {
             return await _exhibitionRepository.DeleteExhibitFromExhibition(exhibitionId, exhibitId);
         }

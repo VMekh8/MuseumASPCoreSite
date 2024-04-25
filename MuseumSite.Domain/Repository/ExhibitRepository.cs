@@ -13,7 +13,7 @@ namespace MuseumSite.Domain.Repository
             _context = context;
         }
 
-        public async Task<Guid> Create(Exhibit entity)
+        public async Task<int> Create(Exhibit entity)
         {
             var exhibitEntity = new ExhitbitEntity()
             {
@@ -29,7 +29,7 @@ namespace MuseumSite.Domain.Repository
            return exhibitEntity.Id;
         }
 
-        public async Task<Guid> Delete(Guid id)
+        public async Task<int> Delete(int id)
         {
             await _context.ExhitbitEntity
                 .Where(e => e.Id == id)
@@ -63,7 +63,7 @@ namespace MuseumSite.Domain.Repository
             return exhibit;
         }
 
-        public async Task<Guid> Update(Exhibit entity)
+        public async Task<int> Update(Exhibit entity)
         {
             await _context.ExhitbitEntity
                 .Where(e => e.Id == entity.Id)

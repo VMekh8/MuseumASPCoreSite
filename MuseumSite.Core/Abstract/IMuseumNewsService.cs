@@ -4,10 +4,10 @@ namespace MuseumSite.Application.Services
 {
     public interface IMuseumNewsService
     {
-        Task<Guid> CreateNewsAsync(MuseumNews museumNews);
-        Task<Guid> DeleteNewsAsync(Guid id);
+        Task<int> CreateNewsAsync(MuseumNews museumNews);
+        Task<int> DeleteNewsAsync(int id);
         Task<List<MuseumNews>> GetAllNewsAsync();
         Task<MuseumNews> GetNewsByNameAsync(string name);
-        Task<Guid> UpdateNewsAsync(MuseumNews news);
+        Task<int> UpdateNewsAsync(MuseumNews news);
     }
 }

@@ -1,7 +1,7 @@
 ﻿namespace MuseumASPCoreSite.Contracts
 {
     public record MuseumNewsResponce(
-        Guid Id,
+        int Id,
         string Title,
         string Description,
         string Image

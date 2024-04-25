@@ -157,7 +157,7 @@ namespace MuseumSite.Domain.Migrations
 
             modelBuilder.Entity("MuseumSite.Domain.Entitites.ExhibitionEntity", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -185,7 +185,7 @@ namespace MuseumSite.Domain.Migrations
 
             modelBuilder.Entity("MuseumSite.Domain.Entitites.ExhitbitEntity", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -194,7 +194,7 @@ namespace MuseumSite.Domain.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<Guid?>("ExhibitionEntityId")
+                    b.Property<int?>("ExhibitionEntityId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<byte[]>("Image")
@@ -215,7 +215,7 @@ namespace MuseumSite.Domain.Migrations
 
             modelBuilder.Entity("MuseumSite.Domain.Entitites.MuseumNewsEntity", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 

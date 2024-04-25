@@ -4,6 +4,6 @@
          string Title,
          string Description,
          string Image,
-         Guid? ExhibitionId
+         int? ExhibitionId
          );
 }
