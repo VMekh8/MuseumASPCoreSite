@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MuseumASPCoreSite.Contracts.Requests;
 using MuseumSite.Application.Services;
 
 namespace MuseumASPCoreSite.Controllers
@@ -23,7 +24,10 @@ namespace MuseumASPCoreSite.Controllers
         }
         
 
-        //[HttpPost]
-        //public async Task<ActionResult<int>> CreateExhibit([FromBody])
+        [HttpPost]
+        public async Task<ActionResult<int>> CreateExhibit([FromBody]ExhibitRequest exhibitRequest)
+        {
+
+        }
     }
 }
