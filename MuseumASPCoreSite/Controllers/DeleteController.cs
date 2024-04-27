@@ -36,5 +36,13 @@ namespace MuseumASPCoreSite.Controllers
                  Ok(await _exhibitionService.DeleteExhibitionAsync(id)) :
                  BadRequest("Exhibition delete error");            
         }
+
+        [HttpDelete("DeleteNews{id:int}")]
+        public async Task<ActionResult<int>> DeleteNews(int id)
+        {
+            return await _museumNewsService.DeleteNewsAsync(id) > 0 ?
+                Ok(await _museumNewsService.DeleteNewsAsync(id)) :
+                BadRequest("Museum News delete error");
+        }
     }
 }
