@@ -70,7 +70,24 @@ namespace MuseumASPCoreSite.Controllers
 
         }
 
+        [HttpDelete("DeleteUser")]
+        public async Task<ActionResult> DeleteUser([FromForm]string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
 
+            var result = await _userManager.DeleteAsync(user);
+
+            if (result.Succeeded)
+            {
+                return Ok();
+            }
+
+            return BadRequest(result.Errors);
+        }
 
     }
 }
