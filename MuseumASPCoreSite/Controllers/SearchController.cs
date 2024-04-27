@@ -60,5 +60,17 @@ namespace MuseumASPCoreSite.Controllers
             ));
         }
 
+        [HttpGet("GetMuseumNewsByName")]
+        public async Task<ActionResult<MuseumNewsResponce>> GetNewsByName(string name)
+        {
+            var found = await _newsService.GetNewsByNameAsync(name);
+            if (found == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(new MuseumNewsResponce(found.Id, found.Title, found.Description, Convert.ToBase64String(found.Image)));
+        }
+
     }
 }
