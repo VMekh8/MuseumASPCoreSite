@@ -22,6 +22,12 @@ namespace MuseumASPCoreSite.Controllers
             _signInManager = signInManager;
         }
 
+        [HttpPost("Logout")]
+        public async Task<ActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return Ok();
+        }
 
         [HttpGet("GetUsers")]
         public async Task<ActionResult<List<UserResponce>>> GetAllUser()
