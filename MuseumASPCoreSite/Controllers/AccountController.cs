@@ -30,7 +30,7 @@ namespace MuseumASPCoreSite.Controllers
         }
 
         [HttpPost("Login")]
-        public async Task<ActionResult> Login([FromForm]string email, [FromForm]string password)
+        public async Task<ActionResult> Login(string email, string password)
         {
             var result = await _signInManager.PasswordSignInAsync(email, password, isPersistent: false, lockoutOnFailure: false);
 

@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using MuseumSite.Application.Services;
 using MuseumSite.Core.Abstract;
 using MuseumSite.Core.Models;

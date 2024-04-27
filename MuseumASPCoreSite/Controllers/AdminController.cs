@@ -44,6 +44,32 @@ namespace MuseumASPCoreSite.Controllers
             return BadRequest("error");
         }
 
+        [HttpPut("EditUser")]
+        public async Task<ActionResult> EditUser([FromForm] UserResponce userResponce)
+        {
+            var userEntity = await _userManager.FindByIdAsync(userResponce.id);
+            if (userEntity == null)
+            {
+                return NotFound("User not found");
+            }
+
+            userEntity.Email = userResponce.Email;
+            userEntity.UserName = userResponce.Email;
+            userEntity.PhoneNumber = userResponce.PhoneNumber;
+            userEntity.FirstName = userResponce.Firstname;
+            userEntity.LastName = userResponce.Lastname;
+
+            var result = await _userManager.UpdateAsync(userEntity);
+
+            if (result.Succeeded)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result.Errors);
+
+        }
+
 
 
     }
