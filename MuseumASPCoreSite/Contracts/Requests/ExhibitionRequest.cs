@@ -4,7 +4,7 @@
         int Id,
         string Name,
         string Description,
-        IFormFile Image,
-        List<ExhibitResponce> Exhibits
+        DateTime EventDate,
+        IFormFile Image
         );
 }
