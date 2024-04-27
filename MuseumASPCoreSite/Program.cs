@@ -1,11 +1,15 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using MuseumSite.Application.Services;
 using MuseumSite.Core.Abstract;
 using MuseumSite.Core.Models;
 using MuseumSite.Domain;
 using MuseumSite.Domain.Entitites;
 using MuseumSite.Domain.Repository;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,10 +37,30 @@ builder.Services.AddIdentity<UserEntity, IdentityRole>(opt =>
     }
 )
     .AddEntityFrameworkStores<MuseumDbContext>()
-    .AddDefaultTokenProviders();
+.AddDefaultTokenProviders();
 
-builder.Services.AddAuthentication().AddBearerToken(IdentityConstants.BearerScheme);
+var jwtSettings = builder.Configuration.GetSection("JwtSettings");
+var key = Encoding.ASCII.GetBytes(jwtSettings["SecretKey"]);
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.RequireHttpsMetadata = false;
+    options.SaveToken = true;
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(key),
+        ValidateIssuer = false,
+        ValidateAudience = false
+    };
+});
 builder.Services.AddAuthorizationBuilder();
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
@@ -48,8 +72,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
 app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 
