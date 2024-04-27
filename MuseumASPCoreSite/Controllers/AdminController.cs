@@ -1,9 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MuseumASPCoreSite.Contracts;
 using MuseumSite.Application.Services;
-using MuseumSite.Core.Models;
 using MuseumSite.Domain.Entitites;
 
 namespace MuseumASPCoreSite.Controllers
@@ -16,13 +14,11 @@ namespace MuseumASPCoreSite.Controllers
 
         private readonly UserManager<UserEntity> _userManager;
         private readonly IUserService _userService;
-        private readonly SignInManager<UserEntity> _signInManager;
 
-        public AdminController(UserManager<UserEntity> userManager, IUserService userService, SignInManager<UserEntity> signInManager)
+        public AdminController(UserManager<UserEntity> userManager, IUserService userService)
         {
             _userManager = userManager;
             _userService = userService;
-            _signInManager = signInManager;
         }
 
         [HttpGet("GetUsers")]
@@ -88,6 +84,7 @@ namespace MuseumASPCoreSite.Controllers
 
             return BadRequest(result.Errors);
         }
+
 
     }
 }
