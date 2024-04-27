@@ -14,6 +14,7 @@ namespace MuseumASPCoreSite.Controllers
         private readonly IExhibitionService _exhibitionService;
         private readonly IMuseumNewsService _newsService;
 
+
         public SearchController(IExhibitService exhibitService, IExhibitionService exhibitionService, IMuseumNewsService newsService)
         {
             _exhibitService = exhibitService;
@@ -71,6 +72,5 @@ namespace MuseumASPCoreSite.Controllers
 
             return Ok(new MuseumNewsResponce(found.Id, found.Title, found.Description, Convert.ToBase64String(found.Image)));
         }
-
     }
 }
