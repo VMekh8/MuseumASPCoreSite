@@ -21,14 +21,9 @@ namespace MuseumASPCoreSite.Controllers
             _museumNewsService = museumNewsService;
         }
 
-        [HttpDelete("{id:int}")]
+        [HttpDelete("DeleteExhibit{id:int}")]
         public async Task<ActionResult<int>> DeleteExhibit(int id)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             var result = await _exhibitService.DeleteExhibitAsync(id);
 
             if (result > 0)
@@ -37,6 +32,14 @@ namespace MuseumASPCoreSite.Controllers
             }
 
             return BadRequest("Exhibit delete error");
+        }
+
+        [HttpDelete("DeleteExhibition{id:int}")]
+        public async Task<ActionResult<int>> DeleteExhibition(int id)
+        {
+            return await _exhibitionService.DeleteExhibitionAsync(id) > 0 ?
+                 Ok(await _exhibitionService.DeleteExhibitionAsync(id)) :
+                 BadRequest("Exhibition delete error");            
         }
     }
 }
