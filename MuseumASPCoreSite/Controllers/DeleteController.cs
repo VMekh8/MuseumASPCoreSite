@@ -24,14 +24,9 @@ namespace MuseumASPCoreSite.Controllers
         [HttpDelete("DeleteExhibit{id:int}")]
         public async Task<ActionResult<int>> DeleteExhibit(int id)
         {
-            var result = await _exhibitService.DeleteExhibitAsync(id);
-
-            if (result > 0)
-            {
-                return Ok(result);
-            }
-
-            return BadRequest("Exhibit delete error");
+            return await _exhibitService.DeleteExhibitAsync(id) > 0 ?
+                 Ok(await _exhibitService.DeleteExhibitAsync(id)) :
+                 BadRequest("Exhibit delete error");
         }
 
         [HttpDelete("DeleteExhibition{id:int}")]
