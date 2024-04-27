@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MuseumASPCoreSite.Contracts;
 using MuseumSite.Application.Services;
@@ -8,7 +9,7 @@ namespace MuseumASPCoreSite.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    //[Authorize(Roles ="Admin")]
+    [Authorize/*Roles = "Admin")*/]
     public class AdminController : ControllerBase
     {
 
