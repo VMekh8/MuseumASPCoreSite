@@ -43,5 +43,24 @@ namespace MuseumASPCoreSite.Controllers
 
             return BadRequest(result.Errors);
         }
+
+        [HttpDelete]
+        public async Task<ActionResult> DeleteRole([FromForm]string roleName)
+        {
+            var role = await _roleManager.FindByNameAsync(roleName);
+            if (role == null)
+            {
+                return NotFound("Role not found");
+            }
+
+            var result = await _roleManager.DeleteAsync(role);
+
+            if (result.Succeeded)
+            {
+                return Ok();
+            }
+
+            return BadRequest(result.Errors);
+        }
     }
 }
