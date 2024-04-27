@@ -70,15 +70,13 @@ namespace MuseumASPCoreSite.Controllers
                 var userEntity = new UserEntity()
                 {
                     Email = userModel.Email,
-                    PasswordHash = userModel.PasswordHash,
                     PhoneNumber = userModel.PhoneNumber,
                     FirstName = userModel.FirstName,
                     LastName = userModel.LastName,
-
                     UserName = userModel.Email
                 };
 
-               var result = await _userManager.CreateAsync(userEntity);
+               var result = await _userManager.CreateAsync(userEntity, user.Password);
                 if (result.Succeeded)
                 {
                     return Ok(result);
