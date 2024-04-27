@@ -5,6 +5,7 @@
         string Name, 
         string Description,
         string Image,
+        DateTime? Date,
         List<ExhibitResponce> Exhibits
         );
 }

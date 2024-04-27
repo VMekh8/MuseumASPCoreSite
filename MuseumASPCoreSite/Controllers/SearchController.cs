@@ -2,6 +2,7 @@
 using MuseumASPCoreSite.Contracts;
 using MuseumSite.Application.Services;
 using MuseumSite.Core.Abstract;
+using MuseumSite.Core.Models;
 
 namespace MuseumASPCoreSite.Controllers
 {
@@ -36,6 +37,27 @@ namespace MuseumASPCoreSite.Controllers
                 Convert.ToBase64String(found.Image),
                 found.ExhibitionId
                 ));
+        }
+
+        [HttpGet("GetExhibitionByName")]
+        public async Task<ActionResult<ExhibitionResponce>> GetExhibitionByName(string name)
+        {
+            var found = await _exhibitionService.GetExhibitionByNameAsync(name);
+            if (found == null)
+            {
+                return NotFound();
+            }
+
+            var exhibits = found.Exhibits.Select(e => new ExhibitResponce(e.Id, e.Title, e.Description, Convert.ToBase64String(e.Image), e.ExhibitionId)).ToList();
+
+            return Ok(new ExhibitionResponce(
+                found.Id,
+                found.Name,
+                found.Description,
+                Convert.ToBase64String(found.Image),
+                found.EventDate,
+                exhibits
+            ));
         }
 
     }

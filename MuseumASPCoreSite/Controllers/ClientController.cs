@@ -68,6 +68,7 @@ namespace MuseumASPCoreSite.Controllers
                     e.Name,
                     e.Description,
                     Convert.ToBase64String(e.Image),
+                    e.EventDate,
                     exhibitResponses
                 );
             });
