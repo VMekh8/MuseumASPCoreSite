@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MuseumSite.Domain.Entitites;
 
 namespace MuseumASPCoreSite.Controllers
 {
@@ -9,10 +10,12 @@ namespace MuseumASPCoreSite.Controllers
     public class UserRolesController : Controller
     {
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly UserManager<UserEntity> _userManager;
 
-        public UserRolesController(RoleManager<IdentityRole> roleManager)
+        public UserRolesController(RoleManager<IdentityRole> roleManager, UserManager<UserEntity> userManager)
         {
             _roleManager = roleManager;
+            _userManager = userManager;
         }
 
         [HttpGet("GetAllRoles")]
@@ -54,6 +57,44 @@ namespace MuseumASPCoreSite.Controllers
             }
 
             var result = await _roleManager.DeleteAsync(role);
+
+            if (result.Succeeded)
+            {
+                return Ok();
+            }
+
+            return BadRequest(result.Errors);
+        }
+
+        [HttpPost("AddRoleToUser")]
+        public async Task<IActionResult> AddRoleToUser(string userId, string roleName)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
+
+            var result = await _userManager.AddToRoleAsync(user, roleName);
+
+            if (result.Succeeded)
+            {
+                return Ok();
+            }
+
+            return BadRequest(result.Errors);
+        }
+
+        [HttpPost("RemoveRoleFromUser")]
+        public async Task<IActionResult> RemoveRoleFromUser(string userId, string roleName)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
+
+            var result = await _userManager.RemoveFromRoleAsync(user, roleName);
 
             if (result.Succeeded)
             {
