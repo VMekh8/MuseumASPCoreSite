@@ -29,25 +29,6 @@ namespace MuseumASPCoreSite.Controllers
             return Ok();
         }
 
-        [HttpGet("GetUsers")]
-        public async Task<ActionResult<List<UserResponce>>> GetAllUser()
-        {
-            var user = await _userService.GetUsersAsync();
-
-            if (user == null)
-            {
-                return BadRequest("Error geting User");
-            }
-
-            var responce = user.Select(opt => new UserResponce(opt.Id, opt.Email, opt.PasswordHash, opt.PhoneNumber, opt.FirstName, opt.LastName));
-            if (responce != null)
-            {
-                return Ok(responce);
-            }
-
-            return BadRequest("error");
-        }
-
         [HttpPost("Login")]
         public async Task<ActionResult> Login([FromForm]string email, [FromForm]string password)
         {
