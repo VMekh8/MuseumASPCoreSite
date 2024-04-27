@@ -42,9 +42,21 @@ namespace MuseumASPCoreSite.Controllers
             return BadRequest("error");
         }
 
+        [HttpPost("Login")]
+        public async Task<ActionResult> Login([FromForm]string email, [FromForm]string password)
+        {
+            var result = await _signInManager.PasswordSignInAsync(email, password, isPersistent: false, lockoutOnFailure: false);
 
+            if (result.Succeeded)
+            {
+                return Ok();
+            }
+
+            return Unauthorized();
+        }
+        
         [HttpPost("Register")]
-        public async Task<IActionResult> Register([FromBody]UserResponce user)
+        public async Task<ActionResult> Register([FromBody]UserResponce user)
         {
             if (ModelState.IsValid)
             {
