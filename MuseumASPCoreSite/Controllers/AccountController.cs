@@ -47,22 +47,31 @@ namespace MuseumASPCoreSite.Controllers
                 var user = await _userManager.FindByEmailAsync(email);
                 var roles = await _userManager.GetRolesAsync(user);
 
-                var tokenHandler = new JwtSecurityTokenHandler();
-                var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]);
-                var tokenDescriptor = new SecurityTokenDescriptor
-                {
-                    Subject = new ClaimsIdentity(new Claim[]
-                    {
-                        new Claim(ClaimTypes.Name, email),
-                        new Claim(ClaimTypes.Role, string.Join(",", roles))
-                    }),
-                    Expires = DateTime.UtcNow.AddDays(7),
-                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-                };
-                var token = tokenHandler.CreateToken(tokenDescriptor);
-                var tokenString = tokenHandler.WriteToken(token);
+                var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["JwtSettings:SecretKey"]));
+                var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-                return Ok(new { Token = tokenString });
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, user.UserName),
+                    new Claim(ClaimTypes.NameIdentifier, user.Id),
+                };
+
+                foreach (var role in roles)
+                {
+                    claims.Add(new Claim(ClaimTypes.Role, role));
+                }
+
+                var token = new JwtSecurityToken(
+                    _configuration["JwtSettings:Issuer"],
+                    _configuration["JwtSettings:Audience"],
+                    claims,
+                    expires: DateTime.UtcNow.AddMinutes(Convert.ToDouble(_configuration["JwtSettings:DurationInMinutes"])),
+                    signingCredentials: credentials
+                );
+
+                var _token = new JwtSecurityTokenHandler().WriteToken(token);
+
+                return Ok(new { Token = _token });
             }
 
             return Unauthorized();
