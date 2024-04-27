@@ -47,7 +47,7 @@ namespace MuseumASPCoreSite.Controllers
             return BadRequest(result.Errors);
         }
 
-        [HttpDelete]
+        [HttpDelete("DeleteRole")]
         public async Task<ActionResult> DeleteRole([FromForm]string roleName)
         {
             var role = await _roleManager.FindByNameAsync(roleName);
@@ -66,8 +66,23 @@ namespace MuseumASPCoreSite.Controllers
             return BadRequest(result.Errors);
         }
 
+        [HttpGet("GetUserRole")]
+        public async Task<ActionResult> GetUserRole(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);  
+            if(user == null)
+            {
+                return BadRequest("User not found");
+            }
+
+            var roles = await _userManager.GetRolesAsync(user);
+
+            return Ok(roles);
+        }
+
+
         [HttpPost("AddRoleToUser")]
-        public async Task<IActionResult> AddRoleToUser(string userId, string roleName)
+        public async Task<ActionResult> AddRoleToUser(string userId, string roleName)
         {
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
@@ -86,7 +101,7 @@ namespace MuseumASPCoreSite.Controllers
         }
 
         [HttpPost("RemoveRoleFromUser")]
-        public async Task<IActionResult> RemoveRoleFromUser(string userId, string roleName)
+        public async Task<ActionResult> RemoveRoleFromUser(string userId, string roleName)
         {
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
