@@ -1,9 +1,10 @@
 ﻿namespace MuseumASPCoreSite.Contracts.Requests
 {
     public record ExhibitRequest(
+         int Id,
          string Title,
          string Description,
-         string Image,
+         IFormFile Image,
          int? ExhibitionId
          );
 }

@@ -1,8 +1,9 @@
 ﻿namespace MuseumASPCoreSite.Contracts.Requests
 {
     public record MuseumNewsRequest(
+       int Id,
        string Title,
        string Description,
-       string Image
+       IFormFile Image
        );
 }
