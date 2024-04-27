@@ -118,5 +118,49 @@ namespace MuseumASPCoreSite.Controllers
 
             return BadRequest("Exhibition create error");
         }
+
+        [HttpPost("CreateNews")]
+        public async Task<ActionResult<int>> CreateNews([FromForm]MuseumNewsRequest museumNews)
+        {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            byte[] filebytes;
+            using (var ms = new MemoryStream())
+            {
+                await museumNews.Image.CopyToAsync(ms);
+                filebytes = ms.ToArray();
+            }
+
+            var (News, error) = MuseumNews.CreateNews(
+                museumNews.Id,
+                museumNews.Title,
+                museumNews.Description,
+                filebytes
+                );
+
+            if(!string.IsNullOrEmpty(error))
+            {
+                return BadRequest(error);
+            }    
+
+            if (News == null || News.Id == 0)
+            {
+                return BadRequest("Museum News init error");
+            }
+
+            var result = await _museumNewsService.CreateNewsAsync(News);
+
+            if (result > 0)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest("Museum news create error");
+        }
+
+
     }
 }
