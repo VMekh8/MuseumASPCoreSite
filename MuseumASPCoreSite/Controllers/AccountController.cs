@@ -22,29 +22,28 @@ namespace MuseumASPCoreSite.Controllers
             _signInManager = signInManager;
         }
 
-
-        [HttpGet("GetUsers")]
-        public async Task<ActionResult<List<UserResponce>>> GetAllUser()
+        [HttpPost("Logout")]
+        public async Task<ActionResult> Logout()
         {
-            var user = await _userService.GetUsersAsync();
-
-            if (user == null)
-            {
-                return BadRequest("Error geting User");
-            }
-
-            var responce = user.Select(opt => new UserResponce(opt.Id, opt.Email, opt.PasswordHash, opt.PhoneNumber, opt.FirstName, opt.LastName));
-            if (responce != null)
-            {
-                return Ok(responce);
-            }
-
-            return BadRequest("error");
+            await _signInManager.SignOutAsync();
+            return Ok();
         }
 
+        [HttpPost("Login")]
+        public async Task<ActionResult> Login(string email, string password)
+        {
+            var result = await _signInManager.PasswordSignInAsync(email, password, isPersistent: false, lockoutOnFailure: false);
 
+            if (result.Succeeded)
+            {
+                return Ok();
+            }
+
+            return Unauthorized();
+        }
+        
         [HttpPost("Register")]
-        public async Task<IActionResult> Register([FromBody]UserResponce user)
+        public async Task<ActionResult> Register([FromBody]UserResponce user)
         {
             if (ModelState.IsValid)
             {
@@ -58,15 +57,13 @@ namespace MuseumASPCoreSite.Controllers
                 var userEntity = new UserEntity()
                 {
                     Email = userModel.Email,
-                    PasswordHash = userModel.PasswordHash,
                     PhoneNumber = userModel.PhoneNumber,
                     FirstName = userModel.FirstName,
                     LastName = userModel.LastName,
-
                     UserName = userModel.Email
                 };
 
-               var result = await _userManager.CreateAsync(userEntity);
+               var result = await _userManager.CreateAsync(userEntity, user.Password);
                 if (result.Succeeded)
                 {
                     return Ok(result);
