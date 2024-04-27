@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MuseumASPCoreSite.Contracts;
 using MuseumASPCoreSite.Contracts.Requests;
@@ -9,6 +10,8 @@ namespace MuseumASPCoreSite.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize(Roles = "Worker, Admin")]
+
     public class ExhibitonController : ControllerBase
     {
         private readonly IExhibitionService _exhibitionService;

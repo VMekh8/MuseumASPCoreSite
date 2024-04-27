@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MuseumASPCoreSite.Contracts;
 using MuseumSite.Application.Services;
 using MuseumSite.Core.Abstract;
@@ -8,12 +9,13 @@ namespace MuseumASPCoreSite.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize(Roles = "Client, Worker, Admin")]
+
     public class SearchController : ControllerBase
     {
         private readonly IExhibitService _exhibitService;
         private readonly IExhibitionService _exhibitionService;
         private readonly IMuseumNewsService _newsService;
-
 
         public SearchController(IExhibitService exhibitService, IExhibitionService exhibitionService, IMuseumNewsService newsService)
         {

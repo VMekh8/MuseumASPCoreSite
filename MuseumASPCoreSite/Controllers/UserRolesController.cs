@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MuseumSite.Domain.Entitites;
@@ -7,6 +8,8 @@ namespace MuseumASPCoreSite.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize(Roles = "Admin")]
+
     public class UserRolesController : Controller
     {
         private readonly RoleManager<IdentityRole> _roleManager;
