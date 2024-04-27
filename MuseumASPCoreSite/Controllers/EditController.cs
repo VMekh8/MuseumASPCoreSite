@@ -25,7 +25,7 @@ namespace MuseumASPCoreSite.Controllers
         }
 
         [HttpPut("ExhibitEdit{id:int}")]
-        public async Task<ActionResult<int>> EditExhibit([FromForm]ExhibitRequest exhibitRequest)
+        public async Task<ActionResult<int>> EditExhibit([FromForm] ExhibitRequest exhibitRequest)
         {
             if (!ModelState.IsValid)
             {
@@ -57,5 +57,39 @@ namespace MuseumASPCoreSite.Controllers
                 BadRequest("Exhibit update error");
         }
 
+        [HttpPut("ExhibitionEdit{id:int}")]
+        public async Task<ActionResult<int>> EditExhibition([FromForm] ExhibitionRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            byte[] filebytes;
+
+            using (var ms = new MemoryStream())
+            {
+                await request.Image.CopyToAsync(ms);
+                filebytes = ms.ToArray();
+            }
+
+            var (exhibition, error) = Exhibition.CreateExhibition(
+                request.Id,
+                request.Name,
+                request.Description,
+                request.EventDate,
+                filebytes
+                );
+
+            if (!string.IsNullOrEmpty(error))
+            {
+                return BadRequest(error);
+            }
+
+            return await _exhibitionService.UpdateExhibitionAsync(exhibition) > 0 ?
+                Ok(exhibition.Id) :
+                BadRequest("Exhibition update error");
+        }
     }
+
 }
