@@ -90,6 +90,39 @@ namespace MuseumASPCoreSite.Controllers
                 Ok(exhibition.Id) :
                 BadRequest("Exhibition update error");
         }
+
+        [HttpPut("NewsEdit{id:int}")]
+        public async Task<ActionResult<int>> MuseumNewsEdit([FromBody]MuseumNewsRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            byte[] filebytes;
+
+            using (var ms = new MemoryStream())
+            {
+                await request.Image.CopyToAsync(ms);
+                filebytes = ms.ToArray();
+            }
+
+            var (news, error) = MuseumNews.CreateNews(
+                request.Id,
+                request.Title,
+                request.Description,
+                filebytes
+                );
+
+            if (!string.IsNullOrEmpty(error))
+            {
+                return BadRequest(error);
+            }
+
+            return await _museumNewsService.UpdateNewsAsync(news) > 0 ?
+                Ok(news.Id) :
+                BadRequest("Museum news edit error");
+        }
     }
 
 }
