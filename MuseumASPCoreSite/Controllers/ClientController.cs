@@ -8,7 +8,7 @@ namespace MuseumASPCoreSite.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    //[Authorize(Roles ="Client, Worker, Admin")]
+    [Authorize(Roles ="Client, Worker, Admin")]
     public class ClientController : ControllerBase
     {
         private readonly IExhibitService _exhibitService;
@@ -33,24 +33,14 @@ namespace MuseumASPCoreSite.Controllers
 
             var exhibitsModel = await _exhibitService.GetExhibitsAsync();
 
-            if (exhibitsModel.Count <= 0)
-            {
-                return Ok("Exhibits collection is empty");
-            }
+            var exhibitToSend = exhibitsModel.Select(e => new ExhibitResponce(
+                e.Id,
+                e.Title,
+                e.Description,
+                Convert.ToBase64String(e.Image),
+                e.ExhibitionId));
 
-            if (exhibitsModel.Count > 0)
-            {
-                var exhibitToSend = exhibitsModel.Select(e => new ExhibitResponce(
-                    e.Id,
-                    e.Title,
-                    e.Description,
-                    Convert.ToBase64String(e.Image),
-                    e.ExhibitionId));
-
-                return Ok(exhibitToSend);
-            }
-
-            return BadRequest("Exhibits get error");
+            return Ok(exhibitToSend);
         }
 
         [HttpGet("GetAllExhibitions")]
@@ -63,37 +53,27 @@ namespace MuseumASPCoreSite.Controllers
 
             var exhibitionsModel = await _exhibitionService.GetExhibitionsAsync();
 
-            if (exhibitionsModel.Count <= 0)
+            var exhibitionsToSend = exhibitionsModel.Select(e =>
             {
-                return Ok("Exhibitions collection is empty");
-            }
+                var exhibitResponses = e.Exhibits.Select(exhibit => new ExhibitResponce(
+                    exhibit.Id,
+                    exhibit.Title,
+                    exhibit.Description,
+                    Convert.ToBase64String(exhibit.Image),
+                    exhibit.ExhibitionId
+                )).ToList();
 
-            if (exhibitionsModel.Count > 0)
-            {
-                var exhibitionsToSend = exhibitionsModel.Select(e =>
-                {
-                    var exhibitResponses = e.Exhibits.Select(exhibit => new ExhibitResponce(
-                        exhibit.Id,
-                        exhibit.Title,
-                        exhibit.Description,
-                        Convert.ToBase64String(exhibit.Image),
-                        exhibit.ExhibitionId
-                    )).ToList();
+                return new ExhibitionResponce(
+                    e.Id,
+                    e.Name,
+                    e.Description,
+                    Convert.ToBase64String(e.Image),
+                    e.EventDate,
+                    exhibitResponses
+                );
+            });
 
-                    return new ExhibitionResponce(
-                        e.Id,
-                        e.Name,
-                        e.Description,
-                        Convert.ToBase64String(e.Image),
-                        exhibitResponses
-                    );
-                });
-
-                return Ok(exhibitionsToSend);
-            }
-
-
-            return BadRequest("Exhibitions get error");
+            return Ok(exhibitionsToSend);
         }
 
         [HttpGet("GetAllNews")]
@@ -106,26 +86,14 @@ namespace MuseumASPCoreSite.Controllers
 
             var newsModel = await _museumNewsService.GetAllNewsAsync();
 
-            if (newsModel.Count <= 0)
-            {
-                return Ok("Museum News collection is empty");
-            }
-
+            var newsToSend = newsModel.Select(e => new MuseumNewsResponce(
+                e.Id,
+                e.Title,
+                e.Description,
+                Convert.ToBase64String(e.Image)
+                ));
             
-
-            if (newsModel.Count > 0)
-            {
-                var newsToSend = newsModel.Select(e => new MuseumNewsResponce(
-                    e.Id,
-                    e.Title,
-                    e.Description,
-                    Convert.ToBase64String(e.Image)
-                    ));
-
-                return Ok(newsToSend);
-            }
-
-            return BadRequest("Museum News get error");
+            return Ok(newsToSend);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace MuseumASPCoreSite.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    [Authorize/*Roles = "Admin")*/]
+    [Authorize(Roles = "Admin")]
     public class AdminController : ControllerBase
     {
 
@@ -86,6 +86,18 @@ namespace MuseumASPCoreSite.Controllers
             return BadRequest(result.Errors);
         }
 
+        [HttpGet("GetUserByEmail")]
+        public async Task<ActionResult<UserEntity>> GetUserByEmail(string email)
+        {
+            var user = _userService.GetUserByNameAsync(email);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(user);
+        }
 
     }
 }
