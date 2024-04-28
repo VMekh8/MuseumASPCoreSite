@@ -87,16 +87,23 @@ namespace MuseumASPCoreSite.Controllers
         }
 
         [HttpGet("GetUserByEmail")]
-        public async Task<ActionResult<UserEntity>> GetUserByEmail(string email)
+        public async Task<ActionResult<UserResponce>> GetUserByEmail(string email)
         {
-            var user = _userService.GetUserByNameAsync(email);
+            var user = await _userService.GetUserByNameAsync(email);
 
             if (user == null)
             {
                 return NotFound();
             }
-
-            return Ok(user);
+            
+            return Ok(new UserResponce(
+                user.Id,
+                user.Email,
+                user.PasswordHash,
+                user.PhoneNumber,
+                user.FirstName,
+                user.LastName
+                ));
         }
 
     }
