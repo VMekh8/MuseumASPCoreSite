@@ -1,5 +1,5 @@
 <script lang="ts">
-export class ExibitResponce {
+export class ExhibitResponce {
     id: number;
     title: string;
     description: string;
@@ -22,8 +22,7 @@ export class ExhibitRequest {
     image: File | null;
     exhibitionId: number | null;
 
-    constructor (id: number, title: string, desc: string, image: File | null, exhibId: number | null)
-    {
+    constructor (id: number, title: string, desc: string, image: File | null, exhibId: number | null) {
         this.id = id;
         this.title = title;
         this.description = desc;
