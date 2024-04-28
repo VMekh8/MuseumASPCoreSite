@@ -62,6 +62,13 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddAuthorizationBuilder();
 builder.Services.AddAuthorization();
 
+builder.Services.AddCors(options => options.AddPolicy("Allow_Any_API",
+    policy => policy
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    ));
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -71,6 +78,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("Allow_Any_API");
 
 app.UseAuthentication();
 app.UseAuthorization();

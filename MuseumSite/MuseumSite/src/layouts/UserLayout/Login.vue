@@ -19,7 +19,7 @@ export default {
     methods: {
         async Login() {
             try {
-                const responce = await axios.post('https://localhost:7105/Account/Login', {
+                const responce = await fetch('https://localhost:7105/Account/Login', {
                     email: this.email,
                     password: this.password
                 });
