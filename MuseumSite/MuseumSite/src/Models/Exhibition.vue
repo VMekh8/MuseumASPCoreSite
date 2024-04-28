@@ -1,0 +1,21 @@
+<script lang="ts">
+import type { ExhibitResponce } from './Exhibit.vue';
+
+export class ExhibitionResponce {
+    id: number;
+    name: string;
+    description: string;
+    dateEvent: Date | null;
+    image: string;
+    Exhibits: ExhibitResponce[];
+
+    constructor(id: number, name: string, desc: string, dateEvent: Date | null, image: string, Exhibits: ExhibitResponce[]) {
+        this.id = id;
+        this.name = name;
+        this.description = desc;
+        this.image = image;
+        this.dateEvent = dateEvent;
+        this.Exhibits = Exhibits;
+    }
+}
+</script>
