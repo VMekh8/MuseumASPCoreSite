@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 import Login from './layouts/UserLayout/Login.vue';
 
 export default{

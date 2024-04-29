@@ -1,37 +1,38 @@
 <template>
-    <div class="container">
-        <input type="email" id="email" v-model="email">
-        <input type="password" id="password" v-model="password">
-        <button type="submit" v-on:click="Login">Login</button>
+    <div>
+      <button @click="submitForm">Submit</button>
     </div>
-</template>
-
-<script>
-import axios from 'axios';
-
-export default {
+  </template>
+  
+  <script>
+  import axios from 'axios';
+  
+  export default {
     data() {
-        return {
-            email: '',
-            password: ''
-        }
-    },
+      return {
+        email: 'string@www.www',
+        password: 'stringA1_'
+      }
+    },  
     methods: {
-        async Login() {
-            try {
-                const responce = await fetch('https://localhost:7105/Account/Login', {
-                    email: this.email,
-                    password: this.password
-                });
-
-                if (responce.status === 200) {
-                    console.log(responce.data.token);
-                }
+      async submitForm() {
+        let formData = new FormData();
+  
+        formData.append('email', this.email);
+        formData.append('password', this.password);
+  
+        try {
+          const response = await axios.post('https://localhost:7105/Account/Login', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
             }
-            catch(error) {
-                console.error(error);
-            }
+          });
+          console.log(response.data);
+        } catch (error) {
+          console.error(error);
         }
+      }
     }
-}
-</script>
+  }
+  </script>
+  
