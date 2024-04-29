@@ -64,6 +64,9 @@ export default {
                     console.log("Success");
                     axios.defaults.headers.common['Authorization'] = 'Bearer ' + responce.data.token;
                 }
+                // else {
+                //     this.error = 'Помилка авторизації'
+                // }
             }
             catch (error) {
                 console.error(error);

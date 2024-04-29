@@ -72,7 +72,7 @@ namespace MuseumASPCoreSite.Controllers
 
                 var _token = new JwtSecurityTokenHandler().WriteToken(token);
 
-                return Ok(new { Token = _token });
+                return Ok(new { Token = _token, Roles = roles });
             }
 
             return Unauthorized();
