@@ -87,7 +87,7 @@ namespace MuseumASPCoreSite.Controllers
         }
 
         [HttpGet("GetUserByEmail")]
-        public async Task<ActionResult<UserResponce>> GetUserByEmail(string email)
+        public async Task<ActionResult<UserResponce>> GetUserByEmail([FromForm]string email)
         {
             var user = await _userService.GetUserByNameAsync(email);
 

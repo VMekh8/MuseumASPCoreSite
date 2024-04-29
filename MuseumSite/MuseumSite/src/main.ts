@@ -1,6 +1,15 @@
-import './assets/main.css'
-
-import { createApp } from 'vue'
+import { createApp, reactive } from 'vue'
 import App from './App.vue'
+import router from './Routes/routes'
 
-createApp(App).mount('#app')
+
+const app = createApp(App)
+
+const globalState = reactive({
+  userRoles: []
+})
+
+app.provide('globalState', globalState)
+app.use(router)
+
+app.mount('#app')

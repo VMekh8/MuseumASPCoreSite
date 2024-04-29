@@ -22,7 +22,7 @@ namespace MuseumASPCoreSite.Controllers
         }
 
         [HttpDelete("DeleteExhibit{id:int}")]
-        public async Task<ActionResult<int>> DeleteExhibit(int id)
+        public async Task<ActionResult<int>> DeleteExhibit([FromForm]int id)
         {
             return await _exhibitService.DeleteExhibitAsync(id) > 0 ?
                  Ok(await _exhibitService.DeleteExhibitAsync(id)) :
@@ -30,7 +30,7 @@ namespace MuseumASPCoreSite.Controllers
         }
 
         [HttpDelete("DeleteExhibition{id:int}")]
-        public async Task<ActionResult<int>> DeleteExhibition(int id)
+        public async Task<ActionResult<int>> DeleteExhibition([FromForm]int id)
         {
             return await _exhibitionService.DeleteExhibitionAsync(id) > 0 ?
                  Ok(await _exhibitionService.DeleteExhibitionAsync(id)) :
@@ -38,7 +38,7 @@ namespace MuseumASPCoreSite.Controllers
         }
 
         [HttpDelete("DeleteNews{id:int}")]
-        public async Task<ActionResult<int>> DeleteNews(int id)
+        public async Task<ActionResult<int>> DeleteNews([FromForm]int id)
         {
             return await _museumNewsService.DeleteNewsAsync(id) > 0 ?
                 Ok(await _museumNewsService.DeleteNewsAsync(id)) :

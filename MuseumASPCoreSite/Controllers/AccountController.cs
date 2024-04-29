@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using MuseumASPCoreSite.Contracts;
+using MuseumASPCoreSite.Contracts.Requests;
 using MuseumSite.Application.Services;
 using MuseumSite.Core.Models;
 using MuseumSite.Domain.Entitites;
@@ -38,13 +39,13 @@ namespace MuseumASPCoreSite.Controllers
         }
 
         [HttpPost("Login")]
-        public async Task<ActionResult> Login(string email, string password)
+        public async Task<ActionResult> Login([FromForm] LoginRequest login)
         {
-            var result = await _signInManager.PasswordSignInAsync(email, password, isPersistent: false, lockoutOnFailure: false);
+            var result = await _signInManager.PasswordSignInAsync(login.email, login.password, isPersistent: false, lockoutOnFailure: false);
 
             if (result.Succeeded)
             {
-                var user = await _userManager.FindByEmailAsync(email);
+                var user = await _userManager.FindByEmailAsync(login.email);
                 var roles = await _userManager.GetRolesAsync(user);
 
                 var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["JwtSettings:SecretKey"]));
@@ -71,7 +72,7 @@ namespace MuseumASPCoreSite.Controllers
 
                 var _token = new JwtSecurityTokenHandler().WriteToken(token);
 
-                return Ok(new { Token = _token });
+                return Ok(new { Token = _token, Roles = roles });
             }
 
             return Unauthorized();
