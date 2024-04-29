@@ -30,13 +30,15 @@
 
 <script>
 import axios from 'axios';
+import { inject } from 'vue';
 
 export default {
     data() {
         return {
             emailfield: '',
             passwordfield: '',
-            error: ''
+            error: '',
+            globalState: inject('globalState')
         }
     },
     methods: {
@@ -63,10 +65,9 @@ export default {
                 {
                     console.log("Success");
                     axios.defaults.headers.common['Authorization'] = 'Bearer ' + responce.data.token;
+                    this.globalState.userRoles = responce.data.roles;
+                    console.log(this.globalState.userRoles);
                 }
-                // else {
-                //     this.error = 'Помилка авторизації'
-                // }
             }
             catch (error) {
                 console.error(error);
