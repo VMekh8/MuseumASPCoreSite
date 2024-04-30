@@ -1,8 +1,12 @@
-<script setup>
-import Login from './layouts/UserLayout/Login.vue';
-
-</script>
-
 <template>
-    <Login/>
+<div class="container">
+    <nav>
+        <router-link to="/login">Авторизація</router-link>
+    </nav>
+
+    <main>
+        <router-view/>
+    </main>
+
+</div>
 </template>

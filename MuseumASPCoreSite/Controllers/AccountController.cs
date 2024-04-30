@@ -103,6 +103,7 @@ namespace MuseumASPCoreSite.Controllers
                var result = await _userManager.CreateAsync(userEntity, user.Password);
                 if (result.Succeeded)
                 {
+                    await _userManager.AddToRoleAsync(userEntity, "Client");
                     return Ok(result);
                 }
 

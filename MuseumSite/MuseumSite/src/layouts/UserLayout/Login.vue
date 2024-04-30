@@ -20,17 +20,17 @@
 
             <div class="reg-offer">
                 <p>Немає акаунту? </p>
-                <router-link to="/register">Реєстрація</router-link>
+                <RouterLink to="/register">Реєстрація</RouterLink>
             </div>
-
             <button type="submit" v-on:click="Login">Увійти</button>
-        </div>
+        </div>  
     </div>
 </template>
 
 <script>
 import axios from 'axios';
 import { inject } from 'vue';
+import { RouterLink } from 'vue-router';
 
 export default {
     data() {
