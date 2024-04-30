@@ -1,5 +1,4 @@
-<script lang="ts">
-import type { ExhibitResponce } from './Exhibit.vue';
+import type { ExhibitResponce } from './Exhibit';
 
 export class ExhibitionResponce {
     id: number;
@@ -34,4 +33,3 @@ export class ExhibitionRequest {
         this.image = image;
     }
 }
-</script>

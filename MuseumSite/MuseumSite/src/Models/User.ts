@@ -1,4 +1,3 @@
-<script lang="ts">
 export class UserResponce {
     id: string;
     email: string;
@@ -17,4 +16,3 @@ export class UserResponce {
     }
 
 }
-</script>

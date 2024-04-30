@@ -1,4 +1,3 @@
-<script lang="ts">
 export class ExhibitResponce {
     id: number;
     title: string;
@@ -30,4 +29,3 @@ export class ExhibitRequest {
         this.exhibitionId = exhibId;
     }
 }
-</script>

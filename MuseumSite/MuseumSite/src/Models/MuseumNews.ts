@@ -1,4 +1,3 @@
-<script lang="ts">
 export class MuseumNewsResponce {
     id: number;
     title: string;
@@ -26,4 +25,3 @@ export class MuseumNewsRequest {
         this.image = image;
     }
 }
-</script>
