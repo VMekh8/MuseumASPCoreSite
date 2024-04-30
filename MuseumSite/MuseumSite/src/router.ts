@@ -5,6 +5,7 @@ export default createRouter({
     routes: [
         {
             path: '/login',
+            name: 'Login',
             component: () => import('@/layouts/UserLayout/Login.vue'),
         },
         {
