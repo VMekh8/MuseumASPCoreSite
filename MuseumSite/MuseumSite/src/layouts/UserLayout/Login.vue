@@ -20,7 +20,7 @@
 
             <div class="reg-offer">
                 <p>Немає акаунту? </p>
-                <RouterLink to="/register">Реєстрація</RouterLink>
+                <router-link to="/register">Реєстрація</router-link>
             </div>
             <button type="submit" v-on:click="Login">Увійти</button>
         </div>  
@@ -30,7 +30,6 @@
 <script>
 import axios from 'axios';
 import { inject } from 'vue';
-import { RouterLink } from 'vue-router';
 
 export default {
     data() {
@@ -55,7 +54,7 @@ export default {
 
             try {
 
-                const response = await axios.post('https://localhost:7105/Account/Login', formData, {
+                const response = await axios.post(import.meta.env.VITE_API_URL+'/Account/Login', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
