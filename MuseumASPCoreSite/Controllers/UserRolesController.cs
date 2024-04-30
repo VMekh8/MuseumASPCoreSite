@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MuseumASPCoreSite.Contracts.Requests;
 using MuseumSite.Domain.Entitites;
 
 namespace MuseumASPCoreSite.Controllers
@@ -70,7 +71,7 @@ namespace MuseumASPCoreSite.Controllers
         }
 
         [HttpGet("GetUserRole")]
-        public async Task<ActionResult> GetUserRole(string email)
+        public async Task<ActionResult> GetUserRole([FromForm]string email)
         {
             var user = await _userManager.FindByEmailAsync(email);  
             if(user == null)
@@ -85,15 +86,15 @@ namespace MuseumASPCoreSite.Controllers
 
 
         [HttpPost("AddRoleToUser")]
-        public async Task<ActionResult> AddRoleToUser(string userId, string roleName)
+        public async Task<ActionResult> AddRoleToUser([FromForm]UserRoleRequest userRole)
         {
-            var user = await _userManager.FindByIdAsync(userId);
+            var user = await _userManager.FindByEmailAsync(userRole.email);
             if (user == null)
             {
                 return NotFound("User not found");
             }
 
-            var result = await _userManager.AddToRoleAsync(user, roleName);
+            var result = await _userManager.AddToRoleAsync(user, userRole.roleName);
 
             if (result.Succeeded)
             {
@@ -104,15 +105,15 @@ namespace MuseumASPCoreSite.Controllers
         }
 
         [HttpPost("RemoveRoleFromUser")]
-        public async Task<ActionResult> RemoveRoleFromUser(string userId, string roleName)
+        public async Task<ActionResult> RemoveRoleFromUser([FromForm]UserRoleRequest userRole)
         {
-            var user = await _userManager.FindByIdAsync(userId);
+            var user = await _userManager.FindByEmailAsync(userRole.email);
             if (user == null)
             {
                 return NotFound("User not found");
             }
 
-            var result = await _userManager.RemoveFromRoleAsync(user, roleName);
+            var result = await _userManager.RemoveFromRoleAsync(user, userRole.roleName);
 
             if (result.Succeeded)
             {
