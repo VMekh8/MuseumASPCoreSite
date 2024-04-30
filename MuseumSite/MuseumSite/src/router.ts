@@ -4,6 +4,11 @@ export default createRouter({
     history: createWebHistory(),
     routes: [
         {
+            path: '/',
+            name: 'Home',
+            component: () => import('./App.vue'),
+        },
+        {
             path: '/login',
             name: 'Login',
             component: () => import('@/layouts/UserLayout/Login.vue'),

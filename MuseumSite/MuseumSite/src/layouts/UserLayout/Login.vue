@@ -20,7 +20,7 @@
 
             <div class="reg-offer">
                 <p>Немає акаунту? </p>
-                <RouterLink to="/register">Реєстрація</RouterLink>
+                <router-link to="/register">Реєстрація</router-link>
             </div>
             <button type="submit" v-on:click="Login">Увійти</button>
         </div>  
