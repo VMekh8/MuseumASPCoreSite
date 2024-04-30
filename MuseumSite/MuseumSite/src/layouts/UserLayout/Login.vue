@@ -30,7 +30,6 @@
 <script>
 import axios from 'axios';
 import { inject } from 'vue';
-import { RouterLink } from 'vue-router';
 
 export default {
     data() {
@@ -55,7 +54,7 @@ export default {
 
             try {
 
-                const response = await axios.post('https://localhost:7105/Account/Login', formData, {
+                const response = await axios.post(import.meta.env.VITE_API_URL+'/Account/Login', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
