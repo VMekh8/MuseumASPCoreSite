@@ -70,9 +70,9 @@ namespace MuseumASPCoreSite.Controllers
         }
 
         [HttpGet("GetUserRole")]
-        public async Task<ActionResult> GetUserRole(string userId)
+        public async Task<ActionResult> GetUserRole(string email)
         {
-            var user = await _userManager.FindByIdAsync(userId);  
+            var user = await _userManager.FindByEmailAsync(email);  
             if(user == null)
             {
                 return BadRequest("User not found");
