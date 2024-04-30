@@ -55,17 +55,17 @@ export default {
 
             try {
 
-                const responce = await axios.post('https://localhost:7105/Account/Login', formData, {
+                const response = await axios.post('https://localhost:7105/Account/Login', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
                 });
 
-                if (responce.status === 200)
+                if (response.status === 200)
                 {
                     console.log("Success");
-                    axios.defaults.headers.common['Authorization'] = 'Bearer ' + responce.data.token;
-                    this.globalState.userRoles = responce.data.roles;
+                    axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.token;
+                    this.globalState.userRoles = response.data.roles;
                     console.log(this.globalState.userRoles);
                 }
             }

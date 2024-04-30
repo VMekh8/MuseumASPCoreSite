@@ -1,13 +1,8 @@
-<script>
+<script setup>
 import Login from './layouts/UserLayout/Login.vue';
 
-export default{
-    components: {
-        Login
-    }
-}
 </script>
 
 <template>
-    <Login></Login>
+    <Login/>
 </template>
