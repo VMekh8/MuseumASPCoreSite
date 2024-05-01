@@ -33,9 +33,9 @@
 </template>
 
 <script lang="ts">
-import axios from "axios";
 import { ref, onMounted } from 'vue';
 import { ExhibitResponce } from '../../Models/Exhibit';
+import { apiClient } from '../../apiClient';
 
 export default {
     setup() {
@@ -43,7 +43,7 @@ export default {
         
         const exhibitsFetch = async () => {
 
-            const response = await axios.get(import.meta.env.VITE_API_URL+'/Client/GetAllExhibit');
+            const response = await apiClient.get('/Client/GetAllExhibit');
 
             exhibits.value = response.data.map((exhibit: any) => new ExhibitResponce(
                 exhibit.id,

@@ -34,8 +34,7 @@
 </template>
 
 <script>
-import axios from 'axios';
-
+import { apiClient } from '../../apiClient';
 export default {
     data() {
         return {
@@ -76,7 +75,7 @@ export default {
             formData.append('firstname', this.firstName);
             formData.append('lastname', this.lastName);
             
-            const response = await axios.post(import.meta.env.VITE_API_URL+'/Account/Register', formData, {
+            const response = await apiClient.post('/Account/Register', formData, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
