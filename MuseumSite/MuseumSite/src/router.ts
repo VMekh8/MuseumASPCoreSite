@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from "vue-router";
-
 export default createRouter({
     history: createWebHistory(),
     routes: [
@@ -7,6 +6,16 @@ export default createRouter({
             path: '/',
             name: 'Home',
             component: () => import('./App.vue'),
+        },
+        {
+            path: '/controlpanel',
+            component: () => import('@/layouts/ControlPanel/MainControl.vue'),
+            children: [
+                    {
+                        path: 'exhibitcontrol',
+                        component: () => import('@/layouts/ControlPanel/ExhibitControl.vue')
+                    },
+            ]
         },
         {
             path: '/login',
