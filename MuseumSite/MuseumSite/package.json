@@ -15,7 +15,10 @@
   "dependencies": {
     "@vitejs/plugin-vue-jsx": "^3.1.0",
     "axios": "^1.6.8",
-    "vue": "^3.4.21",
+    "bootstrap": "^5.3.3",
+    "bootstrap-vue": "^2.23.1",
+    "bootstrap-vue-3": "^0.3.12",
+    "vue": "^3.4.26",
     "vue-axios": "^3.5.2",
     "vue-router": "^4.0.13",
     "vuex": "^4.1.0"
