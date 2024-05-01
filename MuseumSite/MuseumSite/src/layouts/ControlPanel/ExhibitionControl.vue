@@ -1,8 +1,8 @@
 <template>
     <div class="container">
         <div class="head">
-            <h2>Експонати</h2>
-            <router-link to="#">Додати експонат</router-link>
+            <h2>Виставки</h2>
+            <router-link to="#">Додати виставку</router-link>
 
         </div>
         

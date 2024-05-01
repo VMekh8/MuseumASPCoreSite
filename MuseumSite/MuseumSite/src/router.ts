@@ -23,6 +23,10 @@ export default createRouter({
                         path: 'museumnewscontrol',
                         component: () => import('@/layouts/ControlPanel/NewsControl.vue')
                     },
+                    {
+                        path: 'usercontrol',
+                        component: () => import('@/layouts/ControlPanel/UserControl.vue')
+                    },
             ]
         },
         {
