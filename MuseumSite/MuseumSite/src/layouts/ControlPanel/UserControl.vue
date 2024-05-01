@@ -26,8 +26,10 @@
                   <td>{{ user.firstname }}</td>
                   <td>{{ user.lastname }}</td>
                   <td v-for="role in roles[user.email]" :key="role">{{role}}</td>
-                  <td><button>Редагувати</button>
-                  <button>Видалити</button></td>
+                  <td>
+                    <button>Редагувати</button>
+                    <button @click="userDelete(user.id)">Видалити</button>
+                    </td>
                 </tr>
               </tbody>
             </table>
@@ -74,12 +76,17 @@ export default {
             
         }
 
+        const userDelete = async (userid: string) => {
+            await apiClient.delete('/Admin/DeleteUser?userId=' + userid);
+            users.value = users.value.filter(u => u.id !== userid);
+        }
+
         onMounted(async () => {
             await usersFetch();
             await rolesFetch();
         });
 
-        return {users, roles};
+        return {users, roles, userDelete};
     }
 }
 </script>

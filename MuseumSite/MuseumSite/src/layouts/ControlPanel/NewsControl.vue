@@ -24,7 +24,7 @@
                   <td>{{ news.description }}</td>
                   <td><img :src="'data:;base64,' + news.image" /></td>
                   <td><button>Редагувати</button>
-                  <button>Видалити</button></td>
+                  <button @click="newsDelete(news.id)">Видалити</button></td>
                 </tr>
               </tbody>
             </table>
@@ -56,9 +56,15 @@ export default {
             ));
         };
         
+        const newsDelete = async (id: number) => {
+          await apiClient.delete('/Delete/DeleteNews' + id);
+          museumnews.value = museumnews.value.filter(news=> news.id !== id);
+        }
+
+
         onMounted(NewsFetch);
 
-        return {museumnews};
+        return {museumnews, newsDelete};
     }
 }
 

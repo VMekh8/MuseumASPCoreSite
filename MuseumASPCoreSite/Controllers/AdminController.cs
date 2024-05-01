@@ -68,7 +68,7 @@ namespace MuseumASPCoreSite.Controllers
         }
 
         [HttpDelete("DeleteUser")]
-        public async Task<ActionResult> DeleteUser([FromForm]string userId)
+        public async Task<ActionResult> DeleteUser(string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
