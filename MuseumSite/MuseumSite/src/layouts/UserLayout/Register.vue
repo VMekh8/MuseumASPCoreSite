@@ -33,7 +33,7 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import { apiClient } from '../../apiClient';
 export default {
     data() {

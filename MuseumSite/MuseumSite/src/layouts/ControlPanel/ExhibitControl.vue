@@ -14,7 +14,7 @@
                   <th>Назва</th>
                   <th>Опис</th>
                   <th>Зображення</th>
-                  <th>ID Виставки</th>
+                  <th>Взаємодія</th>
                 </tr>
               </thead>
               <tbody>
@@ -23,6 +23,8 @@
                   <td>{{ exhibit.title }}</td>
                   <td>{{ exhibit.description }}</td>
                   <td><img :src="'data:;base64,' + exhibit.image" /></td>
+                  <td><button>Редагувати</button>
+                  <button>Видалити</button></td>
                 </tr>
               </tbody>
             </table>

@@ -15,6 +15,10 @@ export default createRouter({
                         path: 'exhibitcontrol',
                         component: () => import('@/layouts/ControlPanel/ExhibitControl.vue')
                     },
+                    {
+                        path: 'exhibitioncontrol',
+                        component: () => import('@/layouts/ControlPanel/ExhibitionControl.vue')
+                    },
             ]
         },
         {

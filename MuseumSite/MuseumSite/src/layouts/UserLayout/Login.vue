@@ -27,7 +27,7 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import { apiClient } from '../../apiClient';
 import { inject } from 'vue';
 
