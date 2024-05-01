@@ -12,12 +12,12 @@ namespace MuseumASPCoreSite.Controllers
     [Route("[controller]")]
     [Authorize(Roles = "Worker, Admin")]
 
-    public class ExhibitonController : ControllerBase
+    public class ExhibitionController : ControllerBase
     {
         private readonly IExhibitionService _exhibitionService;
         private readonly IExhibitService _exhibitService;
 
-        public ExhibitonController(IExhibitService exhibitService, IExhibitionService exhibitionService)
+        public ExhibitionController(IExhibitService exhibitService, IExhibitionService exhibitionService)
         {
             _exhibitService = exhibitService;
             _exhibitionService = exhibitionService;

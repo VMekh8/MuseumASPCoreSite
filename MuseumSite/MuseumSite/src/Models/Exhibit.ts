@@ -3,14 +3,12 @@ export class ExhibitResponce {
     title: string;
     description: string;
     image: string;
-    exhibitionId : number | null;
 
-    constructor(id: number, title: string, description: string, image: string, exhibitionId: number | null) {
+    constructor(id: number, title: string, description: string, image: string) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.image = image;
-        this.exhibitionId = exhibitionId;
     }
 }
 
@@ -19,13 +17,11 @@ export class ExhibitRequest {
     title: string;
     description: string;
     image: File | null;
-    exhibitionId: number | null;
 
-    constructor (id: number, title: string, desc: string, image: File | null, exhibId: number | null) {
+    constructor (id: number, title: string, desc: string, image: File | null) {
         this.id = id;
         this.title = title;
         this.description = desc;
         this.image = image;
-        this.exhibitionId = exhibId;
     }
 }

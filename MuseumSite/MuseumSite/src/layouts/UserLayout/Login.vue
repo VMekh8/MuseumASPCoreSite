@@ -27,8 +27,8 @@
     </div>
 </template>
 
-<script>
-import axios from 'axios';
+<script lang="ts">
+import { apiClient } from '../../apiClient';
 import { inject } from 'vue';
 
 export default {
@@ -54,7 +54,7 @@ export default {
 
             try {
 
-                const response = await axios.post(import.meta.env.VITE_API_URL+'/Account/Login', formData, {
+                const response = await apiClient.post('/Account/Login', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
@@ -63,7 +63,7 @@ export default {
                 if (response.status === 200)
                 {
                     console.log("Success");
-                    axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.token;
+                    localStorage.setItem('authToken', response.data.token);
                     this.globalState.userRoles = response.data.roles;
                     console.log(this.globalState.userRoles);
                 }

@@ -71,7 +71,7 @@ namespace MuseumASPCoreSite.Controllers
         }
 
         [HttpGet("GetUserRole")]
-        public async Task<ActionResult> GetUserRole([FromForm]string email)
+        public async Task<ActionResult> GetUserRole(string email)
         {
             var user = await _userManager.FindByEmailAsync(email);  
             if(user == null)

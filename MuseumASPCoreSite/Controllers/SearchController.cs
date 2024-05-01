@@ -25,7 +25,7 @@ namespace MuseumASPCoreSite.Controllers
         }
 
         [HttpGet("GetExhibitByName")]
-        public async Task<ActionResult<ExhibitResponce>> GetExhibitByName([FromForm] string name)
+        public async Task<ActionResult<ExhibitResponce>> GetExhibitByName(string name)
         {
             var found = await _exhibitService.GetExhibitByNameAsync(name);
             if (found == null)
@@ -43,7 +43,7 @@ namespace MuseumASPCoreSite.Controllers
         }
 
         [HttpGet("GetExhibitionByName")]
-        public async Task<ActionResult<ExhibitionResponce>> GetExhibitionByName([FromForm] string name)
+        public async Task<ActionResult<ExhibitionResponce>> GetExhibitionByName(string name)
         {
             var found = await _exhibitionService.GetExhibitionByNameAsync(name);
             if (found == null)
@@ -64,7 +64,7 @@ namespace MuseumASPCoreSite.Controllers
         }
 
         [HttpGet("GetMuseumNewsByName")]
-        public async Task<ActionResult<MuseumNewsResponce>> GetNewsByName([FromForm] string name)
+        public async Task<ActionResult<MuseumNewsResponce>> GetNewsByName(string name)
         {
             var found = await _newsService.GetNewsByNameAsync(name);
             if (found == null)

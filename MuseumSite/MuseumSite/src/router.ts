@@ -15,6 +15,18 @@ export default createRouter({
                         path: 'exhibitcontrol',
                         component: () => import('@/layouts/ControlPanel/ExhibitControl.vue')
                     },
+                    {
+                        path: 'exhibitioncontrol',
+                        component: () => import('@/layouts/ControlPanel/ExhibitionControl.vue')
+                    },
+                    {
+                        path: 'museumnewscontrol',
+                        component: () => import('@/layouts/ControlPanel/NewsControl.vue')
+                    },
+                    {
+                        path: 'usercontrol',
+                        component: () => import('@/layouts/ControlPanel/UserControl.vue')
+                    },
             ]
         },
         {
