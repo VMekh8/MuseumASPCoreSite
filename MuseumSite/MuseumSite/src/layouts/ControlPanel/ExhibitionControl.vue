@@ -62,7 +62,7 @@ export default {
     }
 
     const deleteExhibition = async (id: number) => {
-      const response = await apiClient.delete('/Delete/DeleteExhibition' + id);
+      await apiClient.delete('/Delete/DeleteExhibition' + id);
       exhibitions.value = exhibitions.value.filter(exhibition => exhibition.id !== id);
     }
 
