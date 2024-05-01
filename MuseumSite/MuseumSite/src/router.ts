@@ -9,16 +9,6 @@ export default createRouter({
             component: () => import('./App.vue'),
         },
         {
-            path: '/controlpanel',
-            component: () => import('@/layouts/ControlPanel/AdminPanel.vue'),
-            children: [
-                    {
-                        path: 'exhibitcontrol',
-                        component: () => import('@/layouts/ControlPanel/ExhibitsControl.vue')
-                    },
-            ]
-        },
-        {
             path: '/login',
             name: 'Login',
             component: () => import('@/layouts/UserLayout/Login.vue'),
