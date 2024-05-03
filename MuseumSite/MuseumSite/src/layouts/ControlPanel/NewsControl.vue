@@ -23,8 +23,9 @@
                   <td>{{ news.title }}</td>
                   <td>{{ news.description }}</td>
                   <td><img :src="'data:;base64,' + news.image" /></td>
-                  <td><button>Редагувати</button>
-                  <button @click="newsDelete(news.id)">Видалити</button></td>
+                  <td>
+                    <button @click="newsUpdate(news.id)">Редагувати</button>
+                    <button @click="newsDelete(news.id)">Видалити</button></td>
                 </tr>
               </tbody>
             </table>
@@ -36,7 +37,7 @@
 
 <script lang="ts">
 import { ref, onMounted } from 'vue';
-import { MuseumNewsResponce } from '../../Models/MuseumNews';
+import { MuseumNewsRequest, MuseumNewsResponce } from '../../Models/MuseumNews';
 import { apiClient } from '../../apiClient';
 
 export default {
@@ -61,10 +62,51 @@ export default {
           museumnews.value = museumnews.value.filter(news=> news.id !== id);
         }
 
+        const newsUpdate = async (id: number) => {
+          const news = museumnews.value[id];
+          let newsRequest: MuseumNewsRequest | null = null;
+          let imageFile: File | null = null;
+
+          if (news.image) {
+            const base64data = news.image.split(',')[1];
+            const filetypedata = news.image.split(';')[0].split('/')[1];
+            const binarydata = atob(base64data);
+            const bytes = new Uint8Array(binarydata.length);
+            for (let i=0; i<binarydata.length;i++) {
+              bytes[i] = binarydata.charCodeAt(i);
+            }
+
+            const mimeType = `image/${filetypedata}`;
+          
+            const blob = new Blob([bytes], {type: mimeType});
+
+            imageFile = new File([blob], mimeType, {type: mimeType});
+
+            newsRequest = new MuseumNewsRequest(
+              news.id,
+              news.title,
+              news.description,
+              imageFile
+            );
+          };
+
+          try {
+            const response = await apiClient.put(`/Edit/NewsEdit${id}`, newsRequest, {
+              headers: {
+                'Content-Type': 'application.json'
+              }
+            });
+
+          }
+          catch (error) {
+            console.error(error);
+          }
+          
+        }
 
         onMounted(NewsFetch);
 
-        return {museumnews, newsDelete};
+        return {museumnews, newsDelete, newsUpdate};
     }
 }
 
