@@ -2,7 +2,7 @@
     <div class="container">
         <div class="head">
             <h2>Новини музею</h2>
-            <router-link to="#">Додати новину</router-link>
+            <router-link to="/controlpanel/addmuseumnews">Додати новину</router-link>
 
         </div>
         
