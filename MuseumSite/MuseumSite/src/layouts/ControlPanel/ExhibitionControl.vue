@@ -2,7 +2,7 @@
   <div class="container">
     <div class="head">
       <h2>Виставки</h2>
-      <router-link to="#">Додати виставку</router-link>
+      <router-link to="/controlpanel/addexhibition">Додати виставку</router-link>
     </div>
     <div class="table">
       <table>
@@ -22,7 +22,7 @@
             <td>{{ exhibition.id }}</td>
             <td>{{ exhibition.name }}</td>
             <td>{{ exhibition.description }}</td>
-            <td>{{ exhibition.dateEvent }}</td>
+            <td>{{ FormatDate(exhibition.EventDate.toString()) }}</td>
             <td><img :src="'data:;base64,' + exhibition.image" /></td>
             <td>
               <button>Редагувати</button>
@@ -32,7 +32,7 @@
               <button>Ексопонати на виставці</button>
               <button>Додати експонати</button>
               <button>Видалити експонати</button>
-            </td>
+            </td> 
           </tr>
         </tbody>
       </table>
@@ -44,23 +44,31 @@
 import { ref, onMounted } from 'vue';
 import { ExhibitionResponce } from '../../Models/Exhibition';
 import { apiClient } from '../../apiClient';
+import moment from 'moment';
 
 export default {
   setup() {
     const exhibitions = ref<ExhibitionResponce[]>([]);
 
+    const FormatDate = (value: string) => {
+      if (value) {
+                return moment(value).format('DD-MMM-YYYY HH:mm:ss')
+            }
+    } 
+
     const ExhibitionFetch = async () => {
       const response = await apiClient.get('/Client/GetAllExhibitions');
+      console.log(response.data);
       exhibitions.value = response.data.map((exhibition: any) => new ExhibitionResponce(
         exhibition.id,
         exhibition.name,
         exhibition.description,
-        exhibition.dateEvent,
+        exhibition.date,
         exhibition.image,
         exhibition.exhibits
       ));
+      console.log(exhibitions.value);
     }
-
     const deleteExhibition = async (id: number) => {
       await apiClient.delete('/Delete/DeleteExhibition' + id);
       exhibitions.value = exhibitions.value.filter(exhibition => exhibition.id !== id);
@@ -68,7 +76,7 @@ export default {
 
     onMounted(ExhibitionFetch);
 
-    return { exhibitions, deleteExhibition };
+    return { exhibitions, deleteExhibition, FormatDate };
   }
 }
 </script>
