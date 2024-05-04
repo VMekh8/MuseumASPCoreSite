@@ -22,7 +22,7 @@
             <td>{{ exhibition.id }}</td>
             <td>{{ exhibition.name }}</td>
             <td>{{ exhibition.description }}</td>
-            <td>{{ exhibition.dateEvent }}</td>
+            <td>{{ exhibition.EventDate}}</td>
             <td><img :src="'data:;base64,' + exhibition.image" /></td>
             <td>
               <button>Редагувати</button>
@@ -44,10 +44,15 @@
 import { ref, onMounted } from 'vue';
 import { ExhibitionResponce } from '../../Models/Exhibition';
 import { apiClient } from '../../apiClient';
+import moment from 'moment';
 
 export default {
   setup() {
     const exhibitions = ref<ExhibitionResponce[]>([]);
+
+    const FormatDate = (value: string) => {
+      return moment(value).format('DD-MMM-YYYY HH:mm:ss')
+    }
 
     const ExhibitionFetch = async () => {
       const response = await apiClient.get('/Client/GetAllExhibitions');
@@ -55,7 +60,7 @@ export default {
         exhibition.id,
         exhibition.name,
         exhibition.description,
-        exhibition.dateEvent,
+        exhibition.EventDate,
         exhibition.image,
         exhibition.exhibits
       ));

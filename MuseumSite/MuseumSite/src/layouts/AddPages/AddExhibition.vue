@@ -1,3 +1,4 @@
+@ -0,0 +1,98 @@
 <template>
     <div class="container">
         <h2>Створити виставку</h2>
@@ -59,7 +60,7 @@ export default {
             if (this.eventDate && new Date(this.eventDate).getTime() >= currentDate.getTime())  {
                 const formatedDate = this.format_date(this.eventDate);
                 if (formatedDate) {
-                    formData.append('eventDate', formatedDate.toString());
+                    formData.append('EventDate', formatedDate.toString());
                 }
             }
             else {
