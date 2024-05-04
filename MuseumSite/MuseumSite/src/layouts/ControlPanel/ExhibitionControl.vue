@@ -32,7 +32,7 @@
               <button>Ексопонати на виставці</button>
               <button>Додати експонати</button>
               <button>Видалити експонати</button>
-            </td>
+            </td> 
           </tr>
         </tbody>
       </table>
@@ -50,22 +50,19 @@ export default {
   setup() {
     const exhibitions = ref<ExhibitionResponce[]>([]);
 
-    const FormatDate = (value: string) => {
-      return moment(value).format('DD-MMM-YYYY HH:mm:ss')
-    }
-
     const ExhibitionFetch = async () => {
       const response = await apiClient.get('/Client/GetAllExhibitions');
+      console.log(response.data);
       exhibitions.value = response.data.map((exhibition: any) => new ExhibitionResponce(
         exhibition.id,
         exhibition.name,
         exhibition.description,
-        exhibition.EventDate,
+        exhibition.date,
         exhibition.image,
         exhibition.exhibits
       ));
+      console.log(exhibitions.value);
     }
-
     const deleteExhibition = async (id: number) => {
       await apiClient.delete('/Delete/DeleteExhibition' + id);
       exhibitions.value = exhibitions.value.filter(exhibition => exhibition.id !== id);
