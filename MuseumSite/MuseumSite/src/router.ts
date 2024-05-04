@@ -34,6 +34,10 @@ export default createRouter({
                     {
                         path: 'addexhibit',
                         component: () => import('@/layouts/AddPages/AddExhibit.vue')
+                    },
+                    {
+                        path: 'addexhibition',
+                        component: () => import('@/layouts/AddPages/AddExhibition.vue')
                     }
             ]
         },

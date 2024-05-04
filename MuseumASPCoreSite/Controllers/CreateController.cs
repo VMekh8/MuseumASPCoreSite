@@ -8,7 +8,7 @@ namespace MuseumASPCoreSite.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    [Authorize(Roles ="Worker, Admin")]
+    //[Authorize(Roles ="Worker, Admin")]
     public class CreateController : ControllerBase
     {
         private readonly IExhibitService _exhibitService;
