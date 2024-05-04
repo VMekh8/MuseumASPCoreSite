@@ -10,6 +10,8 @@
         <button type="submit" @click="CreateMuseumNews">Додати</button>
     </div>
     <span class="errorMess" v-if="ErrorMessage">{{ ErrorMessage }}</span>
+    <span class="error" v-if="successMessage"> {{ successMessage }}</span>
+
 </div>
 </template>
 
@@ -23,6 +25,7 @@ export default {
             newsDescription: '',
             newsImage: null as File | null,
             ErrorMessage: '',
+            successMessage: ''
         }
     },
     methods: {
@@ -55,7 +58,7 @@ export default {
                 });  
 
                 if (response.status === 200) {
-                    console.log(123)
+                    this.successMessage = "Новину успішно додано!";
                 }
             
             }

@@ -30,6 +30,10 @@ export default createRouter({
                     {
                         path: 'addmuseumnews',
                         component: () => import('@/layouts/AddPages/AddMuseumNews.vue')
+                    },
+                    {
+                        path: 'addexhibit',
+                        component: () => import('@/layouts/AddPages/AddExhibit.vue')
                     }
             ]
         },
