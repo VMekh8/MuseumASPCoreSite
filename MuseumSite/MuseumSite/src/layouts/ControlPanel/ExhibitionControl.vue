@@ -22,7 +22,7 @@
             <td>{{ exhibition.id }}</td>
             <td>{{ exhibition.name }}</td>
             <td>{{ exhibition.description }}</td>
-            <td>{{ exhibition.EventDate}}</td>
+            <td>{{ FormatDate(exhibition.EventDate.toString()) }}</td>
             <td><img :src="'data:;base64,' + exhibition.image" /></td>
             <td>
               <button>Редагувати</button>
@@ -50,6 +50,12 @@ export default {
   setup() {
     const exhibitions = ref<ExhibitionResponce[]>([]);
 
+    const FormatDate = (value: string) => {
+      if (value) {
+                return moment(value).format('DD-MMM-YYYY HH:mm:ss')
+            }
+    } 
+
     const ExhibitionFetch = async () => {
       const response = await apiClient.get('/Client/GetAllExhibitions');
       console.log(response.data);
@@ -70,7 +76,7 @@ export default {
 
     onMounted(ExhibitionFetch);
 
-    return { exhibitions, deleteExhibition };
+    return { exhibitions, deleteExhibition, FormatDate };
   }
 }
 </script>
