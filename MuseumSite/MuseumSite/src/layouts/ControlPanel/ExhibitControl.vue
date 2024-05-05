@@ -5,30 +5,39 @@
       <router-link to="/controlpanel/addexhibit">Додати експонат</router-link>
     </div>
     <div class="table">
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Назва</th>
-            <th>Опис</th>
-            <th>Зображення</th>
-            <th>Взаємодія</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="exhibit in exhibits" :key="exhibit.id">
-            <td>{{ exhibit.id }}</td>
-            <td>{{ exhibit.title }}</td>
-            <td>{{ exhibit.description }}</td>
-            <td><img :src="'data:;base64,' + exhibit.image" /></td>
-            <td>
-              <button>Редагувати</button>
-              <button @click="deleteExhibit(exhibit.id)">Видалити</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Назва</th>
+        <th>Опис</th>
+        <th>Зображення</th>
+        <th>Взаємодія</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="(exhibit, index) in exhibits" :key="exhibit.id">
+        <td>{{ exhibit.id }}</td>
+        <td @dblclick="startEditing(index, 'title')">
+          <span v-if="!isEditTitle[index]">{{ exhibit.title }}</span>
+          <input v-else v-model="exhibit.title" @blur="stopEditing(index, 'title')" />
+        </td>
+        <td @dblclick="startEditing(index, 'description')">
+          <span v-if="!isEditDescription[index]">{{ exhibit.description }}</span>
+          <input v-else v-model="exhibit.description" @blur="stopEditing(index, 'description')" />
+        </td>
+        <td @dblclick="startEditing(index, 'image')">
+          <img v-if="!isEditImage[index] " :src="'data:;base64,' + exhibit.image" />
+          <input v-else type="file" @change="updateImage(index, $event)" />
+        </td>
+        <td>
+          <button @click="updateExhibit(index)">Редагувати</button>
+          <button @click="deleteExhibit(exhibit.id)">Видалити</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
   </div>
 </template>
 
@@ -122,6 +131,10 @@ export default {
               'Content-Type': 'multipart/form-data'
             }
           });
+
+          if (response.status === 200) {
+            console.log(200);
+          }
         }
         catch (error) {
           console.log(error);
@@ -131,7 +144,10 @@ export default {
 
     onMounted(exhibitsFetch);
 
-    return { exhibits, deleteExhibit };
+    return { exhibits, deleteExhibit, updateExhibit,  
+      isEditTitle, isEditDescription, isEditImage, 
+      updateImage, startEditing, stopEditing
+    };
   },
 }
 </script>
