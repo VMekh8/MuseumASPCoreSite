@@ -118,7 +118,6 @@ export default {
 
         imageFile = new File([blob], mimeType, {type: mimeType});
 
-        console.log(imageFile);
         exhibitRequest = new ExhibitRequest(
           exhibit.id,
           exhibit.title,
@@ -135,6 +134,15 @@ export default {
 
           if (response.status === 200) {
             console.log(200);
+
+            exhibits.value = exhibits.value.map(ex => {
+              if (ex.id === exhibit.id) {
+                return exhibit;
+              }
+              else {
+                return ex;
+              }
+            })
           }
         }
         catch (error) {
