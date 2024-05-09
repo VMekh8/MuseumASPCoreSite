@@ -31,7 +31,7 @@
           <input v-else type="file" @change="updateImage(index, $event)" />
         </td>
         <td>
-          <button @click="updateExhibit(index)">Редагувати</button>
+          <button @click="updateExhibit(exhibit.id)">Редагувати</button>
           <button @click="deleteExhibit(exhibit.id)">Видалити</button>
         </td>
       </tr>
@@ -102,11 +102,11 @@ export default {
       let imageFile: File | null = null;
 
       if (exhibit.image) {
-        const base64data = exhibit.image.split(',')[1];
+        const base64data = exhibit.image;
         const filetypedata = exhibit.image.split(';')[0].split('/')[1];
-        const binarydata = atob(base64data);
+        const binarydata = window.atob(base64data);
 
-        const bytes = new Uint8Array(binarydata.length);
+        const bytes = new Uint8Array(base64data.length);
 
         for (let i = 0; i < binarydata.length; i++) {
           bytes[i] = binarydata.charCodeAt(i);
@@ -118,6 +118,7 @@ export default {
 
         imageFile = new File([blob], mimeType, {type: mimeType});
 
+        console.log(imageFile);
         exhibitRequest = new ExhibitRequest(
           exhibit.id,
           exhibit.title,
@@ -126,7 +127,7 @@ export default {
         );
 
         try {
-          const response = await apiClient.put(`\Edit\ExhibitEdit${id}`, exhibitRequest, {
+          const response = await apiClient.put(`/Edit/ExhibitEdit${id}`, exhibitRequest, {
             headers: {
               'Content-Type': 'multipart/form-data'
             }
