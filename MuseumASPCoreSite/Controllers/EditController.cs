@@ -26,29 +26,25 @@ namespace MuseumASPCoreSite.Controllers
 
 
         [HttpPut("ExhibitEdit/{id:int}")]
-        public async Task<ActionResult<int>> EditExhibit(int id, [FromForm] IFormCollection form)
+        public async Task<ActionResult<int>> ExhibitEdit([FromForm] ExhibitRequest exhibitRequest)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var title = form["Title"];
-            var description = form["Description"];
-            var imageFile = form.Files["Image"];
-
             byte[] filebytes;
 
             using (var ms = new MemoryStream())
             {
-                await imageFile.CopyToAsync(ms);
+                await exhibitRequest.Image.CopyToAsync(ms);
                 filebytes = ms.ToArray();
             }
 
             var (exhibit, error) = Exhibit.CreateExhibit(
-                id,
-                title,
-                description,
+                exhibitRequest.Id,
+                exhibitRequest.Title,
+                exhibitRequest.Description,
                 filebytes
             );
 
@@ -63,13 +59,15 @@ namespace MuseumASPCoreSite.Controllers
         }
 
 
-        [HttpPut("ExhibitionEdit{id:int}")]
-        public async Task<ActionResult<int>> EditExhibition([FromForm] ExhibitionRequest request)
+        [HttpPut("ExhibitionEdit/{id:int}")]
+        public async Task<ActionResult<int>> EditExhibition([FromForm]ExhibitionRequest request)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+
+           
 
             byte[] filebytes;
 
@@ -97,7 +95,7 @@ namespace MuseumASPCoreSite.Controllers
                 BadRequest("Exhibition update error");
         }
 
-        [HttpPut("NewsEdit{id:int}")]
+        [HttpPut("NewsEdit/{id:int}")]
         public async Task<ActionResult<int>> MuseumNewsEdit([FromBody]MuseumNewsRequest request)
         {
             if (!ModelState.IsValid)
