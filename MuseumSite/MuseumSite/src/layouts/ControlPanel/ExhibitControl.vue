@@ -87,70 +87,52 @@ export default {
           }
     };
 
-    const stopEditing = (index: number, field: 'title' | 'description' | 'image')  => {
+    const stopEditing = async (index: number, field: 'title' | 'description' | 'image')  => {
       switch (field) {
             case 'title': {isEditTitle.value[index] = false};
             case 'description': {isEditDescription.value[index] = false};
             case 'image': {isEditImage.value[index] = false};
           }
+          await updateExhibit(exhibits.value[index].id);
     };
 
     const updateExhibit = async (id: number) => {
-      const exhibit = exhibits.value[id];
+      const exhibit = exhibits.value.find(ex => ex.id === id);
 
-      let exhibitRequest: ExhibitRequest | null = null;
-      let imageFile: File | null = null;
+      if (exhibit) {
+        const formData = new FormData();
+        formData.append('Id', exhibit.id.toString());
+        formData.append('Title', exhibit.title);
+        formData.append('Description', exhibit.description);
 
-      if (exhibit.image) {
-        const base64data = exhibit.image;
-        const filetypedata = exhibit.image.split(';')[0].split('/')[1];
-        const binarydata = window.atob(base64data);
-
-        const bytes = new Uint8Array(base64data.length);
-
-        for (let i = 0; i < binarydata.length; i++) {
-          bytes[i] = binarydata.charCodeAt(i);
+        let base64String = exhibit.image;
+        const mimeType = base64String.split(':')[1].split(';')[0];
+        if (!base64String.startsWith(`data:${mimeType};base64,`)) {
+          base64String = `data:${mimeType};base64,${base64String.split(',')[1]}`;
         }
-
-        const mimeType = `image/${filetypedata}`;
-
-        const blob = new Blob([bytes], {type: mimeType});
-
-        imageFile = new File([blob], mimeType, {type: mimeType});
-
-        exhibitRequest = new ExhibitRequest(
-          exhibit.id,
-          exhibit.title,
-          exhibit.description,
-          imageFile
-        );
-
+        const binaryString = window.atob(base64String.split(',')[1]);
+        const bytes = new Uint8Array(binaryString.length);
+        for (let i = 0; i < binaryString.length; i++) {
+          bytes[i] = binaryString.charCodeAt(i);
+        }
+        const file = new File([bytes], 'image', { type: mimeType });
+        formData.append('Image', file);
         try {
-          const response = await apiClient.put(`/Edit/ExhibitEdit${id}`, exhibitRequest, {
+          const response = await apiClient.put(`/Edit/ExhibitEdit/${id}`, formData, {
             headers: {
-              'Content-Type': 'multipart/form-data'
-            }
+              'Content-Type': 'multipart/form-data',
+            },
           });
 
           if (response.status === 200) {
             console.log(200);
-
-            exhibits.value = exhibits.value.map(ex => {
-              if (ex.id === exhibit.id) {
-                return exhibit;
-              }
-              else {
-                return ex;
-              }
-            })
+            await exhibitsFetch();
           }
-        }
-        catch (error) {
+        } catch (error) {
           console.log(error);
         }
       }
-    }
-
+    };
     onMounted(exhibitsFetch);
 
     return { exhibits, deleteExhibit, updateExhibit,  
