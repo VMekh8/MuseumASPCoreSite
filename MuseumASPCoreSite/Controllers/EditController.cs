@@ -24,8 +24,9 @@ namespace MuseumASPCoreSite.Controllers
             _museumNewsService = museumNewsService;
         }
 
-        [HttpPut("ExhibitEdit{id:int}")]
-        public async Task<ActionResult<int>> EditExhibit([FromForm] ExhibitRequest exhibitRequest)
+
+        [HttpPut("ExhibitEdit/{id:int}")]
+        public async Task<ActionResult<int>> ExhibitEdit([FromForm] ExhibitRequest exhibitRequest)
         {
             if (!ModelState.IsValid)
             {
@@ -45,7 +46,7 @@ namespace MuseumASPCoreSite.Controllers
                 exhibitRequest.Title,
                 exhibitRequest.Description,
                 filebytes
-                );
+            );
 
             if (!string.IsNullOrEmpty(error))
             {
@@ -57,13 +58,16 @@ namespace MuseumASPCoreSite.Controllers
                 BadRequest("Exhibit update error");
         }
 
-        [HttpPut("ExhibitionEdit{id:int}")]
-        public async Task<ActionResult<int>> EditExhibition([FromForm] ExhibitionRequest request)
+
+        [HttpPut("ExhibitionEdit/{id:int}")]
+        public async Task<ActionResult<int>> EditExhibition([FromForm]ExhibitionRequest request)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+
+           
 
             byte[] filebytes;
 
@@ -91,7 +95,7 @@ namespace MuseumASPCoreSite.Controllers
                 BadRequest("Exhibition update error");
         }
 
-        [HttpPut("NewsEdit{id:int}")]
+        [HttpPut("NewsEdit/{id:int}")]
         public async Task<ActionResult<int>> MuseumNewsEdit([FromBody]MuseumNewsRequest request)
         {
             if (!ModelState.IsValid)
