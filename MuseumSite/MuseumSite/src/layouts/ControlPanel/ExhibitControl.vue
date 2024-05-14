@@ -101,22 +101,27 @@ export default {
 
       if (exhibit) {
         const formData = new FormData();
-        formData.append('Id', exhibit.id.toString());
-        formData.append('Title', exhibit.title);
-        formData.append('Description', exhibit.description);
+        formData.append('id', exhibit.id.toString());
+        formData.append('title', exhibit.title);
+        formData.append('description', exhibit.description);
 
         let base64String = exhibit.image;
-        const mimeType = base64String.split(':')[1].split(';')[0];
-        if (!base64String.startsWith(`data:${mimeType};base64,`)) {
-          base64String = `data:${mimeType};base64,${base64String.split(',')[1]}`;
+        if (base64String && base64String.startsWith('data:')) {
+          const mimeType = base64String.split(':')[1].split(';')[0];
+
+          if (!base64String.startsWith(`data:${mimeType};base64,`)) {
+            base64String = `data:${mimeType};base64,${base64String.split(',')[1]}`;
+          }
+
+          const binaryString = window.atob(base64String.split(',')[1]);
+          const bytes = new Uint8Array(binaryString.length);
+          for (let i = 0; i < binaryString.length; i++) {
+            bytes[i] = binaryString.charCodeAt(i);
+          }
+          const file = new File([bytes], 'image', { type: mimeType });
+          formData.append('image', file);
         }
-        const binaryString = window.atob(base64String.split(',')[1]);
-        const bytes = new Uint8Array(binaryString.length);
-        for (let i = 0; i < binaryString.length; i++) {
-          bytes[i] = binaryString.charCodeAt(i);
-        }
-        const file = new File([bytes], 'image', { type: mimeType });
-        formData.append('Image', file);
+
         try {
           const response = await apiClient.put(`/Edit/ExhibitEdit/${id}`, formData, {
             headers: {
@@ -133,6 +138,7 @@ export default {
         }
       }
     };
+
     onMounted(exhibitsFetch);
 
     return { exhibits, deleteExhibit, updateExhibit,  
