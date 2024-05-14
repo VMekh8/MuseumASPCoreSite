@@ -19,12 +19,24 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="user in users" :key="user.id">
-                  <td>{{ user.id }}</td>
-                  <td>{{ user.email }}</td>
-                  <td>{{ user.phonenumber }}</td>
-                  <td>{{ user.firstname }}</td>
-                  <td>{{ user.lastname }}</td>
+                <tr v-for="(user, index) in users" :key="user.id">
+                    <td>{{ user.id }}</td>
+                    <td @dblclick="startEditing(index, 'email')">
+                      <span v-if="!isEditEmail[index]">{{ user.email }}</span>
+                      <input v-else v-model="user.email" @blur="stopEditing(index, 'email')" />
+                    </td>
+                    <td @dblclick="startEditing(index, 'phonenumber')">
+                      <span v-if="!isEditPhone[index]">{{ user.phonenumber }}</span>
+                      <input v-else v-model="user.phonenumber" @blur="stopEditing(index, 'phonenumber')" />
+                    </td>
+                    <td @dblclick="startEditing(index, 'firstname')">
+                      <span v-if="!isEditFirstName[index]">{{ user.firstname }}</span>
+                      <input v-else v-model="user.firstname" @blur="stopEditing(index, 'firstname')" />
+                    </td>
+                    <td @dblclick="startEditing(index, 'lastname')">
+                      <span v-if="!isEditLastName[index]">{{ user.lastname }}</span>
+                      <input v-else v-model="user.lastname" @blur="stopEditing(index, 'lastname')" />
+                    </td>
                   <td v-for="role in roles[user.email]" :key="role">{{role}}</td>
                   <td>
                     <button>Редагувати</button>
