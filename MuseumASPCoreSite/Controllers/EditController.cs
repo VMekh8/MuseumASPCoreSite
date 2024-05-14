@@ -96,7 +96,7 @@ namespace MuseumASPCoreSite.Controllers
         }
 
         [HttpPut("NewsEdit/{id:int}")]
-        public async Task<ActionResult<int>> MuseumNewsEdit([FromBody]MuseumNewsRequest request)
+        public async Task<ActionResult<int>> MuseumNewsEdit([FromForm]MuseumNewsRequest request)
         {
             if (!ModelState.IsValid)
             {

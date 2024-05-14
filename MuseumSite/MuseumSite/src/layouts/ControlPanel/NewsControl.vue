@@ -33,7 +33,7 @@
                       <input v-else type="file" @change="updateImage(index, $event)" />
                     </td>
                     <td>
-                      <button @click="newsUpdate(index)">Редагувати</button>
+                      <button @click="newsUpdate(news.id)">Редагувати</button>
                       <button @click="newsDelete(news.id)">Видалити</button>
                     </td>
                   </tr>
@@ -47,7 +47,7 @@
 
 <script lang="ts">
 import { ref, onMounted } from 'vue';
-import { MuseumNewsRequest, MuseumNewsResponce } from '../../Models/MuseumNews';
+import { MuseumNewsResponce } from '../../Models/MuseumNews';
 import { apiClient } from '../../apiClient';
 
 export default {
@@ -79,43 +79,55 @@ export default {
         }
 
         const newsUpdate = async (id: number) => {
-          const news = museumnews.value[id];
-          let newsRequest: MuseumNewsRequest | null = null;
-          let imageFile: File | null = null;
+          const news = museumnews.value.find(nw => nw.id === id);
 
-          if (news.image) {
-            const base64data = news.image.split(',')[1];
-            const filetypedata = news.image.split(';')[0].split('/')[1];
-            const binarydata = atob(base64data);
-            const bytes = new Uint8Array(binarydata.length);
-            for (let i=0; i<binarydata.length;i++) {
-              bytes[i] = binarydata.charCodeAt(i);
+          if (news) {
+
+            const formData = new FormData();
+
+            formData.append('Id', news.id.toString());
+            formData.append('Title', news.title);
+            formData.append('Description', news.description);
+
+            let base64String = news.image;
+
+            if (base64String && base64String.startsWith('data:')) {
+              const mimeType = base64String.split(':')[1].split(';')[0];
+
+              if (!base64String.startsWith(`data:${mimeType};base64,`)) {
+                base64String = `data:${mimeType};base64,${base64String.split(',')[1]}`;
+              }
+
+              const binaryString = window.atob(base64String.split(',')[1]);
+              const bytes = new Uint8Array(binaryString.length);
+
+              for (let i =0; i<binaryString.length; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+              }
+
+              const file = new File([bytes], 'image', {type: mimeType});
+
+              formData.append('Image', file);
+
             }
 
-            const mimeType = `image/${filetypedata}`;
-          
-            const blob = new Blob([bytes], {type: mimeType});
+            try {
+              const response = await apiClient.put(`/Edit/NewsEdit/${id}`, formData, {
+                headers: {
+                  'Content-Type': 'multipart/form-data'
+                }
+              });
 
-            imageFile = new File([blob], mimeType, {type: mimeType});
+              if (response.status === 200) {
+                console.log(response.status);
 
-            newsRequest = new MuseumNewsRequest(
-              news.id,
-              news.title,
-              news.description,
-              imageFile
-            );
-          };
-
-          try {
-            const response = await apiClient.put(`/Edit/NewsEdit${id}`, newsRequest, {
-              headers: {
-                'Content-Type': 'application.json'
+                await NewsFetch();
               }
-            });
 
-          }
-          catch (error) {
-            console.error(error);
+            }
+            catch (error) {
+              console.log(error);
+            }
           }
         }
 

@@ -43,7 +43,7 @@
 
 <script lang="ts">
 import { ref, onMounted } from 'vue';
-import { ExhibitRequest, ExhibitResponce } from '../../Models/Exhibit';
+import { ExhibitResponce } from '../../Models/Exhibit';
 import { apiClient } from '../../apiClient';
 
 export default {
@@ -101,9 +101,9 @@ export default {
 
       if (exhibit) {
         const formData = new FormData();
-        formData.append('id', exhibit.id.toString());
-        formData.append('title', exhibit.title);
-        formData.append('description', exhibit.description);
+        formData.append('Id', exhibit.id.toString());
+        formData.append('Title', exhibit.title);
+        formData.append('Description', exhibit.description);
 
         let base64String = exhibit.image;
         if (base64String && base64String.startsWith('data:')) {
@@ -119,7 +119,7 @@ export default {
             bytes[i] = binaryString.charCodeAt(i);
           }
           const file = new File([bytes], 'image', { type: mimeType });
-          formData.append('image', file);
+          formData.append('Image', file);
         }
 
         try {
