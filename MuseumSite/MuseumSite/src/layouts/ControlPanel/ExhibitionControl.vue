@@ -18,14 +18,27 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="exhibition in exhibitions" :key="exhibition.id">
+          <tr v-for="(exhibition, index) in exhibitions" :key="exhibition.id">
             <td>{{ exhibition.id }}</td>
-            <td>{{ exhibition.name }}</td>
-            <td>{{ exhibition.description }}</td>
-            <td>{{ FormatDate(exhibition.EventDate.toString()) }}</td>
-            <td><img :src="'data:;base64,' + exhibition.image" /></td>
+            <td @dblclick="startEditing(index, 'name')">
+              <span v-if="!isEditName[index]">{{ exhibition.name }}</span>
+              <input v-else type="text" v-model="exhibition.name" @blur="stopEditing(index, 'name')">
+            </td>
+            <td @dblclick="startEditing(index, 'description')">
+              <span v-if="!isEditDesc[index]">{{ exhibition.description }}</span>
+              <input v-else type="text" v-model="exhibition.description" @blur="stopEditing(index, 'description')">
+            </td>
+            <td @dblclick="startEditing(index, 'eventDate')">
+              <span v-if="!isEditDate[index]">{{ FormatDate(exhibition.EventDate?.toString()) }}</span>
+              <input v-else type="datetime-local" v-model="exhibition.EventDate" @blur="stopEditing(index, 'eventDate')">
+            </td>
+            <td @dblclick="startEditing(index, 'image')">
+              <img v-if="!isEditImage[index] " :src="'data:;base64,' + exhibition.image" />
+          <input v-else type="file" @change="updateImage(index, $event)" />
+            </td>
+            
             <td>
-              <button>Редагувати</button>
+              <button @click="updateExhibition(exhibition.id)">Редагувати</button>
               <button @click="deleteExhibition(exhibition.id)">Видалити</button>
             </td>
             <td>
@@ -50,11 +63,97 @@ export default {
   setup() {
     const exhibitions = ref<ExhibitionResponce[]>([]);
 
+    const isEditName = ref<boolean[]>([]);
+    const isEditDesc = ref<boolean[]>([]);
+    const isEditDate = ref<boolean[]>([]);
+    const isEditImage = ref<boolean[]>([]);
+
     const FormatDate = (value: string) => {
       if (value) {
                 return moment(value).format('DD-MMM-YYYY HH:mm:ss')
             }
     } 
+
+    const updateExhibition = async (id:number) => {
+      
+      const exhibition = exhibitions.value.find(ex => ex.id === id);
+
+      if (exhibition) {
+        let formData = new FormData();
+
+        formData.append('Id', exhibition.id.toString());
+        formData.append('Name', exhibition.name);
+        formData.append('Description', exhibition.description);
+        formData.append('EventDate', exhibition.EventDate.toString());
+        
+        let base64String = exhibition.image;
+        if (base64String && base64String.startsWith('data:')) {
+          const mimeType = base64String.split(':')[1].split(';')[0];
+
+          if (!base64String.startsWith(`data:${mimeType};base64,`)) {
+            base64String = `data:${mimeType};base64,${base64String.split(',')[1]}`;
+          }
+
+          const binaryString = window.atob(base64String.split(',')[1]);
+          const bytes = new Uint8Array(binaryString.length);
+          for (let i = 0; i < binaryString.length; i++) {
+            bytes[i] = binaryString.charCodeAt(i);
+          }
+          const file = new File([bytes], 'image', { type: mimeType });
+          formData.append('Image', file);
+        }
+
+        try {
+          
+          const response = await apiClient.put(`/Edit/ExhibitionEdit/${id}`, formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          });
+
+          if (response.status === 200) {
+            console.log(response.status);
+            await ExhibitionFetch();
+          }
+        }
+        catch (error) {
+          console.log(error);
+        }
+
+      }
+    }
+
+    const stopEditing = async (index: number, field: 'name' | 'description' | 'eventDate' | 'image') => {
+      switch (field) {
+            case 'name': {isEditName.value[index] = false};
+            case 'description': {isEditDesc.value[index] = false};
+            case 'eventDate' : {isEditDate.value[index] = false};
+            case 'image': {isEditImage.value[index] = false};
+          }
+          await updateExhibition(exhibitions.value[index].id);
+    }
+
+    const startEditing = (index: number, field: 'name' | 'description' | 'eventDate' | 'image') => {
+      switch (field) {
+            case 'name': {isEditName.value[index] = true};
+            case 'description': {isEditDesc.value[index] = true};
+            case 'eventDate' : {isEditDate.value[index] = true};
+            case 'image': {isEditImage.value[index] = true};
+          }
+    }
+
+    const updateImage = (index: number, event: Event) => {
+      const file = (event.target as HTMLInputElement).files?.[0];
+
+      if (file) {
+        const reader = new FileReader();
+
+        reader.onload = () => {
+          exhibitions.value[index].image = reader.result as string;
+        };
+        reader.readAsDataURL(file);
+      }
+    }
 
     const ExhibitionFetch = async () => {
       const response = await apiClient.get('/Client/GetAllExhibitions');
@@ -76,7 +175,10 @@ export default {
 
     onMounted(ExhibitionFetch);
 
-    return { exhibitions, deleteExhibition, FormatDate };
+    return { exhibitions, deleteExhibition, FormatDate,
+      isEditName, isEditDesc, isEditDate, isEditImage,
+      startEditing, stopEditing, updateExhibition, updateImage
+     };
   }
 }
 </script>
