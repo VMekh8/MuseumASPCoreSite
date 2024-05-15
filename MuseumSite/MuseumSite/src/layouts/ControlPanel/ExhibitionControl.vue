@@ -47,7 +47,10 @@
               <ExhibitModal v-model="showModal"
               @ok="handleOkToAdd"
               @cancel="handleCancel"/>
-              <button>Видалити експонати</button>
+              <b-button variant="danger" @click="showModal1 = true">Видалити експонати</b-button>
+              <ExhibitModal v-model="showModal1"
+              @ok="handleOkToDelete"
+              @cancel="handleCancel"/>
             </td> 
           </tr>
         </tbody>
@@ -76,6 +79,7 @@ export default {
     const isEditImage = ref<boolean[]>([]);
 
     const showModal = ref(false)
+    const showModal1 = ref(false)
 
     const handleOkToAdd = async (payment: { number1: number, number2: number}) => {
       console.log(payment);
@@ -92,7 +96,7 @@ export default {
        });
 
        if (response.status === 200) {
-         console.log(response.status);
+         console.log(response.data);
        }
       }
       catch (error) {
@@ -100,8 +104,30 @@ export default {
       }
     }
 
-    const handleOkToDelete = (number1: number, number2: number) => {
+    const handleOkToDelete = async (payment: {number1: number, number2: number}) => {
 
+      console.log(payment);
+
+      const formData = new FormData();
+
+      formData.append('exhibitionId', payment.number1.toString());
+      formData.append('exhibitId', payment.number2.toString());
+
+      try {
+        const response = await apiClient.delete('Exhibition/DeleteExhibitToExhibition', {
+          data: formData,
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        });
+
+        if (response.status === 200) {
+          console.log(response.data);
+        }
+      }
+      catch (error) {
+        console.log (error);
+      }
     }
 
     const handleCancel = () => {
@@ -219,7 +245,7 @@ export default {
     return { exhibitions, deleteExhibition, FormatDate,
       isEditName, isEditDesc, isEditDate, isEditImage,
       startEditing, stopEditing, updateExhibition, updateImage,
-      showModal, handleOkToAdd, handleCancel, handleOkToDelete
+      showModal, showModal1, handleOkToAdd, handleCancel, handleOkToDelete
      };
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <b-modal v-model="visible" title="Додати експонат до виставки" hide-footer no-close-on-backdrop>
+  <b-modal v-model="visible" title="Взаємодія експонатів з виставкою" hide-footer no-close-on-backdrop>
     <form @submit.prevent="onOk">
       <div class="mb-3">
         <label for="number1" class="form-label">Ідентифікатор виставки:</label>
