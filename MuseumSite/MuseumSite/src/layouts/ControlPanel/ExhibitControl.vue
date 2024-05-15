@@ -2,42 +2,42 @@
   <div class="container">
     <div class="head">
       <h2>Експонати</h2>
-      <router-link to="/controlpanel/addexhibit">Додати експонат</router-link>
+      <router-link to="/controlpanel/addexhibit" class="btn btn-success mx-2">Додати експонат</router-link>
     </div>
-    <div class="table">
-  <table>
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Назва</th>
-        <th>Опис</th>
-        <th>Зображення</th>
-        <th>Взаємодія</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="(exhibit, index) in exhibits" :key="exhibit.id">
-        <td>{{ exhibit.id }}</td>
-        <td @dblclick="startEditing(index, 'title')">
-          <span v-if="!isEditTitle[index]">{{ exhibit.title }}</span>
-          <input v-else v-model="exhibit.title" @blur="stopEditing(index, 'title')" />
-        </td>
-        <td @dblclick="startEditing(index, 'description')">
-          <span v-if="!isEditDescription[index]">{{ exhibit.description }}</span>
-          <input v-else v-model="exhibit.description" @blur="stopEditing(index, 'description')" />
-        </td>
-        <td @dblclick="startEditing(index, 'image')">
-          <img v-if="!isEditImage[index] " :src="'data:;base64,' + exhibit.image" />
-          <input v-else type="file" @change="updateImage(index, $event)" />
-        </td>
-        <td>
-          <button @click="updateExhibit(exhibit.id)">Редагувати</button>
-          <button @click="deleteExhibit(exhibit.id)">Видалити</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+    <div class="table-responsive mt-4">
+      <table class="table table-bordered table-hover w-100">
+        <thead class="thead-dark">
+          <tr>
+            <th>ID</th>
+            <th>Назва</th>
+            <th>Опис</th>
+            <th>Зображення</th>
+            <th>Взаємодія</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(exhibit, index) in exhibits" :key="exhibit.id">
+            <td>{{ exhibit.id }}</td>
+            <td @dblclick="startEditing(index, 'title')" class="edit-cell">
+              <span v-if="!isEditTitle[index]">{{ exhibit.title }}</span>
+              <input v-else v-model="exhibit.title" @blur="stopEditing(index, 'title')" class="form-control" />
+            </td>
+            <td @dblclick="startEditing(index, 'description')" class="edit-cell">
+              <span v-if="!isEditDescription[index]">{{ exhibit.description }}</span>
+              <input v-else v-model="exhibit.description" @blur="stopEditing(index, 'description')" class="form-control" />
+            </td> 
+            <td @dblclick="startEditing(index, 'image')" class="edit-cell">
+              <img v-if="!isEditImage[index]" :src="'data:;base64,' + exhibit.image" class="img-thumbnail" />
+              <input v-else type="file" @change="updateImage(index, $event)" class="form-control-file" />
+            </td>
+            <td class="actions-cell ">
+              <button @click="updateExhibit(exhibit.id)" class="btn btn-warning btn-md m-1">Редагувати</button>
+              <button @click="deleteExhibit(exhibit.id)" class="btn btn-danger btn-md m-1">Видалити</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 

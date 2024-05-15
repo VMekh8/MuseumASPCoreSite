@@ -3,63 +3,62 @@
         <div class="head">
             <h2>Користувачі</h2>
             <router-link to="#">Додати користувача</router-link>
-
         </div>
         
-        <div class="table">
-            <table>
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Email</th>
-                  <th>Номер телефону</th>
-                  <th>Ім'я</th>
-                  <th>Прізвище</th>
-                  <th>Ролі корисувача</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(user, index) in users" :key="user.id">
-                    <td>{{ user.id }}</td>
-                    <td @dblclick="startEditing(index, 'email')">
-                      <span v-if="!isEditEmail[index]">{{ user.email }}</span>
-                      <input v-else v-model="user.email" @blur="stopEditing(index, 'email')" />
-                    </td>
-                    <td @dblclick="startEditing(index, 'phonenumber')">
-                      <span v-if="!isEditPhone[index]">{{ user.phonenumber }}</span>
-                      <input v-else v-model="user.phonenumber" @blur="stopEditing(index, 'phonenumber')" />
-                    </td>
-                    <td @dblclick="startEditing(index, 'firstname')">
-                      <span v-if="!isEditFirstName[index]">{{ user.firstname }}</span>
-                      <input v-else v-model="user.firstname" @blur="stopEditing(index, 'firstname')" />
-                    </td>
-                    <td @dblclick="startEditing(index, 'lastname')">
-                      <span v-if="!isEditLastName[index]">{{ user.lastname }}</span>
-                      <input v-else v-model="user.lastname" @blur="stopEditing(index, 'lastname')" />
-                    </td>
-                  <td v-for="role in roles[user.email]" :key="role">{{role}}</td>
-                  <td>
-                    <button>Редагувати</button>
-                    <button @click="userDelete(user.id)">Видалити</button>
-                    </td>
-                </tr>
-              </tbody>
+        <div class="table-responsive mt-4">
+            <table class="table table-bordered table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Email</th>
+                        <th>Номер телефону</th>
+                        <th>Ім'я</th>
+                        <th>Прізвище</th>
+                        <th>Ролі корисувача</th>
+                        <th>Дії</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(user, index) in users" :key="user.id">
+                        <td>{{ user.id }}</td>
+                        <td @dblclick="startEditing(index, 'email')" class="edit-cell">
+                            <span v-if="!isEditEmail[index]">{{ user.email }}</span>
+                            <input v-else v-model="user.email" @blur="stopEditing(index, 'email')" class="form-control" />
+                        </td>
+                        <td @dblclick="startEditing(index, 'phonenumber')" class="edit-cell">
+                            <span v-if="!isEditPhone[index]">{{ user.phonenumber }}</span>
+                            <input v-else v-model="user.phonenumber" @blur="stopEditing(index, 'phonenumber')" class="form-control" />
+                        </td>
+                        <td @dblclick="startEditing(index, 'firstname')" class="edit-cell">
+                            <span v-if="!isEditFirstName[index]">{{ user.firstname }}</span>
+                            <input v-else v-model="user.firstname" @blur="stopEditing(index, 'firstname')" class="form-control" />
+                        </td>
+                        <td @dblclick="startEditing(index, 'lastname')" class="edit-cell">
+                            <span v-if="!isEditLastName[index]">{{ user.lastname }}</span>
+                            <input v-else v-model="user.lastname" @blur="stopEditing(index, 'lastname')" class="form-control" />
+                        </td>
+                        <td v-for="role in roles[user.email]" :key="role">{{ role }}</td>
+                        <td class="actions-cell">
+                            <button @click="updateUserData(user.id)" class="btn btn-warning m-1">Редагувати</button>
+                            <button @click="userDelete(user.id)" class="btn btn-danger m-1">Видалити</button>
+                        </td>
+                    </tr>
+                </tbody>
             </table>
-
         </div>
-
     </div>
 </template>
 
+
 <script lang="ts">
 import { ref, onMounted } from 'vue';
-import { UserResponce } from '../../Models/User'
+import { UserResponse } from '../../Models/User'
 import { apiClient } from '../../apiClient';
 
 export default {
     setup() {
 
-        const users = ref<UserResponce[]>([]);
+        const users = ref<UserResponse[]>([]);
         const roles = ref([]);
 
         const isEditEmail = ref<boolean[]>([]);
@@ -71,7 +70,7 @@ export default {
 
             const response = await apiClient.get('/Admin/GetUsers')
 
-            users.value = response.data.map((user: any) => new UserResponce(
+            users.value = response.data.map((user: any) => new UserResponse(
                 user.id,
                 user.email,
                 user.password,
