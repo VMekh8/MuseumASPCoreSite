@@ -47,13 +47,13 @@
 
 <script lang="ts">
 import { ref, onMounted } from 'vue';
-import { MuseumNewsResponce } from '../../Models/MuseumNews';
+import { MuseumNewsResponse } from '../../Models/MuseumNews';
 import { apiClient } from '../../apiClient';
 
 export default {
     setup() {
 
-        const museumnews = ref<MuseumNewsResponce[]>([]);
+        const museumnews = ref<MuseumNewsResponse[]>([]);
         const isEditTitle = ref<boolean[]>([]);
         const isEditDescription = ref<boolean[]>([]);
         const isEditImage = ref<boolean[]>([]);
@@ -62,7 +62,7 @@ export default {
 
             const response = await apiClient.get('/Client/GetAllNews');
 
-            museumnews.value = response.data.map((news: any) => new MuseumNewsResponce(
+            museumnews.value = response.data.map((news: any) => new MuseumNewsResponse(
                 news.id,
                 news.title,
                 news.description,

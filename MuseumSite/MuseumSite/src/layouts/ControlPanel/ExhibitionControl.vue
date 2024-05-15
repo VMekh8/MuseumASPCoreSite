@@ -4,9 +4,9 @@
       <h2>Виставки</h2>
       <router-link to="/controlpanel/addexhibition">Додати виставку</router-link>
     </div>
-    <div class="table">
-      <table>
-        <thead>
+    <div class="table-responsive mt-4">
+      <table class="table table-bordered table-hover">
+        <thead class="thead-dark">
           <tr>
             <th>ID</th>
             <th>Назва</th>
@@ -20,40 +20,34 @@
         <tbody>
           <tr v-for="(exhibition, index) in exhibitions" :key="exhibition.id">
             <td>{{ exhibition.id }}</td>
-            <td @dblclick="startEditing(index, 'name')">
+            <td @dblclick="startEditing(index, 'name')" class="edit-cell">
               <span v-if="!isEditName[index]">{{ exhibition.name }}</span>
-              <input v-else type="text" v-model="exhibition.name" @blur="stopEditing(index, 'name')">
+              <input v-else type="text" v-model="exhibition.name" @blur="stopEditing(index, 'name')" class="form-control">
             </td>
-            <td @dblclick="startEditing(index, 'description')">
+            <td @dblclick="startEditing(index, 'description')" class="edit-cell">
               <span v-if="!isEditDesc[index]">{{ exhibition.description }}</span>
-              <input v-else type="text" v-model="exhibition.description" @blur="stopEditing(index, 'description')">
+              <input v-else type="text" v-model="exhibition.description" @blur="stopEditing(index, 'description')" class="form-control">
             </td>
-            <td @dblclick="startEditing(index, 'eventDate')">
+            <td @dblclick="startEditing(index, 'eventDate')" class="edit-cell">
               <span v-if="!isEditDate[index]">{{ FormatDate(exhibition.EventDate?.toString()) }}</span>
-              <input v-else type="datetime-local" v-model="exhibition.EventDate" @blur="stopEditing(index, 'eventDate')">
+              <input v-else type="datetime-local" v-model="exhibition.EventDate" @blur="stopEditing(index, 'eventDate')" class="form-control">
             </td>
-            <td @dblclick="startEditing(index, 'image')">
-              <img v-if="!isEditImage[index] " :src="'data:;base64,' + exhibition.image" />
-          <input v-else type="file" @change="updateImage(index, $event)" />
+            <td @dblclick="startEditing(index, 'image')" class="edit-cell">
+              <img v-if="!isEditImage[index] " :src="'data:;base64,' + exhibition.image" class="img-thumbnail" />
+              <input v-else type="file" @change="updateImage(index, $event)" class="form-control-file" />
             </td>
-            
-            <td>
-              <button @click="updateExhibition(exhibition.id)">Редагувати</button>
-              <button @click="deleteExhibition(exhibition.id)">Видалити</button>
+            <td class="actions-cell">
+              <button @click="updateExhibition(exhibition.id)" class="btn btn-warning m-1">Редагувати</button>
+              <button @click="deleteExhibition(exhibition.id)" class="btn btn-danger m-1">Видалити</button>
             </td>
-            <td>
-              <b-button @click="showModal2 = true">Ексопонати на виставці</b-button>
-              <ExhibitInteractionModal v-model="showModal2"
-              @ok="handleCancel"/>
-              <b-button variant="success" @click="showModal = true">Додати експонати</b-button>
-              <ExhibitModal v-model="showModal"
-              @ok="handleOkToAdd"
-              @cancel="handleCancel"/>
-              <b-button variant="danger" @click="showModal1 = true">Видалити експонати</b-button>
-              <ExhibitModal v-model="showModal1"
-              @ok="handleOkToDelete"
-              @cancel="handleCancel"/>
-            </td> 
+            <td class="actions-cell">
+              <b-button @click="showModal2 = true" class="btn btn-info m-1">Ексопонати на виставці</b-button>
+              <ExhibitInteractionModal v-model="showModal2" @ok="handleCancel"/>
+              <b-button variant="success" @click="showModal = true" class="btn btn-primary m-1">Додати експонати</b-button>
+              <ExhibitModal v-model="showModal" @ok="handleOkToAdd" @cancel="handleCancel"/>
+              <b-button variant="danger" @click="showModal1 = true" class="btn btn-danger m-1">Видалити експонати</b-button>
+              <ExhibitModal v-model="showModal1" @ok="handleOkToDelete" @cancel="handleCancel"/>
+            </td>
           </tr>
         </tbody>
       </table>
