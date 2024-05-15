@@ -23,7 +23,7 @@ namespace MuseumASPCoreSite.Controllers
         }
 
         [HttpGet("GetUsers")]
-        public async Task<ActionResult<List<UserResponce>>> GetAllUser()
+        public async Task<ActionResult<List<UserResponse>>> GetAllUser()
         {
             var user = await _userService.GetUsersAsync();
 
@@ -32,7 +32,7 @@ namespace MuseumASPCoreSite.Controllers
                 return BadRequest("Error geting User");
             }
 
-            var responce = user.Select(opt => new UserResponce(opt.Id, opt.Email, opt.PasswordHash, opt.PhoneNumber, opt.FirstName, opt.LastName));
+            var responce = user.Select(opt => new UserResponse(opt.Id, opt.Email, opt.PasswordHash, opt.PhoneNumber, opt.FirstName, opt.LastName));
             if (responce != null)
             {
                 return Ok(responce);
@@ -42,7 +42,7 @@ namespace MuseumASPCoreSite.Controllers
         }
 
         [HttpPut("EditUser")]
-        public async Task<ActionResult> EditUser([FromForm] UserResponce userResponce)
+        public async Task<ActionResult> EditUser([FromForm] UserResponse userResponce)
         {
             var userEntity = await _userManager.FindByIdAsync(userResponce.id);
             if (userEntity == null)
@@ -87,7 +87,7 @@ namespace MuseumASPCoreSite.Controllers
         }
 
         [HttpGet("GetUserByEmail")]
-        public async Task<ActionResult<UserResponce>> GetUserByEmail(string email)
+        public async Task<ActionResult<UserResponse>> GetUserByEmail(string email)
         {
             var user = await _userService.GetUserByNameAsync(email);
 
@@ -96,7 +96,7 @@ namespace MuseumASPCoreSite.Controllers
                 return NotFound();
             }
             
-            return Ok(new UserResponce(
+            return Ok(new UserResponse(
                 user.Id,
                 user.Email,
                 user.PasswordHash,

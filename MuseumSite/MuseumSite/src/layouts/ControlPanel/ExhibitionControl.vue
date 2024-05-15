@@ -42,9 +42,17 @@
               <button @click="deleteExhibition(exhibition.id)">Видалити</button>
             </td>
             <td>
-              <button>Ексопонати на виставці</button>
-              <button>Додати експонати</button>
-              <button>Видалити експонати</button>
+              <b-button @click="showModal2 = true">Ексопонати на виставці</b-button>
+              <ExhibitInteractionModal v-model="showModal2"
+              @ok="handleCancel"/>
+              <b-button variant="success" @click="showModal = true">Додати експонати</b-button>
+              <ExhibitModal v-model="showModal"
+              @ok="handleOkToAdd"
+              @cancel="handleCancel"/>
+              <b-button variant="danger" @click="showModal1 = true">Видалити експонати</b-button>
+              <ExhibitModal v-model="showModal1"
+              @ok="handleOkToDelete"
+              @cancel="handleCancel"/>
             </td> 
           </tr>
         </tbody>
@@ -55,18 +63,82 @@
 
 <script lang="ts">
 import { ref, onMounted } from 'vue';
-import { ExhibitionResponce } from '../../Models/Exhibition';
+import { ExhibitionResponse } from '../../Models/Exhibition';
 import { apiClient } from '../../apiClient';
 import moment from 'moment';
+import ExhibitModal from '../../modals/ExhibitToExhibition.vue'
+import ExhibitInteractionModal from '../../modals/ExhibitOnExhibitions.vue';
 
 export default {
+  components: {
+    ExhibitModal,
+    ExhibitInteractionModal
+  },
   setup() {
-    const exhibitions = ref<ExhibitionResponce[]>([]);
+    const exhibitions = ref<ExhibitionResponse[]>([]);
 
     const isEditName = ref<boolean[]>([]);
     const isEditDesc = ref<boolean[]>([]);
     const isEditDate = ref<boolean[]>([]);
     const isEditImage = ref<boolean[]>([]);
+
+    const showModal = ref(false);
+    const showModal1 = ref(false);
+    const showModal2 = ref(false);
+
+    const handleOkToAdd = async (payment: { number1: number, number2: number}) => {
+      console.log(payment);
+
+      const formData = new FormData();
+
+      formData.append('exhibitionId', payment.number1.toString());
+      formData.append('exhibitId', payment.number2.toString());
+      try {
+       const response = await apiClient.post('/Exhibition/AddExhibitToExhibition', formData, {
+         headers: {
+           'Content-Type': 'multipart/form-data'
+         }
+       });
+
+       if (response.status === 200) {
+         console.log(response.data);
+       }
+      }
+      catch (error) {
+        console.log(error);
+      }
+    }
+
+    const handleOkToDelete = async (payment: {number1: number, number2: number}) => {
+
+      console.log(payment);
+
+      const formData = new FormData();
+
+      formData.append('exhibitionId', payment.number1.toString());
+      formData.append('exhibitId', payment.number2.toString());
+
+      try {
+        const response = await apiClient.delete('Exhibition/DeleteExhibitToExhibition', {
+          data: formData,
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        });
+
+        if (response.status === 200) {
+          console.log(response.data);
+        }
+      }
+      catch (error) {
+        console.log (error);
+      }
+    }
+
+    const handleCancel = () => {
+      console.log('Cancel operation');
+      showModal.value = false;
+    }
 
     const FormatDate = (value: string) => {
       if (value) {
@@ -158,7 +230,7 @@ export default {
     const ExhibitionFetch = async () => {
       const response = await apiClient.get('/Client/GetAllExhibitions');
       console.log(response.data);
-      exhibitions.value = response.data.map((exhibition: any) => new ExhibitionResponce(
+      exhibitions.value = response.data.map((exhibition: any) => new ExhibitionResponse(
         exhibition.id,
         exhibition.name,
         exhibition.description,
@@ -177,8 +249,19 @@ export default {
 
     return { exhibitions, deleteExhibition, FormatDate,
       isEditName, isEditDesc, isEditDate, isEditImage,
-      startEditing, stopEditing, updateExhibition, updateImage
+      startEditing, stopEditing, updateExhibition, updateImage,
+      showModal, showModal1, showModal2, handleOkToAdd, handleCancel, handleOkToDelete
      };
   }
 }
 </script>
+
+<style>
+.modal-backdrop {
+  display: none !important;
+}
+
+.modal {
+  z-index: 1050 !important;
+}
+</style>

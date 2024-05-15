@@ -1,10 +1,9 @@
 ﻿namespace MuseumASPCoreSite.Contracts
 {
-    public record ExhibitResponce(
+    public record MuseumNewsResponse(
         int Id,
         string Title,
         string Description,
-        string Image,
-        int? ExhibitionId
+        string Image
         );
 }

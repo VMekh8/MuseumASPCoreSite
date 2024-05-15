@@ -1,4 +1,4 @@
-export class ExhibitResponce {
+export class ExhibitResponse {
     id: number;
     title: string;
     description: string;

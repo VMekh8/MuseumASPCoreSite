@@ -24,7 +24,7 @@ namespace MuseumASPCoreSite.Controllers
         }
 
         [HttpGet("GetAllExhibit")]
-        public async Task<ActionResult<List<ExhibitResponce>>> GetAllExhibits()
+        public async Task<ActionResult<List<ExhibitResponse>>> GetAllExhibits()
         {
             if (!ModelState.IsValid)
             {
@@ -33,7 +33,7 @@ namespace MuseumASPCoreSite.Controllers
 
             var exhibitsModel = await _exhibitService.GetExhibitsAsync();
 
-            var exhibitToSend = exhibitsModel.Select(e => new ExhibitResponce(
+            var exhibitToSend = exhibitsModel.Select(e => new ExhibitResponse(
                 e.Id,
                 e.Title,
                 e.Description,
@@ -44,7 +44,7 @@ namespace MuseumASPCoreSite.Controllers
         }
 
         [HttpGet("GetAllExhibitions")]
-        public async Task<ActionResult<List<ExhibitionResponce>>> GetAllExhibitions()
+        public async Task<ActionResult<List<ExhibitionResponse>>> GetAllExhibitions()
         {
             if (!ModelState.IsValid)
             {
@@ -55,7 +55,7 @@ namespace MuseumASPCoreSite.Controllers
 
             var exhibitionsToSend = exhibitionsModel.Select(e =>
             {
-                var exhibitResponses = e.Exhibits.Select(exhibit => new ExhibitResponce(
+                var exhibitResponses = e.Exhibits.Select(exhibit => new ExhibitResponse(
                     exhibit.Id,
                     exhibit.Title,
                     exhibit.Description,
@@ -63,7 +63,7 @@ namespace MuseumASPCoreSite.Controllers
                     exhibit.ExhibitionId
                 )).ToList();
 
-                return new ExhibitionResponce(
+                return new ExhibitionResponse(
                     e.Id,
                     e.Name,
                     e.Description,
@@ -77,7 +77,7 @@ namespace MuseumASPCoreSite.Controllers
         }
 
         [HttpGet("GetAllNews")]
-        public async Task<ActionResult<List<MuseumNewsResponce>>> GetAllNews()
+        public async Task<ActionResult<List<MuseumNewsResponse>>> GetAllNews()
         {
             if (!ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace MuseumASPCoreSite.Controllers
 
             var newsModel = await _museumNewsService.GetAllNewsAsync();
 
-            var newsToSend = newsModel.Select(e => new MuseumNewsResponce(
+            var newsToSend = newsModel.Select(e => new MuseumNewsResponse(
                 e.Id,
                 e.Title,
                 e.Description,

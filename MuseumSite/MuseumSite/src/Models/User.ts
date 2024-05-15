@@ -1,4 +1,4 @@
-export class UserResponce {
+export class UserResponse {
     id: string;
     email: string;
     password: string;

@@ -1,6 +1,6 @@
 ﻿namespace MuseumASPCoreSite.Contracts
 {
-    public record UserResponce(
+    public record UserResponse(
         string id,
         string Email, 
         string Password, 

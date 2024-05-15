@@ -1,4 +1,4 @@
-export class MuseumNewsResponce {
+export class MuseumNewsResponse {
     id: number;
     title: string;
     description: string;
