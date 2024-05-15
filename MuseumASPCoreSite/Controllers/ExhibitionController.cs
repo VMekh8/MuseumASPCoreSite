@@ -24,12 +24,12 @@ namespace MuseumASPCoreSite.Controllers
         }
 
         [HttpGet("GetExhibitsOnExhibitions")]
-        public async Task<ActionResult<List<ExhibitResponce>>> GetExhibitsOnExhibition([FromForm] string name)
+        public async Task<ActionResult<List<ExhibitResponse>>> GetExhibitsOnExhibition([FromForm] string name)
         {
             var exhibitsModel = await _exhibitionService.GetExhibitsOnExhibitionAsync(name);
 
             var exhibitsOnExhibition = exhibitsModel.Select(
-                e => new ExhibitResponce(e.Id, e.Title, e.Description, Convert.ToBase64String(e.Image), e.ExhibitionId));
+                e => new ExhibitResponse(e.Id, e.Title, e.Description, Convert.ToBase64String(e.Image), e.ExhibitionId));
             
             return Ok(exhibitsOnExhibition);
         }

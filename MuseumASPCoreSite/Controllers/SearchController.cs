@@ -25,7 +25,7 @@ namespace MuseumASPCoreSite.Controllers
         }
 
         [HttpGet("GetExhibitByName")]
-        public async Task<ActionResult<ExhibitResponce>> GetExhibitByName(string name)
+        public async Task<ActionResult<ExhibitResponse>> GetExhibitByName(string name)
         {
             var found = await _exhibitService.GetExhibitByNameAsync(name);
             if (found == null)
@@ -33,7 +33,7 @@ namespace MuseumASPCoreSite.Controllers
                 return NotFound();
             }
 
-            return Ok(new ExhibitResponce(
+            return Ok(new ExhibitResponse(
                 found.Id,
                 found.Title,
                 found.Description,
@@ -51,7 +51,7 @@ namespace MuseumASPCoreSite.Controllers
                 return NotFound();
             }
 
-            var exhibits = found.Exhibits.Select(e => new ExhibitResponce(e.Id, e.Title, e.Description, Convert.ToBase64String(e.Image), e.ExhibitionId)).ToList();
+            var exhibits = found.Exhibits.Select(e => new ExhibitResponse(e.Id, e.Title, e.Description, Convert.ToBase64String(e.Image), e.ExhibitionId)).ToList();
 
             return Ok(new ExhibitionResponse(
                 found.Id,
@@ -64,7 +64,7 @@ namespace MuseumASPCoreSite.Controllers
         }
 
         [HttpGet("GetMuseumNewsByName")]
-        public async Task<ActionResult<MuseumNewsResponce>> GetNewsByName(string name)
+        public async Task<ActionResult<MuseumNewsResponse>> GetNewsByName(string name)
         {
             var found = await _newsService.GetNewsByNameAsync(name);
             if (found == null)
@@ -72,7 +72,7 @@ namespace MuseumASPCoreSite.Controllers
                 return NotFound();
             }
 
-            return Ok(new MuseumNewsResponce(found.Id, found.Title, found.Description, Convert.ToBase64String(found.Image)));
+            return Ok(new MuseumNewsResponse(found.Id, found.Title, found.Description, Convert.ToBase64String(found.Image)));
         }
     }
 }

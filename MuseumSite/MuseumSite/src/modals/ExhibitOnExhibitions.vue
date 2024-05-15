@@ -1,16 +1,16 @@
 <template>
-    <b-modal v-model="visible" title="Відображення експонатів на виставці" hide-footer no-close-on-backdrop>
+    <b-modal v-model="visible" title="Взаємодія експонатів з виставкою" hide-footer no-close-on-backdrop>
       <div class="mb-3">
         <b-input-group size="sm" class="mb-3" prepend="Назва виставки:">
-          <b-form-input v-model="ExhibitionName"></b-form-input>
+          <b-form-input v-model="exhibitionName"></b-form-input>
           <b-input-group-append>
-            <b-button size="sm" text="Button" variant="primary" @click="ExhibitsFetch">Знайти</b-button>
+            <b-button size="sm" text="Button" variant="primary" @click="fetchExhibits">Знайти</b-button>
           </b-input-group-append>
         </b-input-group>
       </div>
-      <div class="mb-3" v-for="item in Exhibits" :key="item.id">
-        <h3>{{ item.title }}</h3>
-        <p>{{ item.description }}</p>
+      <div class="mb-3" v-for="exhibit in exhibits" :key="exhibit.id">
+        <h3>{{ exhibit.title }}</h3>
+        <p>{{ exhibit.description }}</p>
       </div>
       <div class="d-flex justify-content-end">
         <b-button variant="primary" @click="onOk">OK</b-button>
@@ -19,27 +19,37 @@
   </template>
   
   <script lang="ts">
+  import { defineComponent, ref, watch } from 'vue';
   import { apiClient } from '../apiClient';
-  import { ExhibitResponce } from '../Models/Exhibit';
+  import { ExhibitResponse } from '../Models/Exhibit';
   
-  export default {
-    data() {
-      return {
-        ExhibitionName: '',
-        Exhibits: null,
-        visible: false,
-      }
+  export default defineComponent({
+    name: 'ExhibitInteractionModal',
+    props: {
+      modelValue: { type: Boolean, required: true }
     },
-    methods: {
-      async ExhibitsFetch() {
-        if (!this.ExhibitionName) {
-          this.ExhibitionName = 'Це поле не може бути порожнім';
+    emits: ['update:modelValue', 'ok', 'cancel'],
+    setup(props, { emit }) {
+      const visible = ref(props.modelValue);
+      watch(() => props.modelValue, (newVal) => {
+        visible.value = newVal;
+      });
+      watch(visible, (newVal) => {
+        emit('update:modelValue', newVal);
+      });
+  
+      const exhibitionName = ref('');
+      const exhibits = ref<ExhibitResponse[]>([]);
+  
+      const fetchExhibits = async () => {
+        if (!exhibitionName.value) {
+          exhibitionName.value = 'Це поле не може бути порожнім';
           return;
         }
   
         try {
           const formData = new FormData();
-          formData.append('name', this.ExhibitionName);
+          formData.append('name', exhibitionName.value);
           const response = await apiClient.get('/Exhibition/GetExhibitsOnExhibitions', {
             data: formData,
             headers: {
@@ -48,22 +58,29 @@
           });
   
           if (response.status === 200) {
-            this.Exhibits = response.data.map((exhibit: any) => new ExhibitResponce(
+            exhibits.value = response.data.map((exhibit: any) => new ExhibitResponse(
               exhibit.id,
               exhibit.title,
               exhibit.description,
-              exhibit.image,
+              exhibit.image
             ));
-            console.log(this.Exhibits);
           }
         } catch (error) {
-          console.log(error)
+          console.log(error);
         }
-      },
-      onOk() {
-        this.visible = false;
-        this.$emit('close');
-      }
+      };
+  
+      const onOk = () => {
+        visible.value = false;
+        emit('ok');
+      };
+  
+      const onCancel = () => {
+        emit('cancel');
+        visible.value = false;
+      };
+  
+      return { visible, exhibitionName, exhibits, fetchExhibits, onOk, onCancel };
     }
-  }
+  });
   </script>

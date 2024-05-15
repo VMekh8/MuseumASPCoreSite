@@ -43,19 +43,19 @@
 
 <script lang="ts">
 import { ref, onMounted } from 'vue';
-import { ExhibitResponce } from '../../Models/Exhibit';
+import { ExhibitResponse } from '../../Models/Exhibit';
 import { apiClient } from '../../apiClient';
 
 export default {
   setup() {
-    const exhibits = ref<ExhibitResponce[]>([]);
+    const exhibits = ref<ExhibitResponse[]>([]);
     const isEditTitle = ref<boolean[]>([]);
     const isEditDescription = ref<boolean[]>([]);
     const isEditImage = ref<boolean[]>([]);
 
     const exhibitsFetch = async () => {
       const response = await apiClient.get('/Client/GetAllExhibit');
-      exhibits.value = response.data.map((exhibit: any) => new ExhibitResponce(
+      exhibits.value = response.data.map((exhibit: any) => new ExhibitResponse(
         exhibit.id,
         exhibit.title,
         exhibit.description,

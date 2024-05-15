@@ -42,7 +42,9 @@
               <button @click="deleteExhibition(exhibition.id)">Видалити</button>
             </td>
             <td>
-              <button>Ексопонати на виставці</button>
+              <b-button @click="showModal2 = true">Ексопонати на виставці</b-button>
+              <ExhibitOnExhibitions v-model="showModal2"
+              @ok="handleCancel"/>
               <b-button variant="success" @click="showModal = true">Додати експонати</b-button>
               <ExhibitModal v-model="showModal"
               @ok="handleOkToAdd"
@@ -61,7 +63,7 @@
 
 <script lang="ts">
 import { ref, onMounted } from 'vue';
-import { ExhibitionResponce } from '../../Models/Exhibition';
+import { ExhibitionResponse } from '../../Models/Exhibition';
 import { apiClient } from '../../apiClient';
 import moment from 'moment';
 import ExhibitModal from '../../modals/ExhibitToExhibition.vue'
@@ -73,15 +75,16 @@ export default {
     ExhibitOnExhibitions
   },
   setup() {
-    const exhibitions = ref<ExhibitionResponce[]>([]);
+    const exhibitions = ref<ExhibitionResponse[]>([]);
 
     const isEditName = ref<boolean[]>([]);
     const isEditDesc = ref<boolean[]>([]);
     const isEditDate = ref<boolean[]>([]);
     const isEditImage = ref<boolean[]>([]);
 
-    const showModal = ref(false)
-    const showModal1 = ref(false)
+    const showModal = ref(false);
+    const showModal1 = ref(false);
+    const showModal2 = ref(false);
 
     const handleOkToAdd = async (payment: { number1: number, number2: number}) => {
       console.log(payment);
@@ -227,7 +230,7 @@ export default {
     const ExhibitionFetch = async () => {
       const response = await apiClient.get('/Client/GetAllExhibitions');
       console.log(response.data);
-      exhibitions.value = response.data.map((exhibition: any) => new ExhibitionResponce(
+      exhibitions.value = response.data.map((exhibition: any) => new ExhibitionResponse(
         exhibition.id,
         exhibition.name,
         exhibition.description,
@@ -247,7 +250,7 @@ export default {
     return { exhibitions, deleteExhibition, FormatDate,
       isEditName, isEditDesc, isEditDate, isEditImage,
       startEditing, stopEditing, updateExhibition, updateImage,
-      showModal, showModal1, handleOkToAdd, handleCancel, handleOkToDelete
+      showModal, showModal1, showModal2, handleOkToAdd, handleCancel, handleOkToDelete
      };
   }
 }
