@@ -53,13 +53,13 @@
 
 <script lang="ts">
 import { ref, onMounted } from 'vue';
-import { UserResponce } from '../../Models/User'
+import { UserResponse } from '../../Models/User'
 import { apiClient } from '../../apiClient';
 
 export default {
     setup() {
 
-        const users = ref<UserResponce[]>([]);
+        const users = ref<UserResponse[]>([]);
         const roles = ref([]);
 
         const isEditEmail = ref<boolean[]>([]);
@@ -71,7 +71,7 @@ export default {
 
             const response = await apiClient.get('/Admin/GetUsers')
 
-            users.value = response.data.map((user: any) => new UserResponce(
+            users.value = response.data.map((user: any) => new UserResponse(
                 user.id,
                 user.email,
                 user.password,
