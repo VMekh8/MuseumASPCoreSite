@@ -1,50 +1,46 @@
 <template>
-    <div class="container">
-        <div class="head">
-            <h2>Новини музею</h2>
-            <router-link to="/controlpanel/addmuseumnews">Додати новину</router-link>
-
-        </div>
-        
-        <div class="table">
-            <table>
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Назва</th>
-                  <th>Опис</th>
-                  <th>Зображення</th>
-                  <th>Взаємодія</th>
-                </tr>
-              </thead>
-                <tbody>
-                  <tr v-for="(news, index) in museumnews" :key="news.id">
-                    <td>{{ news.id }}</td>
-                    <td @dblclick="startEditing(index, 'title')">
-                      <span v-if="!isEditTitle[index]">{{ news.title }}</span>
-                      <input v-else v-model="news.title" @blur="stopEditing(index, 'title')" />
-                    </td>
-                    <td @dblclick="startEditing(index, 'description')">
-                      <span v-if="!isEditDescription[index]">{{ news.description }}</span>
-                      <input v-else v-model="news.description" @blur="stopEditing(index, 'description')" />
-                    </td>
-                    <td @dblclick="startEditing(index, 'image')">
-                      <img v-if="!isEditImage[index]" :src="'data:;base64,' + news.image" />
-                      <input v-else type="file" @change="updateImage(index, $event)" />
-                    </td>
-                    <td>
-                      <button @click="newsUpdate(news.id)">Редагувати</button>
-                      <button @click="newsDelete(news.id)">Видалити</button>
-                    </td>
+  <div class="container">
+      <div class="head">
+          <h2>Новини музею</h2>
+          <router-link to="/controlpanel/addmuseumnews" class="btn btn-success">Додати новину</router-link>
+      </div>
+      
+      <div class="table-responsive mt-4">
+          <table class="table table-bordered table-hover">
+              <thead class="thead-dark">
+                  <tr>
+                      <th>ID</th>
+                      <th>Назва</th>
+                      <th>Опис</th>
+                      <th>Зображення</th>
+                      <th>Взаємодія</th>
                   </tr>
-                </tbody>
-            </table>
-
-        </div>
-
-    </div>
+              </thead>
+              <tbody>
+                  <tr v-for="(news, index) in museumnews" :key="news.id">
+                      <td>{{ news.id }}</td>
+                      <td @dblclick="startEditing(index, 'title')" class="edit-cell">
+                          <span v-if="!isEditTitle[index]">{{ news.title }}</span>
+                          <input v-else v-model="news.title" @blur="stopEditing(index, 'title')" class="form-control">
+                      </td>
+                      <td @dblclick="startEditing(index, 'description')" class="edit-cell">
+                          <span v-if="!isEditDescription[index]">{{ news.description }}</span>
+                          <input v-else v-model="news.description" @blur="stopEditing(index, 'description')" class="form-control">
+                      </td>
+                      <td @dblclick="startEditing(index, 'image')" class="edit-cell w-75 h-50">
+                          <img v-if="!isEditImage[index]" :src="'data:;base64,' + news.image" class="img-thumbnail" />
+                          <input v-else type="file" @change="updateImage(index, $event)" class="form-control-file" />
+                      </td>
+                      <td class="actions-cell">
+                          <button @click="newsUpdate(news.id)" class="btn btn-warning m-1">Редагувати</button>
+                          <button @click="newsDelete(news.id)" class="btn btn-danger m-1">Видалити</button>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+  </div>
 </template>
-
 <script lang="ts">
 import { ref, onMounted } from 'vue';
 import { MuseumNewsResponse } from '../../Models/MuseumNews';

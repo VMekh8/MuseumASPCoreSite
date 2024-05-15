@@ -2,7 +2,7 @@
   <div class="container">
     <div class="head">
       <h2>Виставки</h2>
-      <router-link to="/controlpanel/addexhibition">Додати виставку</router-link>
+      <router-link to="/controlpanel/addexhibition" class="btn btn-success">Додати виставку</router-link>
     </div>
     <div class="table-responsive mt-4">
       <table class="table table-bordered table-hover">
