@@ -144,10 +144,6 @@ export default {
     border: none;
 }
 
-.rounded-circle {
-    border-radius: 50%;
-}
-
 .text-center {
     margin-bottom: 1rem;
 }
