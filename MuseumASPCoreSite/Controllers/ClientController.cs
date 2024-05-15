@@ -44,7 +44,7 @@ namespace MuseumASPCoreSite.Controllers
         }
 
         [HttpGet("GetAllExhibitions")]
-        public async Task<ActionResult<List<ExhibitionResponce>>> GetAllExhibitions()
+        public async Task<ActionResult<List<ExhibitionResponse>>> GetAllExhibitions()
         {
             if (!ModelState.IsValid)
             {
@@ -63,7 +63,7 @@ namespace MuseumASPCoreSite.Controllers
                     exhibit.ExhibitionId
                 )).ToList();
 
-                return new ExhibitionResponce(
+                return new ExhibitionResponse(
                     e.Id,
                     e.Name,
                     e.Description,

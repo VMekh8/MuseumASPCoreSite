@@ -43,7 +43,7 @@ namespace MuseumASPCoreSite.Controllers
         }
 
         [HttpGet("GetExhibitionByName")]
-        public async Task<ActionResult<ExhibitionResponce>> GetExhibitionByName(string name)
+        public async Task<ActionResult<ExhibitionResponse>> GetExhibitionByName(string name)
         {
             var found = await _exhibitionService.GetExhibitionByNameAsync(name);
             if (found == null)
@@ -53,7 +53,7 @@ namespace MuseumASPCoreSite.Controllers
 
             var exhibits = found.Exhibits.Select(e => new ExhibitResponce(e.Id, e.Title, e.Description, Convert.ToBase64String(e.Image), e.ExhibitionId)).ToList();
 
-            return Ok(new ExhibitionResponce(
+            return Ok(new ExhibitionResponse(
                 found.Id,
                 found.Name,
                 found.Description,

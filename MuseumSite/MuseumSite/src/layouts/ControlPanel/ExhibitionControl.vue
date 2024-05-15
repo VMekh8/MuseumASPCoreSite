@@ -65,10 +65,12 @@ import { ExhibitionResponce } from '../../Models/Exhibition';
 import { apiClient } from '../../apiClient';
 import moment from 'moment';
 import ExhibitModal from '../../modals/ExhibitToExhibition.vue'
+import ExhibitOnExhibitions from '../../modals/ExhibitOnExhibitions.vue';
 
 export default {
   components: {
-    ExhibitModal
+    ExhibitModal,
+    ExhibitOnExhibitions
   },
   setup() {
     const exhibitions = ref<ExhibitionResponce[]>([]);

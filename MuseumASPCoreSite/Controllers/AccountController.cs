@@ -80,7 +80,7 @@ namespace MuseumASPCoreSite.Controllers
 
 
         [HttpPost("Register")]
-        public async Task<ActionResult> Register([FromBody]UserResponce user)
+        public async Task<ActionResult> Register([FromBody]UserResponse user)
         {
             if (ModelState.IsValid)
             {

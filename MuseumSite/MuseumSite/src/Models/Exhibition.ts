@@ -1,14 +1,14 @@
-import type { ExhibitResponce } from './Exhibit';
+import type { ExhibitResponse } from './Exhibit';
 
-export class ExhibitionResponce {
+export class ExhibitionResponse {
     id: number;
     name: string;
     description: string;
     EventDate: Date | null;
     image: string;
-    Exhibits: ExhibitResponce[];
+    Exhibits: ExhibitResponse[];
 
-    constructor(id: number, name: string, desc: string, EventDate: Date | null, image: string, Exhibits: ExhibitResponce[]) {
+    constructor(id: number, name: string, desc: string, EventDate: Date | null, image: string, Exhibits: ExhibitResponse[]) {
         this.id = id;
         this.name = name;
         this.description = desc;
