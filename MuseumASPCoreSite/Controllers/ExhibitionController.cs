@@ -24,7 +24,7 @@ namespace MuseumASPCoreSite.Controllers
         }
 
         [HttpGet("GetExhibitsOnExhibitions")]
-        public async Task<ActionResult<List<ExhibitResponce>>> GetExhibitsOnExhibition(string name)
+        public async Task<ActionResult<List<ExhibitResponce>>> GetExhibitsOnExhibition([FromForm] string name)
         {
             var exhibitsModel = await _exhibitionService.GetExhibitsOnExhibitionAsync(name);
 
