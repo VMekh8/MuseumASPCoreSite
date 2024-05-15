@@ -43,7 +43,10 @@
             </td>
             <td>
               <button>Ексопонати на виставці</button>
-              <button>Додати експонати</button>
+              <b-button variant="success" @click="showModal = true">Додати експонати</b-button>
+              <ExhibitModal v-model="showModal"
+              @ok="handleOkToAdd"
+              @cancel="handleCancel"/>
               <button>Видалити експонати</button>
             </td> 
           </tr>
@@ -58,8 +61,12 @@ import { ref, onMounted } from 'vue';
 import { ExhibitionResponce } from '../../Models/Exhibition';
 import { apiClient } from '../../apiClient';
 import moment from 'moment';
+import ExhibitModal from '../../modals/ExhibitToExhibition.vue'
 
 export default {
+  components: {
+    ExhibitModal
+  },
   setup() {
     const exhibitions = ref<ExhibitionResponce[]>([]);
 
@@ -67,6 +74,40 @@ export default {
     const isEditDesc = ref<boolean[]>([]);
     const isEditDate = ref<boolean[]>([]);
     const isEditImage = ref<boolean[]>([]);
+
+    const showModal = ref(false)
+
+    const handleOkToAdd = async (payment: { number1: number, number2: number}) => {
+      console.log(payment);
+
+      const formData = new FormData();
+
+      formData.append('exhibitionId', payment.number1.toString());
+      formData.append('exhibitId', payment.number2.toString());
+      try {
+       const response = await apiClient.post('/Exhibition/AddExhibitToExhibition', formData, {
+         headers: {
+           'Content-Type': 'multipart/form-data'
+         }
+       });
+
+       if (response.status === 200) {
+         console.log(response.status);
+       }
+      }
+      catch (error) {
+        console.log(error);
+      }
+    }
+
+    const handleOkToDelete = (number1: number, number2: number) => {
+
+    }
+
+    const handleCancel = () => {
+      console.log('Cancel operation');
+      showModal.value = false;
+    }
 
     const FormatDate = (value: string) => {
       if (value) {
@@ -177,8 +218,19 @@ export default {
 
     return { exhibitions, deleteExhibition, FormatDate,
       isEditName, isEditDesc, isEditDate, isEditImage,
-      startEditing, stopEditing, updateExhibition, updateImage
+      startEditing, stopEditing, updateExhibition, updateImage,
+      showModal, handleOkToAdd, handleCancel, handleOkToDelete
      };
   }
 }
 </script>
+
+<style>
+.modal-backdrop {
+  display: none !important;
+}
+
+.modal {
+  z-index: 1050 !important;
+}
+</style>

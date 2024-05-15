@@ -35,18 +35,18 @@ namespace MuseumASPCoreSite.Controllers
         }
 
         [HttpPost("AddExhibitToExhibition")]
-        public async Task<ActionResult<int>> AddExhibitToExhibition(int exhibitionId, int exhibitId)
+        public async Task<ActionResult<int>> AddExhibitToExhibition([FromForm] ExhibitExhibitionRequest request)
         {
-            return await _exhibitionService.AddExhibitToExhibition(exhibitionId, exhibitId) > 1 ?
-                Ok(await _exhibitionService.AddExhibitToExhibition(exhibitionId, exhibitId)) :
+            return await _exhibitionService.AddExhibitToExhibition(request.exhibitionId, request.exhibitId) > 1 ?
+                Ok(await _exhibitionService.AddExhibitToExhibition(request.exhibitionId, request.exhibitId)) :
                 BadRequest("Error of adding an exhibit to the exhibition");
         }
 
         [HttpDelete("DeleteExhibitToExhibition")]
-        public async Task<ActionResult<int>> DeleteExhibitToExhibition(int exhibitionId, int exhibitId)
+        public async Task<ActionResult<int>> DeleteExhibitToExhibition([FromForm] ExhibitExhibitionRequest request)
         {
-            return await _exhibitionService.DeleteExhibitFromExhibition(exhibitionId, exhibitId) > 1 ?
-                Ok(await _exhibitionService.DeleteExhibitFromExhibition(exhibitionId, exhibitId)) :
+            return await _exhibitionService.DeleteExhibitFromExhibition(request.exhibitionId, request.exhibitId) > 1 ?
+                Ok(await _exhibitionService.DeleteExhibitFromExhibition(request.exhibitionId, request.exhibitId)) :
                 BadRequest("Error of deleting an exhibit to the exhibition");
         }
     }
