@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using MuseumASPCoreSite.Contracts;
 using MuseumASPCoreSite.Contracts.Requests;
 using MuseumSite.Application.Services;
-using MuseumSite.Core.Models;
 
 namespace MuseumASPCoreSite.Controllers
 {
@@ -24,9 +22,9 @@ namespace MuseumASPCoreSite.Controllers
         }
 
         [HttpGet("GetExhibitsOnExhibitions")]
-        public async Task<ActionResult<List<ExhibitResponse>>> GetExhibitsOnExhibition([FromForm] string name)
+        public async Task<ActionResult<List<ExhibitResponse>>> GetExhibitsOnExhibition(string ExhibitionName)
         {
-            var exhibitsModel = await _exhibitionService.GetExhibitsOnExhibitionAsync(name);
+            var exhibitsModel = await _exhibitionService.GetExhibitsOnExhibitionAsync(ExhibitionName);
 
             var exhibitsOnExhibition = exhibitsModel.Select(
                 e => new ExhibitResponse(e.Id, e.Title, e.Description, Convert.ToBase64String(e.Image), e.ExhibitionId));

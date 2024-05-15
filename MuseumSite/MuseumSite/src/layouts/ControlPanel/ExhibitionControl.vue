@@ -43,7 +43,7 @@
             </td>
             <td>
               <b-button @click="showModal2 = true">Ексопонати на виставці</b-button>
-              <ExhibitOnExhibitions v-model="showModal2"
+              <ExhibitInteractionModal v-model="showModal2"
               @ok="handleCancel"/>
               <b-button variant="success" @click="showModal = true">Додати експонати</b-button>
               <ExhibitModal v-model="showModal"
@@ -67,12 +67,12 @@ import { ExhibitionResponse } from '../../Models/Exhibition';
 import { apiClient } from '../../apiClient';
 import moment from 'moment';
 import ExhibitModal from '../../modals/ExhibitToExhibition.vue'
-import ExhibitOnExhibitions from '../../modals/ExhibitOnExhibitions.vue';
+import ExhibitInteractionModal from '../../modals/ExhibitOnExhibitions.vue';
 
 export default {
   components: {
     ExhibitModal,
-    ExhibitOnExhibitions
+    ExhibitInteractionModal
   },
   setup() {
     const exhibitions = ref<ExhibitionResponse[]>([]);

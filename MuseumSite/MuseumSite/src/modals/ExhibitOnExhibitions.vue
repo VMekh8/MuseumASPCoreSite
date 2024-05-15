@@ -2,7 +2,7 @@
     <b-modal v-model="visible" title="Взаємодія експонатів з виставкою" hide-footer no-close-on-backdrop>
       <div class="mb-3">
         <b-input-group size="sm" class="mb-3" prepend="Назва виставки:">
-          <b-form-input v-model="exhibitionName"></b-form-input>
+          <b-form-input v-model="exhibitionName" required></b-form-input>
           <b-input-group-append>
             <b-button size="sm" text="Button" variant="primary" @click="fetchExhibits">Знайти</b-button>
           </b-input-group-append>
@@ -38,26 +38,23 @@
         emit('update:modelValue', newVal);
       });
   
-      const exhibitionName = ref('');
-      const exhibits = ref<ExhibitResponse[]>([]);
+        const exhibitionName = ref<string>('');
+        const exhibits = ref<ExhibitResponse[]>([]);
   
       const fetchExhibits = async () => {
-        if (!exhibitionName.value) {
+        if (!exhibitionName.value.trim()) {
           exhibitionName.value = 'Це поле не може бути порожнім';
           return;
         }
   
         try {
           const formData = new FormData();
-          formData.append('name', exhibitionName.value);
-          const response = await apiClient.get('/Exhibition/GetExhibitsOnExhibitions', {
-            data: formData,
-            headers: {
-              'Content-Type': 'multipart/form-data'
-            }
-          });
+          formData.append('ExhibitionName', exhibitionName.value);
+
+          const response = await apiClient.get(`/Exhibition/GetExhibitsOnExhibitions?ExhibitionName=${exhibitionName.value}`);
   
           if (response.status === 200) {
+            console.log(response.status);
             exhibits.value = response.data.map((exhibit: any) => new ExhibitResponse(
               exhibit.id,
               exhibit.title,
