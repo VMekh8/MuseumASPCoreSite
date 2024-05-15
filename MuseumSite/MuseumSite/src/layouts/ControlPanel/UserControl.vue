@@ -2,7 +2,6 @@
     <div class="container">
         <div class="head">
             <h2>Користувачі</h2>
-            <router-link to="#">Додати користувача</router-link>
         </div>
         
         <div class="table-responsive mt-4">
