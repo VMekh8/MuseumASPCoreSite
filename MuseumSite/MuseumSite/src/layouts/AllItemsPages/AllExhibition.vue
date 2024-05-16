@@ -1,4 +1,4 @@
-<!-- <template>
+<template>
     <div class="container">
       <header class="w-100">
         <p class="header-text">Виставки нашого музею!</p>
@@ -63,5 +63,9 @@
   </script>
 
 <style>
-
-</style> -->
+    @import url('../../assets/main.css');
+    header {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+      url(../../img/art_exhibition_museum_69903.jpg);
+  }
+</style>

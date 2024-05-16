@@ -53,6 +53,10 @@ export default createRouter({
         {
             path: '/allexhibit',
             component: () => import('@/layouts/AllItemsPages/AllExhibit.vue')
+        },
+        {
+            path: '/allexhibition',
+            component: () => import('@/layouts/AllItemsPages/AllExhibition.vue')
         }
     ],
 })
