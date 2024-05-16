@@ -40,7 +40,7 @@
           <b-row no-gutters>
             <b-col md="6">
               <b-card-img v-if="selectedNews.id !== 0" :src="'data:;base64,' + selectedNews.image" alt="Image" class="rounded-0"></b-card-img>
-              <b-card-img v-else src="../../img/smile.png" alt="Image" class="rounded-0"></b-card-img>
+              <b-card-img v-else src="https://ih1.redbubble.net/image.2634106597.4467/bg,f8f8f8-flat,750x,075,f-pad,750x1000,f8f8f8.jpg" alt="Image" class="rounded-0"></b-card-img>
             </b-col>
             <b-col md="6">
               <b-card-body :title="selectedNews.id + ' ' + selectedNews.title">
