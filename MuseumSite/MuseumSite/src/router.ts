@@ -50,5 +50,9 @@ export default createRouter({
             path: '/register',
             component: () => import('@/layouts/UserLayout/Register.vue'),
         },
+        {
+            path: '/allexhibit',
+            component: () => import('@/layouts/AllItemsPages/AllExhibit.vue')
+        }
     ],
 })

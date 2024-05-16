@@ -10,7 +10,7 @@
               Знайти
             </span>
           </b-button>
-          <b-button variant="outline-light" @click="refreshItems" class="search-button btn-lg">
+          <b-button variant="outline-light" @click="" class="search-button btn-lg">
             <span class="button-content">
               Оновити елементи
             </span>
@@ -21,12 +21,11 @@
       <main class="w-100">
         <b-card-group deck class="card-group">
           <b-card
-            v-for="item in exhibitItems"
+            v-for="item in exhibits"
             :key="item.id"
             :title="item.title"
             :img-src="item.image"
             img-alt="Image"
-            img-top
             class="card"
           >
             <b-card-text>{{ item.description }}</b-card-text>
@@ -37,19 +36,45 @@
     </div>
   </template>
   
-  <script>
+<script lang="ts">
+import { ref, onMounted } from 'vue';
+import { ExhibitResponse } from '../../Models/Exhibit';
+import { apiClient } from '../../apiClient';
+
   export default {
-    data() {
-      return {
-        exhibitItems: []
-      };
-    },
-    methods: {
-      refreshItems() {
-        // Логіка оновлення елементів з сервера
+    setup() {
+      const exhibits = ref<ExhibitResponse[]>([]);
+      const exhibitName = ref('');
+      const Exhibit = ref<ExhibitResponse | null> (null);
+
+      const exhibitsFetch = async () => {
+
+        try {
+          const response = await apiClient.get('/Client/GetAllExhibit');
+
+          if (response.status === 200) {
+            console.log(response.status);
+            exhibits.value = response.data.map((exhibit: any) => new ExhibitResponse(
+                exhibit.id,
+                exhibit.title,
+                exhibit.description,
+                exhibit.image
+              ));
+            }
+          }
+        catch (error) {
+          console.log(error);
+        }
       }
+
+      onMounted(exhibitsFetch);
+
+      return {exhibits, exhibitName, Exhibit, 
+        exhibitsFetch
+      }
+      
     }
-  };
+  }
   </script>
   
   <style>
