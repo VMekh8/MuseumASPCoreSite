@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
     <div class="container">
       <header class="w-100">
         <p class="header-text">Виставки нашого музею!</p>
@@ -61,3 +61,7 @@
   <script lang="ts">
 
   </script>
+
+<style>
+
+</style> -->

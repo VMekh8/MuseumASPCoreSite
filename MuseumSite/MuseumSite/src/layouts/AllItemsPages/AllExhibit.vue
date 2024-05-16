@@ -135,7 +135,12 @@ import { apiClient } from '../../apiClient';
     }
   }
   </script>
-  
-  <style>
-  @import url(../../assets/);
-  </style>
+
+<style>
+  @import url('../../assets/main.css');
+
+  header {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+      url(../../img/exhibitBackground.jpg);
+  }
+</style>
