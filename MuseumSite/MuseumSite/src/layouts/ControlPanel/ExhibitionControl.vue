@@ -29,7 +29,7 @@
               <input v-else type="text" v-model="exhibition.description" @blur="stopEditing(index, 'description')" class="form-control">
             </td>
             <td @dblclick="startEditing(index, 'eventDate')" class="edit-cell">
-              <span v-if="!isEditDate[index]">{{ FormatDate(exhibition.EventDate?.toString()) }}</span>
+              <span v-if="!isEditDate[index] && exhibition.EventDate">{{ FormatDate(exhibition.EventDate?.toString()) }}</span>
               <input v-else type="datetime-local" v-model="exhibition.EventDate" @blur="stopEditing(index, 'eventDate')" class="form-control">
             </td>
             <td @dblclick="startEditing(index, 'image')" class="edit-cell">
@@ -150,7 +150,9 @@ export default {
         formData.append('Id', exhibition.id.toString());
         formData.append('Name', exhibition.name);
         formData.append('Description', exhibition.description);
-        formData.append('EventDate', exhibition.EventDate.toString());
+        if (exhibition.EventDate) {
+          formData.append('EventDate', exhibition.EventDate.toString());
+        }
         
         let base64String = exhibition.image;
         if (base64String && base64String.startsWith('data:')) {
