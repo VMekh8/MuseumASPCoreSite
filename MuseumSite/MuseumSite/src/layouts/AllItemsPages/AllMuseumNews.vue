@@ -39,7 +39,8 @@
         <b-card no-body class="overflow-hidden w-100 m-0 mb-3">
           <b-row no-gutters>
             <b-col md="6">
-              <b-card-img :src="'data:;base64,' + selectedNews.image" alt="Image" class="rounded-0"></b-card-img>
+              <b-card-img v-if="selectedNews.id !== 0" :src="'data:;base64,' + selectedNews.image" alt="Image" class="rounded-0"></b-card-img>
+              <b-card-img v-else src="../../img/smile.png" alt="Image" class="rounded-0"></b-card-img>
             </b-col>
             <b-col md="6">
               <b-card-body :title="selectedNews.id + ' ' + selectedNews.title">
