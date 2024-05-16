@@ -6,7 +6,7 @@
           <input type="text" placeholder="Пошук..." class="search-input form-control-md" v-model="exhibitionName" />
           <b-button variant="dark" class="search-button btn-lg" @click="FindExhibition(exhibitionName)">
             <span class="button-content">
-              <img src="../../img/art_exhibition_museum_69903.jpg" alt="Search Icon" class="search-icon" />
+              <img src="../../img/magnifying-glass.png" alt="Search Icon" class="search-icon" />
               Знайти
             </span>
           </b-button>
