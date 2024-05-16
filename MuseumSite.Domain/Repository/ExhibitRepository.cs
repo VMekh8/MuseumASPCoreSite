@@ -59,7 +59,6 @@ namespace MuseumSite.Domain.Repository
                 item.Description,
                 item.Image
                 ).Exhibit;
-
             return exhibit;
         }
 

@@ -1,4 +1,3 @@
-import path from "path";
 import { createRouter, createWebHistory } from "vue-router";
 export default createRouter({
     history: createWebHistory(),
@@ -61,7 +60,7 @@ export default createRouter({
         },
         {
             path: '/allmuseumnews',
-            component: () => import('@/layouts/AllItemsPages/AllMuseumNews.vue');
+            component: () => import('@/layouts/AllItemsPages/AllMuseumNews.vue')
         }
     ],
 })
