@@ -54,6 +54,11 @@ namespace MuseumSite.Domain.Repository
         {
             var item = await _context.ExhibitionEntity.FirstOrDefaultAsync(e => e.Name == name);
 
+            if (item == null)
+            {
+                return Exhibition.CreateExhibition(0, "Такого елементу не знайдено", "=(", DateTime.Now, new byte[1]).Exhibition;
+            }
+
             Exhibition exhibition = Exhibition.CreateExhibition(
                 item.Id,
                 item.Name,
