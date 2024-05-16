@@ -28,22 +28,22 @@
             img-alt="Image"
             class="card"
           >
-            <b-card-text>{{ item.description }}</b-card-text>
+            <b-card-text>{{ item.description.substring(0, 100) }}...</b-card-text>
             <b-button variant="outline-dark w-100 m-1" @click="showModal(item)">Детальніше</b-button>
           </b-card>
         </b-card-group>
       </main>
 
       <b-modal v-model="modalVisible" title="Інформація про експонат" hide-footer no-close-on-backdrop>
-      <div class="mb-3" v-if="selectedExhibit">
-        <b-card no-body class="overflow-hidden" style="max-width: 540px;">
+      <div class="mb-12" v-if="selectedExhibit">
+        <b-card no-body class="overflow-hidden w-100 m-0 mb-3">
           <b-row no-gutters>
             <b-col md="6">
               <b-card-img :src="'data:;base64,' + selectedExhibit.image" alt="Image" class="rounded-0"></b-card-img>
             </b-col>
             <b-col md="6">
               <b-card-body :title="selectedExhibit.id + ' ' + selectedExhibit.title">
-                  <b-card-text>{{ selectedExhibit.description.substring(0, 100) }}...</b-card-text>
+                  <b-card-text>{{ selectedExhibit.description }}</b-card-text>
               </b-card-body>
             </b-col>
           </b-row>
