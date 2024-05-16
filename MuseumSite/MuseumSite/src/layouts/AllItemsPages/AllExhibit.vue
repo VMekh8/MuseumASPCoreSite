@@ -78,12 +78,12 @@ import { apiClient } from '../../apiClient';
           if (response.status === 200) {
             console.log(response.status);
 
-            selectedExhibit.value = response.data.map((exhibit: any) => new ExhibitResponse(
-                exhibit.id,
-                exhibit.title,
-                exhibit.description,
-                exhibit.image,
-              ));
+            selectedExhibit.value = new ExhibitResponse(
+              response.data.id,
+              response.data.title,
+              response.data.description,
+              response.data.image
+            );
 
             if (selectedExhibit.value) {
               showModal(selectedExhibit.value)
