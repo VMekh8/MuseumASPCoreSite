@@ -57,6 +57,10 @@ export default createRouter({
         {
             path: '/allexhibition',
             component: () => import('@/layouts/AllItemsPages/AllExhibition.vue')
+        },
+        {
+            path: '/allmuseumnews',
+            component: () => import('@/layouts/AllItemsPages/AllMuseumNews.vue')
         }
     ],
 })

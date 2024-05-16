@@ -39,7 +39,9 @@
         <b-card no-body class="overflow-hidden w-100 m-0 mb-3">
           <b-row no-gutters>
             <b-col md="6">
-              <b-card-img :src="'data:;base64,' + selectedExhibit.image" alt="Image" class="rounded-0"></b-card-img>
+              <b-card-img v-if="selectedExhibit.id !==0" :src="'data:;base64,' + selectedExhibit.image" alt="Image" class="rounded-0"></b-card-img>
+              <b-card-img v-else src="https://ih1.redbubble.net/image.2634106597.4467/bg,f8f8f8-flat,750x,075,f-pad,750x1000,f8f8f8.jpg" alt="Image" class="rounded-0"></b-card-img>
+
             </b-col>
             <b-col md="6">
               <b-card-body :title="selectedExhibit.id + ' ' + selectedExhibit.title">

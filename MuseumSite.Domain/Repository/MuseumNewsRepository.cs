@@ -54,6 +54,11 @@ namespace MuseumSite.Domain.Repository
         {
             var found = await _context.MuseumNewsEntity.FirstOrDefaultAsync(opt => opt.Title == name);
 
+            if (found == null)
+            {
+                return MuseumNews.CreateNews(0, "Такого елементу не знайдено", "=(", new byte[1]).News;
+            }
+
             var News = MuseumNews.CreateNews(
                 found.Id,
                 found.Title,

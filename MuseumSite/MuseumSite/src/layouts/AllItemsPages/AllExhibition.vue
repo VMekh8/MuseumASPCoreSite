@@ -6,7 +6,7 @@
           <input type="text" placeholder="Пошук..." class="search-input form-control-md" v-model="exhibitionName" />
           <b-button variant="dark" class="search-button btn-lg" @click="FindExhibition(exhibitionName)">
             <span class="button-content">
-              <img src="../../img/art_exhibition_museum_69903.jpg" alt="Search Icon" class="search-icon" />
+              <img src="../../img/magnifying-glass.png" alt="Search Icon" class="search-icon" />
               Знайти
             </span>
           </b-button>
@@ -37,7 +37,9 @@
         <b-card no-body class="overflow-hidden w-100 m-0 mb-3">
           <b-row no-gutters>
             <b-col md="6">
-              <b-card-img :src="'data:;base64,' + selectedExhibition.image" alt="Image" class="rounded-0"></b-card-img>
+              <b-card-img v-if="selectedExhibition.id !== 0" :src="'data:;base64,' + selectedExhibition.image" alt="Image" class="rounded-0"></b-card-img>
+              <b-card-img v-else src="https://ih1.redbubble.net/image.2634106597.4467/bg,f8f8f8-flat,750x,075,f-pad,750x1000,f8f8f8.jpg" alt="Image" class="rounded-0"></b-card-img>
+
             </b-col>
             <b-col md="6">
               <b-card-body :title=" selectedExhibition.id + ' ' + selectedExhibition.name ">
