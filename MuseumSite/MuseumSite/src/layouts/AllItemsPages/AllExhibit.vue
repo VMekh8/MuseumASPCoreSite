@@ -24,7 +24,7 @@
             v-for="item in exhibits"
             :key="item.id"
             :title="item.title"
-            :img-src="item.image"
+            :img-src="'data:;base64,' + item.image"
             img-alt="Image"
             class="card"
           >
@@ -46,6 +46,28 @@ import { apiClient } from '../../apiClient';
       const exhibits = ref<ExhibitResponse[]>([]);
       const exhibitName = ref('');
       const Exhibit = ref<ExhibitResponse | null> (null);
+
+      const FindElement = async (name: string) => {
+        
+        try {
+
+          const response = await apiClient.get(`/Search/GetExhibitByName?name=${name}`);
+
+          if (response.status === 200) {
+            console.log(response.status);
+
+            Exhibit.value = response.data.map((exhibit: any) => new ExhibitResponse(
+              exhibit.id,
+              exhibit.title,
+              exhibit.description,
+              exhibit.image
+            ));
+          }          
+        }
+        catch (error) {
+          console.log(error);
+        }
+      }
 
       const exhibitsFetch = async () => {
 
