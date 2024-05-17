@@ -35,7 +35,7 @@
         </b-card-group>
       </main>
 
-      <b-modal v-model="modalVisible" title="Інформація про новину" hide-footer no-close-on-backdrop>
+      <b-modal v-model="modalVisible" title="Інформація про експонат" hide-footer no-close-on-backdrop>
       <div class="mb-12" v-if="selectedExhibit">
         <b-card no-body class="overflow-hidden w-100 m-0 mb-3">
           <b-row no-gutters>
