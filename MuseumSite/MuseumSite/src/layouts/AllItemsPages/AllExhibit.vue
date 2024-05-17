@@ -27,7 +27,7 @@
             :title="item.title"
             :img-src="'data:;base64,' + item.image"
             img-alt="Image"
-            class="card"
+            class="card m-2 shadow"
           >
             <b-card-text>{{ item.description.substring(0, 100) }}...</b-card-text>
             <b-button variant="outline-dark w-100 m-1" @click="showModal(item)">Детальніше</b-button>

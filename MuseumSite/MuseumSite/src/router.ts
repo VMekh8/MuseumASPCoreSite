@@ -2,11 +2,11 @@ import { createRouter, createWebHistory } from "vue-router";
 export default createRouter({
     history: createWebHistory(),
     routes: [
-        {
-            path: '/',
-            name: 'Home',
-            component: () => import('./App.vue'),
-        },
+        // {
+        //     path: '/',
+        //     name: 'Home',
+        //     component: () => import(''),
+        // },
         {
             path: '/controlpanel',
             component: () => import('@/layouts/ControlPanel/MainControl.vue'),
