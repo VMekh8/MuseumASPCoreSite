@@ -3,7 +3,7 @@
         <h2>Виставки музею!</h2>
         <p>Беріть безпосередню участь в житті музею.</p>
 
-    <div class="exhibition-carousel w-100">
+    <div class="exhibition-carousel">
         <Carousel>
         <Slide v-for="item in exhibitions" :key="item.id">
             <div class="card">
@@ -25,6 +25,8 @@
     </Carousel>
 
     </div>
+    <router-link to="/allexhibition" class="btn btn-outline-dark w-50 h-50 m-0 mb-5 mt-5">Переглянути всі виставки</router-link>
+
     </section>
 </template>
 <script lang="ts">
