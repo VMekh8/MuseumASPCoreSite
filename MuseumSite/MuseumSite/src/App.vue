@@ -5,6 +5,7 @@ import HeroSection from './layouts/MainPage/HeroSection.vue';
 import MuseumNewsSection from './layouts/MainPage/MuseumNewsSection.vue';
 import ExhibitSection from './layouts/MainPage/ExhibitSection.vue';
 import ExhibitionSection from './layouts/MainPage/ExhibitionSection.vue';
+import AboutUsSection from './layouts/MainPage/AboutUsSection.vue';
 </script>
 
 
@@ -14,7 +15,7 @@ import ExhibitionSection from './layouts/MainPage/ExhibitionSection.vue';
     <MuseumNewsSection/>
     <ExhibitSection/>
     <ExhibitionSection/>
-    <router-view class="v-100 mb-5"/>
+    <AboutUsSection/>
     <Footer/>
 </template>
 
