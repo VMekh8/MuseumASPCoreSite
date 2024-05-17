@@ -1,4 +1,5 @@
 <script lang="ts">
+import { apiClient } from '../../apiClient';
 import { defineComponent, inject } from 'vue';
 
 export default {
@@ -6,8 +7,24 @@ export default {
       return {
         globalState: inject('globalState')
       }
+    },
+    methods: {
+      async Logout() {
+
+        try {
+          const response = await apiClient.post('/Account/Logout');
+
+          if (response.status === 200) {
+
+            this.globalState.userRoles = [];
+          }
+        }
+        catch (error) {
+          console.log(error);
+        }
+      }
     }
-}
+} 
 </script>
 
 <template>
@@ -47,7 +64,7 @@ export default {
           <router-link class="nav-link mx-2 fw-bold d-flex align-items-center" to="/allexhibition"><b-icon-view-stacked/> Виставки</router-link>
         </li>
         <li class="nav-item ms-3">
-          <router-link class="btn btn-outline-dark" v-if="globalState.userRoles.length >= 1" to="/login">Вихід</router-link>
+          <b-button variant="outline-dark" v-if="globalState.userRoles.length >= 1" @click="Logout">Вихід</b-button>
           <router-link class="btn btn-outline-dark" v-else to="/login">Авторизація</router-link>
         </li>
         <li class="nav-item ms-3">
