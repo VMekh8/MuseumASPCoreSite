@@ -7,7 +7,7 @@ import NavBar from './layouts/MainPage/NavBar.vue';
 
 <template>
     <NavBar class="sticky-top"/>
-    <router-view class="mb-5"/>
+    <router-view/>
     <Footer/>
 </template>
 

@@ -21,14 +21,14 @@
             </div>
             
 
-            <p v-if="error" class="error">{{ error }}</p>
+            <p v-if="error" class="danger">{{ error }}</p>
             <p v-if="success" class="success">Реєстрація пройшла успішно</p>
 
             <div class="reg-offer">
                 <p>Маєте акаунт? </p>
                 <RouterLink to="/login">Авторизація</RouterLink>
             </div>
-            <button type="submit" v-on:click="Register">Зареєструватися</button>
+            <b-button type="submit" variant="dark" v-on:click="Register">Зареєструватися</b-button>
         </div>  
     </div>
 </template>
