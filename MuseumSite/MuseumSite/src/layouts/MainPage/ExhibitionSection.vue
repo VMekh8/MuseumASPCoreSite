@@ -13,7 +13,6 @@
               <div class="card-prop">
                 <p class="card-meal-type" v-if="item.EventDate">{{ FormatDate(item.EventDate?.toString()) }}</p>
                 <h2 class="card-title">{{ item.name }}</h2>
-                <p class="card-body">{{item.description}}</p>
               </div>
             </div>
         </Slide>
@@ -130,6 +129,7 @@ section > p {
   height:100%;
   object-fit:cover;
   object-position:center;
+  margin-bottom: 15%;
 }
 .card-prop{
   position: absolute;
@@ -140,8 +140,8 @@ section > p {
   width:300px;
   background-color:#1D1C20;
   color:#fff;
-  padding:20px;
-  bottom: 20%;
+  padding:10px;
+  top: 90%;
 }
 .card-meal-type{
   font-style:italic;
