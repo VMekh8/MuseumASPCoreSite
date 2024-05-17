@@ -1,41 +1,25 @@
 <template>
-  <main>
-  <header class="w-100">
-        <p class="header-text">Новини нашого музею!</p>
-        <div class="search-bar">
-          <input type="text" placeholder="Пошук..." class="search-input form-control-md" v-model="museumNewsName" />
-          <b-button variant="dark" class="search-button btn-lg" @click="FindElement(museumNewsName)">
-            <span class="button-content">
-              <img src="../../img/magnifying-glass.png" alt="Search Icon" class="search-icon" />
-              Знайти
-            </span>
-          </b-button>
-          <b-button variant="outline-light" @click="MuseumNewsFetch" class="search-button btn-lg">
-            <span class="button-content">
-              Оновити елементи
-            </span>
-          </b-button>
-        </div>
-    </header>
-    <div class="container">
-      <div class="divider"></div>
-      <main class="w-100">
-        <b-card-group deck class="card-group">
-          <b-card
-            v-for="item in museumNews"
-            :key="item.id"
-            :title="item.title"
-            :img-src="'data:;base64,' + item.image"
-            img-alt="Image"
-            class="card m-2 shadow"
-          >
-            <b-card-text>{{ item.description.substring(0, 100) }}...</b-card-text>
-            <b-button variant="outline-dark w-100 m-1" @click="showModal(item)">Детальніше</b-button>
-          </b-card>
-        </b-card-group>
-      </main>
+    <section class="museumnews-section" id="museumnews-section">
+        <h2>Новини музею!</h2>
+        <p>Залишайтесь в курсі останніх нових з життя нашого музею</p>
+        
+        <Carousel :items-to-show="2.5" :wrap-around="false">
+          <Slide v-for="news in museumNews" :key="news.id">
+            <div class="my-cards">
+                <div class="my-card">
+                    <img :src="'data:;base64, ' + news.image" alt="img">
+                    <h3>{{news.title}}</h3>
+                    <b-button variant="dark w-100" @click="FindElement(news.title)">Детальніше</b-button>     
+                </div>
+            </div>
+          </Slide>         
+          <template #addons>
+            <Navigation />
+          </template>
+        </Carousel>
+        <b-button>Переглянути всі новини</b-button>
 
-      <b-modal v-model="modalVisible" title="Інформація про новину" hide-footer no-close-on-backdrop>
+    <b-modal v-model="modalVisible" title="Інформація про новину" hide-footer no-close-on-backdrop>
       <div class="mb-12" v-if="selectedNews">
         <b-card no-body class="overflow-hidden w-100 m-0 mb-3">
           <b-row no-gutters>
@@ -55,35 +39,39 @@
         <b-button variant="primary" @click="closeModal">OK</b-button>
       </div>
     </b-modal>
-    </div>
-  </main>
-  </template>
-  
+    </section>
+</template>
+
+
 <script lang="ts">
 import { ref, onMounted } from 'vue';
 import { apiClient } from '../../apiClient';
-import { MuseumNewsResponse } from '../../Models/MuseumNews';
+import { MuseumNewsResponse } from '../..//Models/MuseumNews';
+import { defineComponent } from 'vue'
+import { Carousel, Navigation, Slide } from 'vue3-carousel'
 
+import 'vue3-carousel/dist/carousel.css'
 
-export default {
+export default defineComponent({
+    components: {
+        Carousel,
+        Slide,
+        Navigation,
+    },
     setup() {
-
-        const modalVisible = ref(false);
-
         const museumNews = ref<MuseumNewsResponse[]>([]);
         const selectedNews = ref<MuseumNewsResponse>();
+        
+        const modalVisible = ref(false);
 
         const museumNewsName = ref('');
 
         const MuseumNewsFetch = async () => {
-            
             try {
-
                 const response = await apiClient.get('/Client/GetAllNews');
 
                 if (response.status === 200) {
-
-                    museumNews.value = response.data.map((news: any) => new MuseumNewsResponse(
+                    museumNews.value = response.data.map((news: MuseumNewsResponse) => new MuseumNewsResponse(
                         news.id,
                         news.title,
                         news.description,
@@ -101,6 +89,7 @@ export default {
             try {
                 
                 const response = await apiClient.get(`/Search/GetMuseumNewsByName?name=${name}`);
+                console.log(response.status);
 
                 selectedNews.value = new MuseumNewsResponse(
                     response.data.id,
@@ -125,22 +114,18 @@ export default {
         const closeModal = () => {
             modalVisible.value = false;
         }
-
+        
         onMounted(MuseumNewsFetch);
 
         return {
-            modalVisible, museumNews, selectedNews,
-            museumNewsName, MuseumNewsFetch, FindElement,
-            showModal, closeModal
+            MuseumNewsFetch, museumNews,
+            closeModal, showModal, FindElement,
+            museumNewsName, modalVisible, selectedNews
         }
     }
-}
+})
 </script>
 
 <style>
-    @import url('../../assets/main.css');
-    header {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-      url(../../img/museumnews.jpg);
-  }
+    @import url('../../assets/mainPage.css');
 </style>

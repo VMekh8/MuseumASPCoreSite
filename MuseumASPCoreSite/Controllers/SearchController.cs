@@ -9,7 +9,7 @@ namespace MuseumASPCoreSite.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    [Authorize(Roles = "Client, Worker, Admin")]
+    //[Authorize(Roles = "Client, Worker, Admin")]
 
     public class SearchController : ControllerBase
     {
