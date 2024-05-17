@@ -10,7 +10,12 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 const app = createApp(App)
 
 const globalState = reactive({
-  userRoles: []
+  get userRoles() {
+    return JSON.parse(localStorage.getItem('userRoles') || '[]');
+  },
+  set userRoles(value) {
+    localStorage.setItem('userRoles', JSON.stringify(value));
+  }
 })
 
 app.provide('globalState', globalState)
