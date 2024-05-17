@@ -17,7 +17,8 @@
             <Navigation />
           </template>
         </Carousel>
-        <b-button>Переглянути всі новини</b-button>
+        <router-link to="/allmuseumnews" class="btn btn-outline-dark w-50 h-50 m-0 mb-5">Переглянути всі новини</router-link>
+
 
     <b-modal v-model="modalVisible" title="Інформація про новину" hide-footer no-close-on-backdrop>
       <div class="mb-12" v-if="selectedNews">

@@ -27,7 +27,9 @@
             img-alt="Image"
             class="card m-2 shadow"
           >
+          <b-card-text v-if="item.EventDate">{{ FormatDate(item.EventDate?.toString())}}</b-card-text>
             <b-card-text>{{ item.description.substring(0, 100) }}...</b-card-text>
+
             <b-button variant="outline-dark w-100 m-1" @click="showModal(item)">Детальніше</b-button>
           </b-card>
         </b-card-group>
@@ -44,6 +46,7 @@
             </b-col>
             <b-col md="6">
               <b-card-body :title=" selectedExhibition.id + ' ' + selectedExhibition.name ">
+                <b-card-text v-if="selectedExhibition.EventDate">{{ FormatDate(selectedExhibition.EventDate?.toString())}}</b-card-text>
                   <b-card-text>{{ selectedExhibition.description }}</b-card-text>
                   <b-card-text>Всього на виставці такі номери експонатів: <br> {{ selectedExhibition.Exhibits }}</b-card-text>                  
               </b-card-body>
@@ -64,6 +67,7 @@
     import { ref, onMounted } from 'vue';
     import { ExhibitionResponse } from '../../Models/Exhibition';
     import { apiClient } from '../../apiClient';
+    import moment from 'moment';
 
     export default {
         setup() {
@@ -96,6 +100,12 @@
                     console.log(error);
                 }
             }
+
+            const FormatDate = (value: string) => {
+                if (value) {
+                return moment(value).format('DD-MMM-YYYY HH:mm:ss')
+            }
+    } 
 
             const FindExhibition = async (name: string) => {
 
@@ -137,7 +147,8 @@
 
             return {
                 closeModal, showModal, FindExhibition, ExhibitionFetch,
-                modalVisible, exhibitionName, exhibitions, selectedExhibition
+                modalVisible, exhibitionName, exhibitions, selectedExhibition,
+                FormatDate
             }
 
         }
