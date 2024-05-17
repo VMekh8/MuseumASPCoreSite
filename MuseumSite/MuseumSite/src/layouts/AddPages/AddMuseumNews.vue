@@ -14,7 +14,7 @@
                     </div>
                     <div class="form-group">
                         <label for="newsid" class="input-label">Опис новини</label>
-                        <input type="text" v-model="newsDescription" class="form-control" placeholder="Description" />
+                        <b-form-textarea type="text" v-model="newsDescription" class="form-control"  rows="3" max-rows="8" placeholder="Description"></b-form-textarea>
                     </div>
                     <div class="form-group">
                         <label for="newsid" class="input-label">Зображення новини</label>

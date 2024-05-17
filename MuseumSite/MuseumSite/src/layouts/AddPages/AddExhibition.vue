@@ -20,7 +20,7 @@
                 <div class="col-md-5">
                     <div class="form-group">
                         <label for="exhibitionDesc" class="input-label">Опис виставки</label>
-                        <input type="text" v-model="exhibitionDesc" class="form-control" placeholder="Description" />
+                        <b-form-textarea type="text" v-model="exhibitionDesc" class="form-control" rows="2" max-rows="8" placeholder="Description" />
                     </div>
                     <div class="form-group">
                         <label for="exhibitionImage" class="input-label">Зображення виставки</label>
