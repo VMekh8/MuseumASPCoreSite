@@ -4,7 +4,6 @@ export default createRouter({
     routes: [
         {
             path: '/',
-            name: 'Home',
             component: () => import('@/MainPage.vue'),
         },
         {
