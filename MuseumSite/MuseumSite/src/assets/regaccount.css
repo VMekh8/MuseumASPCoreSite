@@ -14,20 +14,21 @@ section {
 }
 
 main {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
     border: 3px solid #ccc;
     border-radius: 8px;
     height: 70%;
     width: 80%;
     background-color: #fff;
+    padding: 20px;
 }
 
 .left {
     position: relative;
-    float: left;
     height: 100%;
-    margin-right: 3%;
     width: 45%;
-    padding: 1px;
 }
 
 .left::after {
@@ -43,7 +44,7 @@ main {
 .left>img {
     height: 100%;
     width: 100%;
-    object-fit:fill;
+    object-fit:cover;
     object-position: center;
 }
 
@@ -54,30 +55,23 @@ main {
     margin-top: 1vh;
 }
 
-.fields {
+.input-blocks {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.fields, .userdata {
     display: flex;
     flex-direction: column;
-    width: 33%;
+    width: 45%;
 }
 
-.pass-label {
-    margin-top: 25px;
-}
 
-.right h1 {
-    margin: 15px 0 15px 0;
-}
-
-.right h2 {
-    margin: 15px 7px 0 0;
-    font-size: 24px;
-}
-
-#emailfield, #passwordfield {
+.fields input, .userdata input {
     margin-top: 15%;
-    margin-left: 50%;
     font-family: inherit;
-    width: 200%;
+    width: 100%;
     border: 0;
     border-bottom: 2px solid #9b9b9b;
     outline: 0;
@@ -86,34 +80,19 @@ main {
     padding: 7px 0;
     background: transparent;
     transition: border-color 0.2s;
-  }
-  
-  .right label {
-    margin-left: 50%;
-  }
-  
-  #emailfield::placeholder, #passwordfield::placeholder {
-    color: transparent;
-  }
-  
-  
-  #emailfield:focus, #passwordfield:focus {
+}
+
+.fields input:focus, .userdata input:focus {
     border-width: 3px;
     border-image: linear-gradient(to right, #11998e, #38ef7d);
     border-image-slice: 1;
-  }
-  
-  #emailfield:focus ~ label, #passwordfield:focus ~ label {
-    font-size: 1rem;
-    color: #11998e;
-    font-weight:700;    
-  }
-  
-  #emailfield:required, #emailfield:invalid, #passwordfield:required, #passwordfield:invalid { 
-    box-shadow:none; 
-  }
+}
 
-  .reg-offer {
+.fields input:required, .fields input:invalid, .userdata input:required, .userdata input:invalid { 
+    box-shadow:none; 
+}
+
+.reg-offer {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -130,6 +109,3 @@ main {
 .reg-offer a {
     font-weight: bold; 
 }
-
-
-

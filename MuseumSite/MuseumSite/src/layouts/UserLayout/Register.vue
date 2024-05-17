@@ -1,24 +1,27 @@
 <template>
-    <div class="container">
+    <section class="register-sec">
+        <main>
         <div class="left">
-            <img src="../../img/images.jpg" alt="">
+            <img src="../../img/husyatyn038.jpg" alt="">
         </div>
         <div class="right">
             <h1>Реєстрація</h1>
             <h2>Вітаємо! Пройдіть реєстрацію для продовження роботи з нами</h2>
 
                 
-            <div class="fields">
-                <input type="email" id="email" placeholder="*Email" v-model="email">
-                <input type="password" id="password" placeholder="*Password" v-model="password">
-                <input type="password" id="confirmpassword" placeholder="*Confirm Password" v-model="confirmPassword">
-            </div>
+            <div class="input-blocks">
+        <div class="fields">
+            <input type="email" id="email" placeholder="*Email" v-model="email">
+            <input type="password" id="password" placeholder="*Password" v-model="password">
+            <input type="password" id="confirmpassword" placeholder="*Confirm Password" v-model="confirmPassword">
+        </div>
 
-            <div class="userdata">
-                <input type="tel" id="phonenumber" placeholder="Phone Number" v-model="phoneNumber">
-                <input type="text" id="firsname" placeholder="*Firstname" v-model="firstName">
-                <input type="text" id="lastname" placeholder="*Lastname" v-model="lastName">
-            </div>
+        <div class="userdata">
+            <input type="tel" id="phonenumber" placeholder="Phone Number" v-model="phoneNumber">
+            <input type="text" id="firsname" placeholder="*Firstname" v-model="firstName">
+            <input type="text" id="lastname" placeholder="*Lastname" v-model="lastName">
+        </div>
+    </div>
             
 
             <p v-if="error" class="danger">{{ error }}</p>
@@ -28,9 +31,10 @@
                 <p>Маєте акаунт? </p>
                 <RouterLink to="/login">Авторизація</RouterLink>
             </div>
-            <b-button type="submit" variant="dark" v-on:click="Register">Зареєструватися</b-button>
+            <b-button variant="outline-secondary w-50 m-5 mx-auto" type="submit" v-on:click="Register">Зареєструватися</b-button>
         </div>  
-    </div>
+    </main>
+    </section>
 </template>
 
 <script lang="ts">
@@ -93,3 +97,7 @@ export default {
     }
 }
 </script>
+
+<style>
+    @import url('../../assets/regaccount.css');
+</style>
