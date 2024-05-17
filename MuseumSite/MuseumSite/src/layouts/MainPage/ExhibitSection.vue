@@ -41,18 +41,7 @@ export default defineComponent({
         Navigation,
     },
     setup() {
-
-        const slide = ref(0);
-
         const exhibits = ref<ExhibitResponse[]>([]);
-
-        const onSlideStart = (slide: number) => {
-            console.log('Carousel started sliding to slide', slide);
-        } 
-
-        const onSlideEnd = (slide: number) => {
-            console.log('Carousel finished sliding to slide', slide);
-        }
 
         const exhibitsFetch = async () => {
 
@@ -63,7 +52,7 @@ export default defineComponent({
                 if (response.status === 200) {
                     console.log(response.status);
 
-                    exhibits.value = response.data.map((e) => new ExhibitResponse(
+                    exhibits.value = response.data.map((e: any) => new ExhibitResponse(
                         e.id,
                         e.title,
                         e.description,
@@ -81,8 +70,8 @@ export default defineComponent({
         onMounted(exhibitsFetch);
 
         return {
-            slide, exhibits, onSlideStart,
-            onSlideEnd, exhibitsFetch
+            exhibits, 
+            exhibitsFetch
         }
     }
 })
