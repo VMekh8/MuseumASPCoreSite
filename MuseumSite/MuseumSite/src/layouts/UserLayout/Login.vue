@@ -28,6 +28,7 @@
 </template>
 
 <script lang="ts">
+import router from '../../router';
 import { apiClient } from '../../apiClient';
 import { inject } from 'vue';
 
@@ -66,6 +67,8 @@ export default {
                     localStorage.setItem('authToken', response.data.token);
                     this.globalState.userRoles = response.data.roles;
                     console.log(this.globalState.userRoles);
+
+                    await router.push('/').then(async () => await router.go(0));
                 }
             }
             catch (error) {
