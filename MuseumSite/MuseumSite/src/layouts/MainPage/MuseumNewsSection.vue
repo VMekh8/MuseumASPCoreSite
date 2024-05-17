@@ -3,7 +3,7 @@
         <h2>Новини музею!</h2>
         <p>Залишайтесь в курсі останніх нових з життя нашого музею</p>
         
-        <Carousel :items-to-show="2" :wrap-around="false">
+        <Carousel :items-to-show="2.5" :wrap-around="false">
           <Slide v-for="news in museumNews" :key="news.id">
             <div class="my-cards">
                 <div class="my-card">
