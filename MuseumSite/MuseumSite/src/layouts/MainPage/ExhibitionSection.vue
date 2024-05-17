@@ -121,6 +121,7 @@ section > p {
 .card-image{
   width:400px;
   height:250px;
+  position: relative;
 }
 .card-image>img{
   width:100%;
@@ -129,13 +130,16 @@ section > p {
   object-position:center;
 }
 .card-prop{
-  margin:-30px 0 15%;
-  margin-bottom:-50px;
-  height:300px;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height:150px; 
   width:300px;
   background-color:#1D1C20;
   color:#fff;
   padding:20px;
+  bottom: 20%;
 }
 .card-meal-type{
   font-style:italic;
