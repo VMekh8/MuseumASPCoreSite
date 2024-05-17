@@ -1,0 +1,111 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(216, 216, 189, 0.3)
+}
+
+main {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border: 3px solid #ccc;
+    border-radius: 8px;
+    height: 70%;
+    width: 80%;
+    background-color: #fff;
+    padding: 20px;
+}
+
+.left {
+    position: relative;
+    height: 100%;
+    width: 45%;
+}
+
+.left::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.left>img {
+    height: 100%;
+    width: 100%;
+    object-fit:cover;
+    object-position: center;
+}
+
+.right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 1vh;
+}
+
+.input-blocks {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.fields, .userdata {
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+}
+
+
+.fields input, .userdata input {
+    margin-top: 15%;
+    font-family: inherit;
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid #9b9b9b;
+    outline: 0;
+    font-size: 1.3rem;
+    color: #3c3c3c;
+    padding: 7px 0;
+    background: transparent;
+    transition: border-color 0.2s;
+}
+
+.fields input:focus, .userdata input:focus {
+    border-width: 3px;
+    border-image: linear-gradient(to right, #11998e, #38ef7d);
+    border-image-slice: 1;
+}
+
+.fields input:required, .fields input:invalid, .userdata input:required, .userdata input:invalid { 
+    box-shadow:none; 
+}
+
+.reg-offer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 8px;
+}
+
+.reg-offer p {
+    color: #3c3c3c; 
+    font-weight: bold; 
+    margin: 0;
+}
+
+.reg-offer a {
+    font-weight: bold; 
+}

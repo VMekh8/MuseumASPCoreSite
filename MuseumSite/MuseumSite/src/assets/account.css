@@ -1,0 +1,135 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(216, 216, 189, 0.3)
+}
+
+main {
+    border: 3px solid #ccc;
+    border-radius: 8px;
+    height: 70%;
+    width: 80%;
+    background-color: #fff;
+}
+
+.left {
+    position: relative;
+    float: left;
+    height: 100%;
+    margin-right: 3%;
+    width: 45%;
+    padding: 1px;
+}
+
+.left::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.left>img {
+    height: 100%;
+    width: 100%;
+    object-fit:fill;
+    object-position: center;
+}
+
+.right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 1vh;
+}
+
+.fields {
+    display: flex;
+    flex-direction: column;
+    width: 33%;
+}
+
+.pass-label {
+    margin-top: 25px;
+}
+
+.right h1 {
+    margin: 15px 0 15px 0;
+}
+
+.right h2 {
+    margin: 15px 7px 0 0;
+    font-size: 24px;
+}
+
+#emailfield, #passwordfield {
+    margin-top: 15%;
+    margin-left: 50%;
+    font-family: inherit;
+    width: 150%;
+    border: 0;
+    border-bottom: 2px solid #9b9b9b;
+    outline: 0;
+    font-size: 1.3rem;
+    color: #3c3c3c;
+    padding: 7px 0;
+    background: transparent;
+    transition: border-color 0.2s;
+  }
+  
+  .right label {
+    margin-left: 50%;
+  }
+  
+  #emailfield::placeholder, #passwordfield::placeholder {
+    color: transparent;
+  }
+  
+  
+  #emailfield:focus, #passwordfield:focus {
+    border-width: 3px;
+    border-image: linear-gradient(to right, #11998e, #38ef7d);
+    border-image-slice: 1;
+  }
+  
+  #emailfield:focus ~ label, #passwordfield:focus ~ label {
+    font-size: 1rem;
+    color: #11998e;
+    font-weight:700;    
+  }
+  
+  #emailfield:required, #emailfield:invalid, #passwordfield:required, #passwordfield:invalid { 
+    box-shadow:none; 
+  }
+
+  .reg-offer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 8px;
+}
+
+.reg-offer p {
+    color: #3c3c3c; 
+    font-weight: bold; 
+    margin: 0;
+}
+
+.reg-offer a {
+    font-weight: bold; 
+}
+
+
+

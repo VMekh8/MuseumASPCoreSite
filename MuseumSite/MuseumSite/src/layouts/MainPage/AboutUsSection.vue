@@ -2,7 +2,7 @@
     <section class="about" id="about">
         <div class="col-12 d-flex flex-column text-center">
           <h2>Про нас</h2>
-          <h5 class="text-secondary fw-normal py-2 fst-italic">Маленька історія музею.</h5>
+          <h3>Маленька історія музею</h3>
         </div>
       <div class="row flex-row-reverse flex-md-row mt-5 pt-5">
         <div class="col-9 col-md-5 text-md-end">

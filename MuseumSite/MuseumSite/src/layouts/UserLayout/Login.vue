@@ -1,7 +1,8 @@
 <template>
-    <div class="container">
-        <div class="left">
-            <img src="../../img/images.jpg" alt="">
+    <section class="login-section">
+        <main>
+            <div class="left">
+            <img src="../../img/husyatyn038.jpg" alt="">
         </div>
         <div class="right">
             <h1>Авторизація</h1>
@@ -11,8 +12,14 @@
 
                 
             <div class="fields">
-                <input type="email" id="emailfield" placeholder="Email" v-model="emailfield">
-                <input type="password" id="passwordfield" placeholder="Password" v-model="passwordfield">
+                <div class="log">
+                    <input type="email" id="emailfield" placeholder="Email" v-model="emailfield">
+                    <label for="emailfield">Логін:</label>
+                </div>
+                <div class="pass">
+                    <input type="password" id="passwordfield" placeholder="Password" v-model="passwordfield">
+                    <label for="passwordfield">Пароль:</label>
+                </div>
             </div>
             
 
@@ -22,12 +29,14 @@
                 <p>Немає акаунту? </p>
                 <router-link to="/register">Реєстрація</router-link>
             </div>
-            <button type="submit" v-on:click="Login">Увійти</button>
-        </div>  
-    </div>
+            <b-button variant="outline-secondary w-50 m-5 mx-auto" type="submit" v-on:click="Login">Увійти</b-button>
+        </div> 
+        </main> 
+    </section>
 </template>
 
 <script lang="ts">
+import router from '../../router';
 import { apiClient } from '../../apiClient';
 import { inject } from 'vue';
 
@@ -66,6 +75,8 @@ export default {
                     localStorage.setItem('authToken', response.data.token);
                     this.globalState.userRoles = response.data.roles;
                     console.log(this.globalState.userRoles);
+
+                    await router.push('/').then(async () => await router.go(0));
                 }
             }
             catch (error) {
@@ -76,3 +87,7 @@ export default {
     }
 }
 </script>
+
+<style>
+    @import url('../../assets/account.css');
+</style>
