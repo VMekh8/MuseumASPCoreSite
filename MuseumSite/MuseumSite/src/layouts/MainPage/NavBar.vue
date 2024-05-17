@@ -23,7 +23,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto align-items-center">
         <li class="nav-item">
-          <a class="nav-link mx-2 fw-bold" href="#!"><i class="fas fa-plus-circle pe-2"></i>Post</a>
+          <a class="nav-link mx-2 fw-bold" href="#!"><i class="fas fa-plus-circle pe-2"></i>Головна</a>
         </li>
         <li class="nav-item">
           <a class="nav-link mx-2 fw-bold" href="#!"><i class="fas fa-bell pe-2"></i>Alerts</a>
