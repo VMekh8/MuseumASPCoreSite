@@ -1,6 +1,6 @@
 <template>
-    <div class="container">
-      <header class="w-100">
+  <main>
+  <header class="w-100">
         <p class="header-text">Експонати нашого музею!</p>
         <div class="search-bar">
           <input type="text" placeholder="Пошук..." class="search-input form-control-md" v-model="exhibitName" />
@@ -17,6 +17,7 @@
           </b-button>
         </div>
       </header>
+    <div class="container">
       <div class="divider"></div>
       <main class="w-100">
         <b-card-group deck class="card-group">
@@ -34,7 +35,7 @@
         </b-card-group>
       </main>
 
-      <b-modal v-model="modalVisible" title="Інформація про експонат" hide-footer no-close-on-backdrop>
+      <b-modal v-model="modalVisible" title="Інформація про новину" hide-footer no-close-on-backdrop>
       <div class="mb-12" v-if="selectedExhibit">
         <b-card no-body class="overflow-hidden w-100 m-0 mb-3">
           <b-row no-gutters>
@@ -56,6 +57,7 @@
       </div>
     </b-modal>
     </div>
+  </main>
   </template>
   
 <script lang="ts">

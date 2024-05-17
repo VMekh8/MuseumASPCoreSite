@@ -14,7 +14,7 @@
                     </div>
                     <div class="form-group">
                         <label for="exhibitDesc" class="input-label">Опис експонату</label>
-                        <input type="text" v-model="ExhibitDesc" class="form-control" placeholder="Description" />
+                        <b-form-textarea type="text" v-model="ExhibitDesc" class="form-control" rows="3" max-rows="8" placeholder="Description"></b-form-textarea>
                     </div>
                     <div class="form-group">
                         <label for="exhibitImage" class="input-label">Зображення експонату</label>

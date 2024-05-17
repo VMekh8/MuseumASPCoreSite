@@ -43,7 +43,6 @@ export default createRouter({
         },
         {
             path: '/login',
-            name: 'Login',
             component: () => import('@/layouts/UserLayout/Login.vue'),
         },
         {
