@@ -20,6 +20,26 @@ Basically, CRUD operations and a site design prototype are implemented here for 
 3. Vue-Bootstrap
 4. Vue-Carousel
 
+## How to start App
+
+```
+git clone https://github.com/VMekh8/MuseumASPCoreSite.git
+```
+
+Starting back end:
+```
+cd MuseumASPCoreSite
+dotnet build
+dotnet run
+```
+
+Starting front end:
+```
+cd MuseumSite
+npm build
+npm run dev
+```
+
 # Images
 
 ![image](https://github.com/user-attachments/assets/96c35644-9a1c-41ad-ab40-602cf6886af5)
